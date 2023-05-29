@@ -2,6 +2,7 @@ if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
+const { validateJWT } = require('./src/middlewares/validateJWT.middleware');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -12,7 +13,8 @@ const morgan = require('morgan');
 
 
 // Routers
-const userRouter = require("./src/routes/user.route")
+const userRouter = require("./src/routes/user.route");
+const authRouter = require("./src/routes/auth.route");
 
 
 const BASE_ROUTE = "/api/v1";
@@ -34,6 +36,7 @@ app.use(morgan('combined'));
 
 // public routes
 app.use(BASE_ROUTE, userRouter)
+app.use(BASE_ROUTE, authRouter);
 
 // protected routes
 
