@@ -1,6 +1,6 @@
 class User {
 
-    ci
+    doc
     name
     lastName
     birthDate
