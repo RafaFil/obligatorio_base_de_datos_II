@@ -1,6 +1,6 @@
 class User {
 
-    doc
+    do
     name
     lastName
     birthDate
@@ -11,8 +11,8 @@ class User {
     contact = []
     skills = []
 
-    constructor(ci) {
-        this.doc = ci
+    constructor(doId) {
+        this.do = doId
     }
 
     constructor(
@@ -24,7 +24,7 @@ class User {
         verified = false) 
         
         {
-        this.doc = ci
+        this.do = ci
     }
 
     checkPwd(triedPassword){
