@@ -12,7 +12,7 @@ class User {
     skills = []
 
     constructor(ci) {
-        this.ci = ci
+        this.doc = ci
     }
 
     constructor(
@@ -24,7 +24,7 @@ class User {
         verified = false) 
         
         {
-        this.ci = ci
+        this.doc = ci
     }
 
     checkPwd(triedPassword){
