@@ -1,0 +1,15 @@
+<form [formGroup]="loginForm">
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Usuario</mat-label>
+        <input matInput placeholder="usuario" [formControl]="loginForm.controls.DO">
+        <mat-icon matPrefix>user</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Contraseña</mat-label>
+        <input matInput placeholder="contraseña" [formControl]="loginForm.controls.password">
+        <mat-icon matPrefix>key</mat-icon>
+    </mat-form-field>
+</form>
+
+<button mat-raised-button color="primary" class="w-100">Iniciar sesion</button>
