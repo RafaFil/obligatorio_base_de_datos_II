@@ -1,3 +1,4 @@
+const { User } = require('../entities/user.entity');
 const { getAllUsersService, register, auth } = require('../services/user.service')
 
 const getAllUsers = async (req, res) => {
@@ -17,12 +18,38 @@ const getAllUsers = async (req, res) => {
     });
 }
 
-const registerUser = async (req, res) => {
-    register().then ( user => {
+const registerUser = async ( { body } , res) => {
 
+    const { DO, password, name, last_name } = body;
+
+    if (!DO || !password || !name || !last_name) {
+        return res.status(400).json({
+            success: false,
+            message: 'missing fields in body'
+        });
+    }
+
+    const user = new User(name, last_name, DO);
+
+    register(user).then ( user => {
+
+        if (!user) {
+            return res.status(400).json({
+                success: false,
+                message: "user not created"
+            });
+        }
+        return res.status(200).json({
+            success: true,
+            data: user
+        });
     })
     .catch( err => {
-
+        console.log(err);
+        return res.status(500).json({
+            success: false,
+            message: `Internal server error.`
+        });
     })
 }
 
