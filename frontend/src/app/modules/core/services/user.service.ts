@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { UserAuth } from '../interfaces/userAuth';
+import { apiMessage } from '../interfaces/apiMessage';
 import { User } from '../interfaces/user';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
 
-const apiURL = "http://localhost:3000"
+const apiURL = "http://localhost:3000/api/v1"
 
 @Injectable({
   providedIn: 'root'
@@ -52,14 +53,21 @@ export class UserService {
       }
     }
   }
+  //cambiar el generic de apiMessage
+  getUserByCredentials(credentials : UserAuth) : Observable<apiMessage<Object>> {
+  
+    return this.http.post<apiMessage<Object>>(`${apiURL}/user/auth`,credentials)
+      .pipe(
+      catchError( err => of(err))
+    );
 
-  getUserByCredentials(credentials : UserAuth) {
-
-    return this.http.post<boolean>(`${apiURL}`,credentials);
   }
+  //Idem generic
+  registerUser(u : User) : Observable<apiMessage<Object>> {
 
-  registerUser(u : User) : Observable<boolean> {
-
-    return this.http.post<boolean>(`${apiURL}`,u);
+    return this.http.post<apiMessage<Object>>(`${apiURL}/user/register`,u)
+    .pipe(
+      catchError( err => of(err))
+    );
   }
 }

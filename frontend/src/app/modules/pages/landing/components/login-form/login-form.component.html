@@ -1,4 +1,4 @@
-<form [formGroup]="loginForm">
+<form [formGroup]="loginForm" class="sb-login-form">
     <mat-form-field appearance="outline" class="w-100">
         <mat-label>Usuario</mat-label>
         <input matInput placeholder="usuario" [formControl]="loginForm.controls.DO">
@@ -12,4 +12,4 @@
     </mat-form-field>
 </form>
 
-<button mat-raised-button color="primary" class="w-100">Iniciar sesion</button>
+<button mat-raised-button color="primary" class="w-100" (click)="getUser()">Iniciar sesion</button>

@@ -20,7 +20,7 @@ export class LoginFormComponent implements OnInit {
     password : [ "", [Validators.minLength(4), Validators.required]]
   })
 
-  getUser(credentials : UserAuth) {
+  getUser() {
     const DO = this.loginForm.controls.DO.value;
     const password = this.loginForm.controls.password.value;
     
@@ -31,10 +31,24 @@ export class LoginFormComponent implements OnInit {
         password : password,
       }
 
-      this.userService.getUserByCredentials(credentials);
+      this.userService.getUserByCredentials(credentials)
+      .subscribe( result => {
+
+        console.log(result);
+
+        if (!result.success) {
+            alert("Ups nuestros servidores en kazajistan han explotado, tome un video");
+        }
+        
+        //hacer el redirect al home del user
+        //tambien ver como meter el save el inspector y bla bla bla
+      });
       
     }
+
+    alert("faltan campos");
   }
+
 
 
 }
