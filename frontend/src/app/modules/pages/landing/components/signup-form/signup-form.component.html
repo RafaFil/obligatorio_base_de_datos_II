@@ -37,4 +37,7 @@
     </mat-form-field>
 </form>
 
-<button mat-raised-button color="primary" class="w-100 mt-3">Registrarse</button>
+<button mat-raised-button color="primary" class="w-100 mt-3 mb-3" 
+(click)="registerUser()"
+disabled="{{signupForm.invalid}}"
+>Registrarse</button>

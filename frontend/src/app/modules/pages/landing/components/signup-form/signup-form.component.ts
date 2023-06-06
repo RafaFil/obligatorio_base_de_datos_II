@@ -10,6 +10,7 @@ import { UserService } from 'src/app/modules/core/services/user.service';
 })
 export class SignupFormComponent implements OnInit {
 
+
   constructor(private formBuilder : FormBuilder, private userService : UserService) { }
 
   ngOnInit(): void {
@@ -24,35 +25,51 @@ export class SignupFormComponent implements OnInit {
     contact : [ "", [Validators.minLength(8), Validators.required]]
   })
 
-  isFormInvalid() {
-    //check if passwd are the same
-    const pass = this.signupForm.controls.pass.value;
-    const repPass = this.signupForm.controls.repPass.value;
+
+
+  arePassThesame(pass: string | null, repPass : string | null) {
+    
     if (pass !== repPass) {
       return false;
     }
-    return this.signupForm.invalid;
+
+    return true;
   }
 
   registerUser() {
     
-    if (!this.isFormInvalid()){
-      const DO = this.signupForm.controls.DO.value;
+    const DO = this.signupForm.controls.DO.value;
 
-      if (!this.userService.checkIdIsValid(DO)) { 
-          //do is invalid
-      }
-
-      /*const userData : User = {
-        DO : DO,
-        password : this.signupForm.controls.pass.value,
-        name : this.signupForm.controls.name.value,
-        last_name: this.signupForm.controls.last_name.value,
-        contact : this.signupForm.controls.contact.value
-      }
-
-      this.userService.registerUser(userData)*/
+    if (!this.userService.checkIdIsValid(DO)) { 
+        alert("Ci invalida");
+        return;
     }
-  }
 
+    const password = this.signupForm.controls.pass.value;
+    const name = this.signupForm.controls.name.value;
+    const last_name = this.signupForm.controls.last_name.value;
+    const contact = this.signupForm.controls.contact.value;
+    const repPass = this.signupForm.controls.repPass.value;
+
+    if (this.arePassThesame(password, repPass) && password && name && last_name && contact && DO) {
+      const userData : User = {
+        DO : DO,
+        password : password,
+        name : name,
+        last_name: last_name,
+        contact : contact
+      }
+      this.userService.registerUser(userData)
+      .subscribe( res => {
+        if (res.success) {
+          alert(res.data)
+          return;
+        }
+        alert("algo ha salido mal")
+        return;
+      })
+    }
+
+  }
 }
+
