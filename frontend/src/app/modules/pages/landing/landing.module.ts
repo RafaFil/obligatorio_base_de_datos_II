@@ -8,7 +8,6 @@ import { SharedModule } from '../../shared/shared.module';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import { LandingHomeComponent } from './components/landing-home/landing-home.component';
 import { SignupFormComponent } from './components/signup-form/signup-form.component';
-import { LandingCarrouselComponent } from './components/landing-carrousel/landing-carrousel.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +15,6 @@ import { LandingCarrouselComponent } from './components/landing-carrousel/landin
     LandingPageComponent,
     LandingHomeComponent,
     SignupFormComponent,
-    LandingCarrouselComponent
   ],
   imports: [
     CommonModule,
