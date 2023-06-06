@@ -1,5 +1,6 @@
 const { User } = require('../entities/user.entity');
 const { getAllUsersService, register, auth } = require('../services/user.service')
+const { generateJWT } = require('../helpers/jwt.helper');
 
 const getAllUsers = async (req, res) => {
     getAllUsersService().then( users => {
@@ -64,7 +65,7 @@ const authUser = async (req, res) => {
         });
     }
 
-    auth(DO, password).then(user => {
+    auth(DO, password).then(async (user) => {
 
         //user not found
         if (!user) {
@@ -75,9 +76,14 @@ const authUser = async (req, res) => {
             });
         }
 
+        const token = await generateJWT(DO, user.name);
+
         return res.status(200).json({
             success: true,
-            data: user
+            data: {
+                user: user,
+                token : token
+            }
         });
 
     })
@@ -91,8 +97,14 @@ const authUser = async (req, res) => {
     });
 }
 
+// TODO
+const renewToken = async (req, res) => {
+
+}
+
 module.exports = {
     getAllUsers,
     registerUser,
-    authUser
+    authUser,
+    renewToken
 }
