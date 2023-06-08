@@ -8,5 +8,12 @@ EXPOSE 5432
 # docker build -t "suppbuddydb:latest" .
 # docker run -p 5432:5432 suppbuddydb
 
+# Para hostearlo en la lan del equipo que levanta el contenedor, se sustituye
+# [ipDelHost] con la ip en la red lan conectada. Para trabajo local no es necesario
+# docker run -p {[ipDelHost]:}5432:5432 suppbuddydb
+# EJ: docker run -p 192.168.1.25:5432:5432 suppbuddydb
+
+
+
 # Aca va el dump de la bd
 COPY tableCreation.sql /docker-entrypoint-initdb.d/
