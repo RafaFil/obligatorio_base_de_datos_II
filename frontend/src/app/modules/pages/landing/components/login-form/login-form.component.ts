@@ -10,6 +10,8 @@ import { UserService } from 'src/app/modules/core/services/user.service';
 })
 export class LoginFormComponent implements OnInit {
 
+  usuarioDO!: string | null;
+
   constructor(private formBuilder : FormBuilder, private userService : UserService) { }
 
   ngOnInit(): void {
@@ -35,6 +37,7 @@ export class LoginFormComponent implements OnInit {
       .subscribe( result => {
 
         console.log(result);
+        this.usuarioDO = localStorage.getItem("token")
 
         if (!result.success) {
             alert("Ups nuestros servidores en kazajistan han explotado, tome un video");
@@ -46,7 +49,7 @@ export class LoginFormComponent implements OnInit {
       
     }
 
-    alert("faltan campos");
+    //alert("faltan campos");
   }
 
 

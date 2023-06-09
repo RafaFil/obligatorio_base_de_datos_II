@@ -3,7 +3,7 @@ import { UserAuth } from '../interfaces/userAuth';
 import { apiMessage } from '../interfaces/apiMessage';
 import { User } from '../interfaces/user';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, of } from 'rxjs';
+import { Observable, catchError, of, tap } from 'rxjs';
 
 const apiURL = "http://localhost:3000/api/v1"
 
@@ -11,6 +11,8 @@ const apiURL = "http://localhost:3000/api/v1"
   providedIn: 'root'
 })
 export class UserService {
+
+  runningUser?: User;
 
   constructor(private http: HttpClient) { }
 
@@ -53,15 +55,7 @@ export class UserService {
       }
     }
   }
-  //cambiar el generic de apiMessage
-  getUserByCredentials(credentials : UserAuth) : Observable<apiMessage<Object>> {
-  
-    return this.http.post<apiMessage<Object>>(`${apiURL}/user/auth`,credentials)
-      .pipe(
-      catchError( err => of(err))
-    );
 
-  }
   //Idem generic
   registerUser(u : User) : Observable<apiMessage<Object>> {
 
@@ -69,5 +63,47 @@ export class UserService {
     .pipe(
       catchError( err => of(err))
     );
+  }
+
+  //generic de apiMessage. Recibe un user y un token asociado
+  getUserByCredentials(credentials : UserAuth) : Observable<apiMessage<{
+    user : User,
+    token : string
+  }>> {
+  
+    return this.http.post<apiMessage<{
+      user : User,
+      token : string
+    }>>(`${apiURL}/user/auth`,credentials)
+      .pipe(
+        tap(response => {
+          if (response.success) {
+            this.runningUser = response.data?.user;
+            localStorage.setItem('token', response.data?.token!);
+          }
+        })
+      );
+
+  }
+
+  validateToken(): Observable<any> {
+    const url = `${apiURL}/user/renew`;
+
+    return this.http.get<apiMessage<any>>( url )
+      .pipe(
+        tap( response => {
+          if (response.success) {
+            this.runningUser = response.data?.user;
+            localStorage.setItem('token', response.data?.token!);
+          }
+
+          return response.success;
+        }),
+        catchError( err => of(false) )
+      );
+  }
+
+  logout(): void {
+    localStorage.removeItem('token');
   }
 }

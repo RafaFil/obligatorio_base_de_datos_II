@@ -61,7 +61,7 @@ const authUser = async (req, res) => {
     if ( !DO || !password ) {
         return res.status(400).json({
             success: false,
-            message: `Bad request`
+            message: `Bad request missing DO or Password`
         });
     }
 
