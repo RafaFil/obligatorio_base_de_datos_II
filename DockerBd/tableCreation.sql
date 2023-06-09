@@ -5,6 +5,16 @@
 ALTER SYSTEM SET listen_addresses = '*';
 ALTER SYSTEM SET max_connections = 10;
 ALTER SYSTEM SET port = 5432;
+
+-- LOGGING --
+ALTER SYSTEM SET log_destination = 'csvlog';
+ALTER SYSTEM SET logging_collector = on;
+ALTER SYSTEM SET log_directory = 'log';
+ALTER SYSTEM SET log_filename = 'postgresql-%Y-%m-%d.log';
+ALTER SYSTEM SET log_rotation_age = 1440 ;
+ALTER SYSTEM SET log_statement_sample_rate = 1.0;
+ALTER SYSTEM SET log_transaction_sample_rate = 0;
+ALTER SYSTEM SET log_statement = 'mod';
 ALTER SYSTEM SET log_connections = on;
 ALTER SYSTEM SET log_disconnections = on;
 
