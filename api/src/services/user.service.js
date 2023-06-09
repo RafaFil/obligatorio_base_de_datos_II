@@ -4,6 +4,25 @@ async function getAllUsersService() {
     return [new User("Baby dont","Hurt me",200), new User("Brandon","Gosling",450)];
 }
 
+const register = async (user) => {
+    return user;
+}
+
+const auth = async (DO, pass) => {
+    
+    if (DO==="11111111" && pass==="admin"){
+        return new User("Brandon","Gosling",450);
+    }
+    return
+}
+
+const findByDO = async (DO) => {
+    return new User("Brandon","Gosling",450);
+}
+
 module.exports = {
-    getAllUsersService
+    getAllUsersService,
+    register,
+    auth,
+    findByDO
 }

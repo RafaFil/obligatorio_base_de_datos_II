@@ -12,7 +12,7 @@ const morgan = require('morgan');
 
 
 // Routers
-const userRouter = require("./src/routes/user.route")
+const userRouter = require("./src/routes/user.routes")
 
 
 const BASE_ROUTE = "/api/v1";
