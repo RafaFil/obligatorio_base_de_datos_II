@@ -1,5 +1,5 @@
 const { User } = require('../entities/user.entity');
-const { getAllUsersService, register, auth } = require('../services/user.service')
+const { getAllUsersService, register, auth, findByDO } = require('../services/user.service')
 const { generateJWT } = require('../helpers/jwt.helper');
 
 const getAllUsers = async (req, res) => {
@@ -99,7 +99,26 @@ const authUser = async (req, res) => {
 
 // TODO
 const renewToken = async (req, res) => {
+    const { DO } = req;
 
+    const user = await findByDO(DO);
+
+    if (!user) {
+        res.status(404).json({
+            success: false,
+            message: `No user was found for username ${DO}`
+        });
+    }
+
+    const token = await generateJWT( DO, user.name );
+
+    return res.status(200).json({
+        success: true,
+        data: {
+            user,
+            token
+        }
+    });
 }
 
 module.exports = {

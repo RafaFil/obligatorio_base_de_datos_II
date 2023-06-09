@@ -16,8 +16,13 @@ const auth = async (DO, pass) => {
     return
 }
 
+const findByDO = async (DO) => {
+    return new User("Brandon","Gosling",450);
+}
+
 module.exports = {
     getAllUsersService,
     register,
-    auth
+    auth,
+    findByDO
 }
