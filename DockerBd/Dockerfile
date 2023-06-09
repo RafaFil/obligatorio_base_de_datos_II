@@ -17,3 +17,5 @@ EXPOSE 5432
 
 # Aca va el dump de la bd
 COPY tableCreation.sql /docker-entrypoint-initdb.d/
+
+RUN /etc/init.d/postgresql restart
