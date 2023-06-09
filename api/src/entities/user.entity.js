@@ -11,10 +11,6 @@ class User {
     contact = []
     skills = []
 
-    constructor(doId) {
-        this.do = doId
-    }
-
     constructor(
         ci = "11111111", 
         name = "Jane", 
