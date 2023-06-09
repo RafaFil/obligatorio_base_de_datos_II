@@ -1,7 +1,8 @@
 const { User } = require('../entities/user.entity')
+const  userRepository = require('../repository/user.repository')
 
 async function getAllUsersService() {
-    return [new User("Baby dont","Hurt me",200), new User("Brandon","Gosling",450)];
+    return await userRepository.getAllUsersFromDB();
 }
 
 const register = async (user) => {

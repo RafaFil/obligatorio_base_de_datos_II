@@ -1,1 +1,9 @@
-//aca va el repositorio al sitorio de la bd
+const {pool} = require("../connection/db.conn")
+
+const getAllUsersFromDB = async function(){
+    return (await pool.query("SELECT * FROM usuarios")).rows
+}
+
+module.exports = {
+    getAllUsersFromDB
+}
