@@ -21,11 +21,17 @@ const getAllUsers = async (req, res) => {
 
 const getUserByDO = async (req, res) => {
     findByDO(req.params['id']).then( user => {
-        
-        return res.status(200).json({
-            success: true,
-            data: user
-        });
+        if(user){
+            return res.status(200).json({
+                success: true,
+                data: user
+        });}
+        else{
+            return res.status(404).json({
+                success: false,
+                data: []
+            }); 
+        }
     })
     .catch( err => {
         console.log(err);
