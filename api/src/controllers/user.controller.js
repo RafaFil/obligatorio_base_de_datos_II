@@ -19,6 +19,23 @@ const getAllUsers = async (req, res) => {
     });
 }
 
+const getUserByDO = async (req, res) => {
+    findByDO(req.params['id']).then( user => {
+        
+        return res.status(200).json({
+            success: true,
+            data: user
+        });
+    })
+    .catch( err => {
+        console.log(err);
+        return res.status(500).json({
+            success: false,
+            message: `Internal server error.`
+        });
+    });
+}
+
 const registerUser = async ( { body } , res) => {
 
     const { DO, password, name, last_name } = body;
@@ -125,5 +142,6 @@ module.exports = {
     getAllUsers,
     registerUser,
     authUser,
-    renewToken
+    renewToken,
+    getUserByDO
 }

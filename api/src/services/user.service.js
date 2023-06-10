@@ -18,7 +18,7 @@ const auth = async (DO, pass) => {
 }
 
 const findByDO = async (DO) => {
-    return new User("Brandon","Gosling",450);
+    return await userRepository.getUserByDOfromDB(DO);
 }
 
 module.exports = {
