@@ -9,6 +9,7 @@ import { HomeRoutingModule } from './home-routing.module';
 import { AddHelpAplicationComponent } from './components/add-help-aplication/add-help-aplication.component';
 import { HelpAplicationFormComponent } from './components/help-aplication-form/help-aplication-form.component';
 import { DialogHelpAplicationComponent } from './components/dialog-help-aplication/dialog-help-aplication.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { DialogHelpAplicationComponent } from './components/dialog-help-aplicati
     CommonModule,
     MaterialModule,
     HomeRoutingModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ]
 })
 export class HomeModule { }
