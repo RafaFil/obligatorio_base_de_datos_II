@@ -53,7 +53,7 @@ const registerUser = async ( { body } , res) => {
         });
     }
 
-    const user = new User(name, last_name, DO);
+    const user = new User(DO, name, last_name);
 
     register(user).then ( user => {
 

@@ -6,7 +6,7 @@ async function getAllUsersService() {
 }
 
 const register = async (user) => {
-    return user;
+    return userRepository.insertNewUser(user, "123");
 }
 
 const auth = async (DO, pass) => {
