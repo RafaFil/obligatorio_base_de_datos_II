@@ -1,11 +1,11 @@
 <form [formGroup]="helpAplicationForm">
 
-    <mat-form-field class="sb-form-field">
+    <mat-form-field class="sb-form-field" appearance="outline">
         <mat-label>Titulo</mat-label>
         <input matInput [formControl]="helpAplicationForm.controls.title">
     </mat-form-field>
 
-    <mat-form-field class="sb-form-field">
+    <mat-form-field class="sb-form-field" appearance="outline">
         <mat-label>Descripcion</mat-label>
         <textarea matInput [formControl]="helpAplicationForm.controls.description"></textarea>
     </mat-form-field>
@@ -25,7 +25,8 @@
 
     <mat-form-field class="sb-form-field" appearance="outline">
         <mat-label>Nivel de habilidad</mat-label>
-        <mat-select (selectionChange)="changeLevel($event.value)">
+        <mat-select (selectionChange)="changeLevel($event.value)" 
+        disabled="{{!helpAplicationForm.controls.ability.value}}">
             <mat-option *ngFor="let level of abilityLevel" [value]="level">
                 {{level}}
             </mat-option>
@@ -37,10 +38,9 @@
         <mat-label>Calle</mat-label>
         <input matInput [formControl]="helpAplicationForm.controls.street">
     </mat-form-field>
-    <mat-form-field class="sb-form-field">
+    <mat-form-field class="sb-form-field" appearance="outline">
         <mat-label>Esquina</mat-label>
         <input matInput [formControl]="helpAplicationForm.controls.corner">
     </mat-form-field>
 
-    <button (click)="getInfo()">Borrar despues</button>
 </form>
