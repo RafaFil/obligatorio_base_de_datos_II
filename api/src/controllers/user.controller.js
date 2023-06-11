@@ -4,11 +4,22 @@ const { generateJWT } = require('../helpers/jwt.helper');
 
 const getAllUsers = async (req, res) => {
     getAllUsersService().then( users => {
-        
-        return res.status(200).json({
-            success: true,
-            data: users
-        });
+        if(users.success && users.data){
+            return res.status(200).json({
+                success: true,
+                data: users.data
+            });}
+        else if (users.success){
+            return res.status(204).json({
+                success: true,
+                data: users.data
+            });
+        } else{
+            return res.status(400).json({
+                success: false,
+                data: users.message
+            }); 
+        }
     })
     .catch( err => {
         console.log(err);
@@ -21,15 +32,15 @@ const getAllUsers = async (req, res) => {
 
 const getUserByDO = async (req, res) => {
     findByDO(req.params['id']).then( user => {
-        if(user){
+        if(user.success){
             return res.status(200).json({
                 success: true,
-                data: user
+                data: user.data
         });}
         else{
             return res.status(404).json({
                 success: false,
-                data: []
+                data: user.message
             }); 
         }
     })
@@ -37,7 +48,7 @@ const getUserByDO = async (req, res) => {
         console.log(err);
         return res.status(500).json({
             success: false,
-            message: `Internal server error.`
+            message: err.message ? err.message : "INTERNAL ERROR"
         });
     });
 }
@@ -57,15 +68,15 @@ const registerUser = async ( { body } , res) => {
 
     register(user).then ( user => {
 
-        if (!user) {
+        if (!user.success) {
             return res.status(400).json({
                 success: false,
-                message: "user not created"
+                message: user.message
             });
         }
         return res.status(200).json({
             success: true,
-            data: user
+            data: user.data
         });
     })
     .catch( err => {
