@@ -1,6 +1,6 @@
 class User {
 
-    do
+    DO
     name
     lastName
     birthDate
@@ -11,20 +11,23 @@ class User {
     contact = []
     skills = []
 
-    constructor(doId) {
-        this.do = doId
-    }
-
     constructor(
-        ci = "11111111", 
+        DO = "11111111", 
         name = "Jane", 
         lastName = "Doe", 
         birthDate = new Date("2000-01-01"),
         willHelp = false,
-        verified = false) 
+        verified = false,
+        description = null) 
         
         {
-        this.do = ci
+        this.DO = DO;
+        this.name = name;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
+        this.willHelp = willHelp;
+        this.verified = verified;
+        this.description = description;
     }
 
     checkPwd(triedPassword){

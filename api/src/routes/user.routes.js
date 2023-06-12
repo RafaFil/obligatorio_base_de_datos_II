@@ -1,15 +1,19 @@
 const { Router } = require('express');
-const { getAllUsers, registerUser, authUser, renewToken } = require('../controllers/user.controller')
+const { getAllUsers, registerUser, authUser, renewToken, getUserByDO } = require('../controllers/user.controller')
 const { validateBody } = require('../middlewares/validateBody.middleware')
-const { validateJWT } = require('../middlewares/validateJWT.middleware')
+const { validateJWT } = require('../middlewares/validateJWT.middleware');
 
-const BASE_ROUTE = '/user'
+const BASE_ROUTE = '/users'
 const userRouter = Router();
 
 userRouter.get(BASE_ROUTE, getAllUsers);
 
 //get a user by credentials
 userRouter.post(`${BASE_ROUTE}/auth`, authUser);
+
+userRouter.get(`${BASE_ROUTE}/:id`, async (req, res) => {
+    return getUserByDO(req, res)
+});
 
 //post a user
 userRouter.post(`${BASE_ROUTE}/register`, validateBody, async (req, res) => {

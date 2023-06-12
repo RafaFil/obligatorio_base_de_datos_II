@@ -4,17 +4,51 @@ const { generateJWT } = require('../helpers/jwt.helper');
 
 const getAllUsers = async (req, res) => {
     getAllUsersService().then( users => {
-        
-        return res.status(200).json({
-            success: true,
-            data: users
-        });
+        if(users.success && users.data){
+            return res.status(200).json({
+                success: true,
+                data: users.data
+            });}
+        else if (users.success){
+            return res.status(204).json({
+                success: true,
+                data: users.data
+            });
+        } else{
+            return res.status(400).json({
+                success: false,
+                data: users.message
+            }); 
+        }
     })
     .catch( err => {
         console.log(err);
         return res.status(500).json({
             success: false,
             message: `Internal server error.`
+        });
+    });
+}
+
+const getUserByDO = async (req, res) => {
+    findByDO(req.params['id']).then( user => {
+        if(user.success){
+            return res.status(200).json({
+                success: true,
+                data: user.data
+        });}
+        else{
+            return res.status(404).json({
+                success: false,
+                data: user.message
+            }); 
+        }
+    })
+    .catch( err => {
+        console.log(err);
+        return res.status(500).json({
+            success: false,
+            message: err.message ? err.message : "INTERNAL ERROR"
         });
     });
 }
@@ -30,19 +64,19 @@ const registerUser = async ( { body } , res) => {
         });
     }
 
-    const user = new User(name, last_name, DO);
+    const user = new User(DO, name, last_name);
 
-    register(user).then ( user => {
+    register(user, password).then ( user => {
 
-        if (!user) {
+        if (!user.success) {
             return res.status(400).json({
                 success: false,
-                message: "user not created"
+                message: user.message
             });
         }
         return res.status(200).json({
             success: true,
-            data: user
+            data: user.data
         });
     })
     .catch( err => {
@@ -68,20 +102,28 @@ const authUser = async (req, res) => {
     auth(DO, password).then(async (user) => {
 
         //user not found
-        if (!user) {
+        if ( !user ) {
+
+            return res.status(404).json({
+                success: false,
+                message: 'User not Found'
+            });
+        }
+        //wrong creds
+        if ( !user.success ) {
 
             return res.status(400).json({
                 success: false,
-                message: 'Bad request'
+                message: 'Bad request, wrong DO or Password'
             });
         }
 
-        const token = await generateJWT(DO, user.name);
+        const token = await generateJWT(DO, user.data.name);
 
         return res.status(200).json({
             success: true,
             data: {
-                user: user,
+                user: user.data,
                 token : token
             }
         });
@@ -125,5 +167,6 @@ module.exports = {
     getAllUsers,
     registerUser,
     authUser,
-    renewToken
+    renewToken,
+    getUserByDO
 }
