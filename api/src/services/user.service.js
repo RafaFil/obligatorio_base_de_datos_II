@@ -19,6 +19,8 @@ const auth = async (DO, pass) => {
     if(user.success){
         if(await bcrypt.compare(pass, user.data.hashpwd)){
             return await userRepository.getUserByDOfromDB(DO);
+        } else{
+            return {success : false}
         }
     }
     return null;

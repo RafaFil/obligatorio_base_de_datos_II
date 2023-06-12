@@ -102,11 +102,19 @@ const authUser = async (req, res) => {
     auth(DO, password).then(async (user) => {
 
         //user not found
-        if (!user.success) {
+        if ( !user ) {
+
+            return res.status(404).json({
+                success: false,
+                message: 'User not Found'
+            });
+        }
+        //wrong creds
+        if ( !user.success ) {
 
             return res.status(400).json({
                 success: false,
-                message: 'Bad request'
+                message: 'Bad request, wrong DO or Password'
             });
         }
 

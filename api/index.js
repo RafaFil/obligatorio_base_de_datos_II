@@ -21,8 +21,7 @@ const BASE_ROUTE = "/api/v1";
 // defining the Express app
 
 const app = express();
-app.use(express.urlencoded({extended : false}))
-app.use(express.json())
+
 // adding Helmet to enhance your API's security
 app.use(helmet());
 
