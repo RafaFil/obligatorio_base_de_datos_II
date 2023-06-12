@@ -1,4 +1,6 @@
 <app-base-dialog [dialogTitle]="'Añadir solicitud de ayuda'">
-        <app-help-aplication-form sb-content></app-help-aplication-form>
-        <button sb-actions mat-button color="primary">Crear solicitud</button>
+        <app-help-aplication-form sb-content #helpAppForm></app-help-aplication-form>
+        <button sb-actions mat-raised-button color="primary" 
+        (click)="pullDataAplicationForm()"
+        >Crear solicitud</button>
 </app-base-dialog>

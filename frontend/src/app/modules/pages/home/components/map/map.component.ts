@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
-import { Map, NavigationControl } from 'maplibre-gl';
+import { Map, Marker, NavigationControl } from 'maplibre-gl';
 
 
 
@@ -16,6 +16,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy{
   @ViewChild('map')
   private mapContainer!: ElementRef<HTMLElement>;
 
+  private currentMarkers: Marker[] = [];
+
+  //@Input() markers: MapMarker[] = [];
+  
   constructor() { }
 
   ngOnInit(): void {
@@ -30,10 +34,16 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy{
       zoom: initialState.zoom
     });
     this.map.addControl(new NavigationControl({}), 'top-right');
+
+    const marker = new Marker().setLngLat([-56.15,-34.88]).addTo(this.map);
   }
 
   ngOnDestroy() {
     this.map?.remove();
+  }
+
+  loadMarkers() {
+
   }
 
 }
