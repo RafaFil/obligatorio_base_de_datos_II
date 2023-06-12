@@ -23,6 +23,18 @@ const getUserByDOfromDB = async function (DO) {
     })
 }
 
+const getUserCreds = async function (DO) {
+    return (pool.query("SELECT hashpwd FROM usuarios u WHERE u.ci = $1 ;", [DO])).then(res => {
+        if (res.rows.length > 0) {
+            return new dataResult(true, res.rows[0])
+        } else {
+            return new dataResult(false, null, 404, "No user found")
+        }
+    }).catch(err => {
+        return new dataResult(false, null, err.code, err.message)
+    })
+}
+
 const insertNewUser = async function (newUser, hashPwd) {
     return (pool.query("INSERT INTO usuarios(ci, nombre, apellido, dispuesto_ayudar, confirmada_identidad, hashpwd)" +
         "VALUES($1, $2, $3, $4, $5, $6)  RETURNING " + allParsed + ";",
@@ -46,5 +58,6 @@ const allParsed = "ci AS do, nombre AS name, apellido AS lastName, dispuesto_ayu
 module.exports = {
     getAllUsersFromDB,
     getUserByDOfromDB,
-    insertNewUser
+    insertNewUser,
+    getUserCreds
 }
