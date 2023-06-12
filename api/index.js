@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const bcrypt = require('bcrypt')
 
 // Configs
 
@@ -20,6 +21,8 @@ const BASE_ROUTE = "/api/v1";
 // defining the Express app
 
 const app = express();
+app.use(express.urlencoded({extended : false}))
+app.use(express.json())
 // adding Helmet to enhance your API's security
 app.use(helmet());
 
