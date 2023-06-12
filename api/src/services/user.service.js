@@ -1,20 +1,27 @@
 const { User } = require('../entities/user.entity')
 const  userRepository = require('../repository/user.repository')
+const bcrypt = require('bcrypt')
 
 async function getAllUsersService() {
     return await userRepository.getAllUsersFromDB();
 }
 
-const register = async (user) => {
-    return userRepository.insertNewUser(user, "123");
+const register = async (user, pass) => {
+
+    let hashedpwd = await bcrypt.hash(pass, 10)
+
+    return userRepository.insertNewUser(user, hashedpwd);
 }
 
 const auth = async (DO, pass) => {
-    
-    if (DO==="11111111" && pass==="admin"){
-        return new User("Brandon","Gosling",450);
+    let user = (await userRepository.getUserCreds(DO));
+
+    if(user.success){
+        if(await bcrypt.compare(pass, user.data.hashpwd)){
+            return await userRepository.getUserByDOfromDB(DO);
+        }
     }
-    return
+    return null;
 }
 
 const findByDO = async (DO) => {
