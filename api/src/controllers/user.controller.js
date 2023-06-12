@@ -66,7 +66,7 @@ const registerUser = async ( { body } , res) => {
 
     const user = new User(DO, name, last_name);
 
-    register(user).then ( user => {
+    register(user, password).then ( user => {
 
         if (!user.success) {
             return res.status(400).json({
@@ -102,7 +102,7 @@ const authUser = async (req, res) => {
     auth(DO, password).then(async (user) => {
 
         //user not found
-        if (!user) {
+        if (!user.success) {
 
             return res.status(400).json({
                 success: false,
@@ -110,12 +110,12 @@ const authUser = async (req, res) => {
             });
         }
 
-        const token = await generateJWT(DO, user.name);
+        const token = await generateJWT(DO, user.data.name);
 
         return res.status(200).json({
             success: true,
             data: {
-                user: user,
+                user: user.data,
                 token : token
             }
         });
