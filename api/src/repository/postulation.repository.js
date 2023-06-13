@@ -1,0 +1,89 @@
+const { pool } = require("../connection/db.conn")
+const { dataResult, usedPKCode } = require("./data.repository")
+
+
+const getSolicitantRequestHelper = async function (userId, requestId) {
+    return (pool.query
+        //crear view?
+        ("SELECT p.ayudante_ci AS helperId, p.solicitud_id AS requestId, s.solicitante_ci AS solicitantId" +
+        "FROM postulaciones p INNER JOIN solicitudes_ayuda s on p.solicitud_id = s.id " +
+        "WHERE (p.ayudante_ci = $1 OR s.solicitante_ci = $1) AND s.id = $2;"
+        [userId, requestId])).then(res => {
+        if (res.rows.length > 0) {
+            return new dataResult(true, res.rows)
+        } else {
+            return new dataResult(false, null, 404, "No postulation found")
+        }
+    }).catch(err => {
+        return new dataResult(false, null, err.code, err.message)
+    })
+}
+
+const getPostulationsOfRequest = async function (requestId) {
+    return (pool.query("SELECT " + allParsed + "FROM postulaciones p WHERE p.solicitud_id = $1 ;", [requestId])).then(res => {
+        if (res.rows.length > 0) {
+            return new dataResult(true, res.rows)
+        } else {
+            return new dataResult(false, null, 404, "No postulations found")
+        }
+    }).catch(err => {
+        return new dataResult(false, null, err.code, err.message)
+    })
+}
+
+const getPostulation = async function (postulationId) {
+    return (pool.query("SELECT " + allParsed + "FROM postulaciones p WHERE p.id = $1 ;", [postulationId])).then(res => {
+        if (res.rows.length > 0) {
+            return new dataResult(true, res.rows[0])
+        } else {
+            return new dataResult(false, null, 404, "No postulation found")
+        }
+    }).catch(err => {
+        return new dataResult(false, null, err.code, err.message)
+    })
+}
+
+const createPostulation = async function (postulation) {
+    return (pool.query("INSERT INTO postulaciones(ayudante_ci, solicitud_id, fecha, fue_aceptada)" +
+        "VALUES($1, $2, $3, $4)  RETURNING " + allParsed + ";",
+        [postulation.userId, postulation.requestId, postulation.dateOfPostulation, postulation.wasAccepted ]))
+        .then(res => {
+            if (res.rows.length > 0) {
+                return new dataResult(true, res.rows[0])
+            } else {
+                return new dataResult(true, null, 204)
+            }
+        }).catch(err => {
+            if(err.code === usedPKCode){
+                return new dataResult(false, null, err.code, "Ya se postuló para esta solicitud")
+            }
+            throw err
+        })
+}
+
+const deletePostulation = async function (id) {
+    return (pool.query("DELETE FROM postulaciones p" +
+        "WHERE p.id = $1 RETURNING " + allParsed + ";",
+        [id]))
+        .then(res => {
+            if (res.rows.length > 0) {
+                return new dataResult(true, res.rows[0])
+            } else {
+                return new dataResult(true, null, 204)
+            }
+        }).catch(err => {
+            if(err.code === usedPKCode){
+                return new dataResult(false, null, err.code, "Ya se postuló para esta solicitud")
+            }
+            throw err
+        })
+}
+
+// formatea un " * "
+const allParsed = "id, ayudante_ci AS userId, solicitud_id AS requestId, fecha AS dateOfPostulation, fue_aceptada AS wasAccepted "
+module.exports = {
+    getSolicitantRequestHelper,
+    getPostulation,
+    getPostulationsOfRequest,
+    createPostulation
+}
