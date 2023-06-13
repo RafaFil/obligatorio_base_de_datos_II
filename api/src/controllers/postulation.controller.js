@@ -1,5 +1,5 @@
 const { Postulation } = require("../entities/postulation.entity")
-const { getRequestPostulationsService } = require("../entities/postulation.entity")
+const { getRequestPostulationsService, getFullPostulationtByIdService, deletePostulationByIdService, applyToRequestService } = require("../services/postulation.service")
 
 const getRequestPostulations = async (req, res) => {
 

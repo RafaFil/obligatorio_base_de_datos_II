@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const { validateBody } = require('../middlewares/validateBody.middleware')
 const { validateJWT } = require('../middlewares/validateJWT.middleware');
+const { getRequestPostulations, getFullPostulationtById, deletePostulationById, applyToRequest } = require('../controllers/postulation.controller')
 
 const BASE_ROUTE = '/postulations'
 const userRouter = Router();

@@ -31,8 +31,9 @@ const getPostulationsOfRequest = async function (requestId) {
     })
 }
 
-const getPostulation = async function (postulationId) {
-    return (pool.query("SELECT " + allParsed + "FROM postulaciones p WHERE p.id = $1 ;", [postulationId])).then(res => {
+const getPostulation = async function (requestId, helperId) {
+    return (pool.query("SELECT " + allParsed + "FROM postulaciones p "+
+    "WHERE p.solicitud_id = $1 AND p.ayudante_ci = $2;", [requestId, helperId])).then(res => {
         if (res.rows.length > 0) {
             return new dataResult(true, res.rows[0])
         } else {
