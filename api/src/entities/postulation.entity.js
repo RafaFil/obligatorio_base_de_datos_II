@@ -18,3 +18,7 @@ class Postulation{
         this.wasAccepted = false;
     }
 }
+
+module.exports = {
+    Postulation
+}
