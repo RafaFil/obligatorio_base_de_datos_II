@@ -10,6 +10,7 @@ import { AddHelpAplicationComponent } from './components/add-help-aplication/add
 import { HelpAplicationFormComponent } from './components/help-aplication-form/help-aplication-form.component';
 import { DialogHelpAplicationComponent } from './components/dialog-help-aplication/dialog-help-aplication.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HelpMapMarkerComponent } from './components/help-map-marker/help-map-marker.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     HomePageComponent,
     AddHelpAplicationComponent,
     HelpAplicationFormComponent,
-    DialogHelpAplicationComponent
+    DialogHelpAplicationComponent,
+    HelpMapMarkerComponent
   ],
   imports: [
     CommonModule,

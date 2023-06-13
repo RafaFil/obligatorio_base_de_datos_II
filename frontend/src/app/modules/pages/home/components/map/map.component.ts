@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { Map, Marker, NavigationControl } from 'maplibre-gl';
+import { HelpMapMarkerComponent } from '../help-map-marker/help-map-marker.component';
+import { HelpAplicationService } from 'src/app/modules/core/services/help-aplication.service';
 
 
 
@@ -16,11 +18,13 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy{
   @ViewChild('map')
   private mapContainer!: ElementRef<HTMLElement>;
 
+  @ViewChild('mapMarker') mapMarkerComponent!: HelpMapMarkerComponent;
+
   private currentMarkers: Marker[] = [];
 
   //@Input() markers: MapMarker[] = [];
   
-  constructor() { }
+  constructor(private helpAplicationService : HelpAplicationService) { }
 
   ngOnInit(): void {
   }
@@ -35,7 +39,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy{
     });
     this.map.addControl(new NavigationControl({}), 'top-right');
 
-    const marker = new Marker().setLngLat([-56.15,-34.88]).addTo(this.map);
+    
   }
 
   ngOnDestroy() {
@@ -44,6 +48,13 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy{
 
   loadMarkers() {
 
+    if (this.map) {
+
+      const marker = new Marker({
+        element: this.mapMarkerComponent.elementRef.nativeElement
+      }).setLngLat([-56.15,-34.88]).addTo(this.map);
+    }
+    
   }
 
 }

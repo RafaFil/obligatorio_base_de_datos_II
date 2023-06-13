@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { MapComponent } from '../../components/map/map.component';
+import { Marker } from 'maplibre-gl';
 
 @Component({
   selector: 'app-home-page',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePageComponent implements OnInit {
 
+  @ViewChild('map') map!: MapComponent;
+
   constructor() { }
 
   ngOnInit(): void {
+
+  }
+
+  loadMarkersIntoMap(value : any) {
+    
+    this.map.loadMarkers();
   }
 
 }
