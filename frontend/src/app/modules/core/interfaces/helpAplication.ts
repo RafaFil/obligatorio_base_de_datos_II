@@ -6,4 +6,6 @@ export interface HelpAplication {
     street?: string,
     corner?: string,
     userDO: string
+    lng?: number,
+    lat?: number
 }

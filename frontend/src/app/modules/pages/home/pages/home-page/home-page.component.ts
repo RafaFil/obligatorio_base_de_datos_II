@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MapComponent } from '../../components/map/map.component';
 import { Marker } from 'maplibre-gl';
+import { GeoCodeService } from 'src/app/modules/core/services/geo-code.service';
 
 @Component({
   selector: 'app-home-page',

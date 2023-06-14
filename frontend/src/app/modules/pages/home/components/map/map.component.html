@@ -1,4 +1,5 @@
 <div class="map-wrap">
     <div class="map" #map></div>
-    <app-help-map-marker #mapMarker></app-help-map-marker>
+    <app-help-map-marker #mapMarker
+    *ngFor = "let helpRequest of HelpRequestArr" [helpRequest]="helpRequest"></app-help-map-marker>
 </div>

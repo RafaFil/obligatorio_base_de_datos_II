@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { Map, Marker, NavigationControl } from 'maplibre-gl';
 import { HelpMapMarkerComponent } from '../help-map-marker/help-map-marker.component';
 import { HelpAplicationService } from 'src/app/modules/core/services/help-aplication.service';
+import { HelpAplication } from 'src/app/modules/core/interfaces/helpAplication';
 
 
 
@@ -18,19 +19,20 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy{
   @ViewChild('map')
   private mapContainer!: ElementRef<HTMLElement>;
 
-  @ViewChild('mapMarker') mapMarkerComponent!: HelpMapMarkerComponent;
+  @ViewChildren('mapMarker') mapMarkerComponents!: QueryList<HelpMapMarkerComponent>;
 
   private currentMarkers: Marker[] = [];
 
-  //@Input() markers: MapMarker[] = [];
+  public HelpRequestArr : HelpAplication[] = []
   
   constructor(private helpAplicationService : HelpAplicationService) { }
 
   ngOnInit(): void {
+    this.HelpRequestArr = this.helpAplicationService.getAllAplications();
   }
 
   ngAfterViewInit() {
-    const initialState = { lng: -56.157485609445175 , lat: -34.88791314870603 , zoom: 16 };
+    const initialState = { lng: -56.157485609445175 , lat: -34.88791314870603 , zoom: 15 };
     this.map = new Map({
       container: this.mapContainer.nativeElement,
       style: `https://api.maptiler.com/maps/streets-v2/style.json?key=8ApfxTeaKPn9kJ9l7F7V`,
@@ -39,7 +41,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy{
     });
     this.map.addControl(new NavigationControl({}), 'top-right');
 
-    
+    this.loadMarkers();
+
   }
 
   ngOnDestroy() {
@@ -49,12 +52,43 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy{
   loadMarkers() {
 
     if (this.map) {
+      this.map.repaint = false;
+    }
 
-      const marker = new Marker({
-        element: this.mapMarkerComponent.elementRef.nativeElement
-      }).setLngLat([-56.15,-34.88]).addTo(this.map);
+    /*for (let index = 0; index < this.HelpRequestArr.length; index++) {
+
+      const lat = this.HelpRequestArr[index].lat;
+      const lng = this.HelpRequestArr[index].lng;
+      
+      if ( lat &&  lng && this.map) {
+
+        const marker = new Marker({
+          element: this.mapMarkerComponent[index].elementRef.nativeElement
+        })
+        .setLngLat([lng, lat])
+        .addTo(this.map)
+      }
+    }*/
+
+    this.mapMarkerComponents.forEach((mapMarkerComponent, index) => {
+      console.log(index)
+      const lat = this.HelpRequestArr[index].lat;
+      const lng = this.HelpRequestArr[index].lng;
+
+      if (lat && lng && this.map) {
+        const marker = new Marker({
+          element: mapMarkerComponent.elementRef.nativeElement
+        })
+          .setLngLat([lng, lat])
+          .addTo(this.map);
+      }
+    });
+
+      if (this.map) {
+        this.map.repaint = true;
+        this.map.triggerRepaint();
+      }
+
     }
     
-  }
-
 }

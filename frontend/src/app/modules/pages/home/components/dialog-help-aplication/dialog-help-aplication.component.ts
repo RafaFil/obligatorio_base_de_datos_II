@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { HelpAplicationFormComponent } from '../help-aplication-form/help-aplication-form.component';
 import { HelpAplication } from 'src/app/modules/core/interfaces/helpAplication';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { GeoCodeService } from 'src/app/modules/core/services/geo-code.service';
 
 @Component({
   selector: 'app-dialog-help-aplication',
@@ -12,7 +13,8 @@ export class DialogHelpAplicationComponent implements OnInit {
 
   @ViewChild('helpAppForm') helpAplicationForm!: HelpAplicationFormComponent;
 
-  constructor(private dialog : MatDialogRef<HelpAplicationFormComponent>) { }
+  constructor(private dialog : MatDialogRef<HelpAplicationFormComponent>,
+              private geocode : GeoCodeService) { }
 
   ngOnInit(): void {
   }
@@ -38,6 +40,17 @@ export class DialogHelpAplicationComponent implements OnInit {
         description : description,
         userDO : "a" //Sacarlo del local storage
       };
+
+      //const adress = `Montevideo, Uruguay, ${street}, ${corner}`;
+      //1600 Amphitheatre Parkway, Mountain View, CA
+      //cambiar a 
+      const adress = "2738 8 de octubre, Montevideo, Uruguay"
+
+      this.geocode.getCordinatesFromLocation(adress).subscribe(
+        res => {
+          console.log(res);
+        }
+      );
       
       this.dialog.close(helpAplication);
     }

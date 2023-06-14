@@ -11,6 +11,8 @@ import { HelpAplicationFormComponent } from './components/help-aplication-form/h
 import { DialogHelpAplicationComponent } from './components/dialog-help-aplication/dialog-help-aplication.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HelpMapMarkerComponent } from './components/help-map-marker/help-map-marker.component';
+import { DialogHelpRequestInfoComponent } from './components/dialog-help-request-info/dialog-help-request-info.component';
+
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { HelpMapMarkerComponent } from './components/help-map-marker/help-map-ma
     AddHelpAplicationComponent,
     HelpAplicationFormComponent,
     DialogHelpAplicationComponent,
-    HelpMapMarkerComponent
+    HelpMapMarkerComponent,
+    DialogHelpRequestInfoComponent,
   ],
   imports: [
     CommonModule,
