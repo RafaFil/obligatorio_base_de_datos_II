@@ -11,7 +11,7 @@ postulationsRouter.get(`${BASE_ROUTE}/request/:requestId`, async (req, res) => {
     return getRequestPostulations(req, res);
 });
 
-postulationsRouter.get(`${BASE_ROUTE}/:id`, async (req, res) => {
+postulationsRouter.get(`${BASE_ROUTE}/request/:requestId/:helperId`, async (req, res) => {
     return getFullPostulationtById(req, res)
 });
 

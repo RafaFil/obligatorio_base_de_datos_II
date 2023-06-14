@@ -31,7 +31,7 @@ const getRequestPostulations = async (req, res) => {
 }
 
 const getFullPostulationtById = async (req, res) => {
-    getFullPostulationtByIdService(req.params['id'], req.username).then( postulation => {
+    getFullPostulationtByIdService(req.params['helperId'], req.params['requestId']).then( postulation => {
         if(postulation.success){
             return res.status(200).json({
                 success: true,
