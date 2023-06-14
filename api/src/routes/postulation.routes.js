@@ -4,27 +4,28 @@ const { validateJWT } = require('../middlewares/validateJWT.middleware');
 const { getRequestPostulations, getFullPostulationtById, deletePostulationById, applyToRequest } = require('../controllers/postulation.controller')
 
 const BASE_ROUTE = '/postulations'
-const userRouter = Router();
+const postulationsRouter = Router();
+postulationsRouter.use(BASE_ROUTE, validateJWT)
 
-userRouter.get(BASE_ROUTE + "/:requestId", validateJWT, async (req, res) => {
+postulationsRouter.get(`${BASE_ROUTE}/request/:requestId`, async (req, res) => {
     return getRequestPostulations(req, res);
 });
 
-userRouter.get(`${BASE_ROUTE}/:id`, validateJWT, async (req, res) => {
+postulationsRouter.get(`${BASE_ROUTE}/:id`, async (req, res) => {
     return getFullPostulationtById(req, res)
 });
 
-userRouter.delete(`${BASE_ROUTE}/:id`, validateJWT, async (req, res) => {
+postulationsRouter.delete(`${BASE_ROUTE}/:id`, async (req, res) => {
     return deletePostulationById(req, res)
 });
 
-userRouter.post(`${BASE_ROUTE}/apply`, validateBody, validateJWT, async (req, res) => {
+postulationsRouter.post(`${BASE_ROUTE}/apply`, validateBody, async (req, res) => {
     return applyToRequest(req,res);
 });
 
 
 
-module.exports = userRouter;
+module.exports = postulationsRouter;
 
 
 

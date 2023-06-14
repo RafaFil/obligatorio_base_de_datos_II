@@ -3,16 +3,15 @@ const { dataResult, usedPKCode } = require("./data.repository")
 
 
 const getSolicitantRequestHelper = async function (userId, requestId) {
-    return (pool.query
-        //crear view?
-        ("SELECT p.ayudante_ci AS helperId, p.solicitud_id AS requestId, s.solicitante_ci AS solicitantId" +
-        "FROM postulaciones p INNER JOIN solicitudes_ayuda s on p.solicitud_id = s.id " +
-        "WHERE (p.ayudante_ci = $1 OR s.solicitante_ci = $1) AND s.id = $2;"
-        [userId, requestId])).then(res => {
+    return pool.query
+        (`SELECT p.ayudante_ci AS helperId, p.solicitud_id AS requestId, s.solicitante_ci AS solicitantId
+        FROM postulaciones p INNER JOIN solicitudes_ayuda s on p.solicitud_id = s.id 
+        WHERE (p.ayudante_ci = $1 OR s.solicitante_ci = $1 ) AND s.id = $2;`,
+        [userId, requestId]).then(res => {
         if (res.rows.length > 0) {
             return new dataResult(true, res.rows)
         } else {
-            return new dataResult(false, null, 404, "No postulation found")
+            return new dataResult(true, null, 204, "No postulation found")
         }
     }).catch(err => {
         return new dataResult(false, null, err.code, err.message)
@@ -62,10 +61,10 @@ const createPostulation = async function (postulation) {
         })
 }
 
-const deletePostulation = async function (id) {
+const deletePostulation = async function (requestId, userId) {
     return (pool.query("DELETE FROM postulaciones p" +
-        "WHERE p.id = $1 RETURNING " + allParsed + ";",
-        [id]))
+        "WHERE p.ayudante_ci = $1 AND p.solicitud_id = $2 RETURNING " + allParsed + ";",
+        [userId, requestId]))
         .then(res => {
             if (res.rows.length > 0) {
                 return new dataResult(true, res.rows[0])
@@ -81,10 +80,11 @@ const deletePostulation = async function (id) {
 }
 
 // formatea un " * "
-const allParsed = "id, ayudante_ci AS userId, solicitud_id AS requestId, fecha AS dateOfPostulation, fue_aceptada AS wasAccepted "
+const allParsed = "ayudante_ci AS userId, solicitud_id AS requestId, fecha AS dateOfPostulation, fue_aceptada AS wasAccepted "
 module.exports = {
     getSolicitantRequestHelper,
     getPostulation,
     getPostulationsOfRequest,
-    createPostulation
+    createPostulation,
+    deletePostulation
 }

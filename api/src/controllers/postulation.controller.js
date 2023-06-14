@@ -3,7 +3,6 @@ const { getRequestPostulationsService, getFullPostulationtByIdService, deletePos
 
 const getRequestPostulations = async (req, res) => {
 
-
     getRequestPostulationsService(req.params['requestId'], req.username,).then( postulations => {
         if(postulations.success && postulations.data){
             return res.status(200).json({
@@ -32,7 +31,7 @@ const getRequestPostulations = async (req, res) => {
 }
 
 const getFullPostulationtById = async (req, res) => {
-    getFullPostulationtByIdService(req.params['id']).then( postulation => {
+    getFullPostulationtByIdService(req.params['id'], req.username).then( postulation => {
         if(postulation.success){
             return res.status(200).json({
                 success: true,
@@ -55,7 +54,7 @@ const getFullPostulationtById = async (req, res) => {
 }
 
 const deletePostulationById = async (req, res) => {
-    deletePostulationByIdService(req.params['id']).then( postulation => {
+    deletePostulationByIdService(req.params['id'], req.username).then( postulation => {
         if(postulation.success){
             return res.status(200).json({
                 success: true,
@@ -88,19 +87,19 @@ const applyToRequest = async ( req , res) => {
         });
     }
 
-    const postulation = new Postulation();
+    const postulation = new Postulation(req.username, requestId);
 
-    applyToRequestService(postulation).then ( user => {
+    applyToRequestService(postulation).then ( result => {
 
-        if (!user.success) {
+        if (!result.success) {
             return res.status(400).json({
                 success: false,
-                message: user.message
+                message: result.message
             });
         }
         return res.status(200).json({
             success: true,
-            data: user.data
+            data: result.data
         });
     })
     .catch( err => {

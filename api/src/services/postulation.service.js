@@ -4,21 +4,25 @@ const { getSolicitantRequestHelper, getPostulationsOfRequest } = require("../rep
 
 
 const checkIfAuthorOrSolicitant = async(userId, requestId) => {
-    return await getSolicitantRequestHelper(userId, requestId)
+    return getSolicitantRequestHelper(userId, requestId).then(result => {
+        return result.success
+    })
 }
 const getRequestPostulationsService = async(requestId, solicitantId) => {
-    if ((await checkIfAuthorOrSolicitant(solicitantId, requestId)).success){
+
+    let permitted = await (checkIfAuthorOrSolicitant(solicitantId, requestId))
+    if(permitted){
         return await getPostulationsOfRequest(requestId)
     }
     return new dataResult(false,null,403,"No permission")
 }
-const getFullPostulationtByIdService = async(postulationId) => {
+const getFullPostulationtByIdService = async(userId, requestId) => {
     
 }
-const deletePostulationByIdService = async(postulationId) => {
+const deletePostulationByIdService = async(userId, requestId) => {
     
 }
-const applyToRequestService = async(requestId) => {
+const applyToRequestService = async(postulation) => {
     
 }
 
