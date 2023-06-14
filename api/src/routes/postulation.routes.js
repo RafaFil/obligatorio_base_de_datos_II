@@ -15,7 +15,7 @@ postulationsRouter.get(`${BASE_ROUTE}/request/:requestId/:helperId`, async (req,
     return getFullPostulationtById(req, res)
 });
 
-postulationsRouter.delete(`${BASE_ROUTE}/:id`, async (req, res) => {
+postulationsRouter.delete(`${BASE_ROUTE}/request/:requestId/:helperId`, async (req, res) => {
     return deletePostulationById(req, res)
 });
 

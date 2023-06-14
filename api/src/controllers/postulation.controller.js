@@ -54,7 +54,7 @@ const getFullPostulationtById = async (req, res) => {
 }
 
 const deletePostulationById = async (req, res) => {
-    deletePostulationByIdService(req.params['id'], req.username).then( postulation => {
+    deletePostulationByIdService(req.params['helperId'],req.params['requestId'], req.username).then( postulation => {
         if(postulation.success){
             return res.status(200).json({
                 success: true,
