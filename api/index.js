@@ -14,6 +14,7 @@ const bcrypt = require('bcrypt')
 
 // Routers
 const userRouter = require("./src/routes/user.routes")
+const postulationsRouter = require("./src/routes/postulation.routes")
 
 
 const BASE_ROUTE = "/api/v1";
@@ -34,11 +35,14 @@ app.use(cors());
 // adding morgan to log HTTP requests
 app.use(morgan('combined'));
 
+const { validateJWT } = require("./src/middlewares/validateJWT.middleware")
+const { validateBody } = require("./src/middlewares/validateBody.middleware")
+
 // public routes
 app.use(BASE_ROUTE, userRouter)
 
 // protected routes
-
+app.use(BASE_ROUTE, postulationsRouter)
 
 // run server
 app.listen(3000, () => {
