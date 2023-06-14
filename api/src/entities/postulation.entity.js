@@ -9,8 +9,6 @@ class Postulation{
         this.requestId = requestId;
         this.wasAccepted = wasAccepted;
         this.dateOfPostulation = dateOfPostulation;
-
-        console.log(this)
     }
 
     acceptPostulation(){
