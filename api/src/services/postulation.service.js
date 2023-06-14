@@ -1,6 +1,5 @@
-const { Postulation } = require("../entities/postulation.entity")
 const { dataResult } = require("../repository/data.repository")
-const { getSolicitantRequestHelper, getPostulationsOfRequest, getPostulation } = require("../repository/postulation.repository")
+const { getSolicitantRequestHelper, getPostulationsOfRequest, getPostulation, createPostulation } = require("../repository/postulation.repository")
 
 
 const checkIfAuthorOrSolicitant = async(userId, requestId) => {
@@ -27,7 +26,7 @@ const deletePostulationByIdService = async(userId, requestId) => {
     
 }
 const applyToRequestService = async(postulation) => {
-    
+    return await createPostulation(postulation);
 }
 
 module.exports = {

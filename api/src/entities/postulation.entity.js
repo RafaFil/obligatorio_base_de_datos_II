@@ -2,13 +2,15 @@ class Postulation{
     constructor(
         userId,
         requestId,
-        dateOfPostulation = Date.now(),
+        dateOfPostulation = new Date(Date.now()),
         wasAccepted = false
     ){
         this.userId = userId;
         this.requestId = requestId;
         this.wasAccepted = wasAccepted;
         this.dateOfPostulation = dateOfPostulation;
+
+        console.log(this)
     }
 
     acceptPostulation(){
