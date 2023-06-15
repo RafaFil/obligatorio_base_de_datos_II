@@ -3,7 +3,7 @@ const { getRequestPostulationsService, getFullPostulationtByIdService, deletePos
 
 const getRequestPostulations = async (req, res) => {
 
-    getRequestPostulationsService(req.params['requestId'], req.username,).then( postulations => {
+    getRequestPostulationsService(req.params[ 'requestId' ], req.username,).then( postulations => {
         if(postulations.success && postulations.data){
             return res.status(200).json({
                 success: true,
@@ -31,7 +31,7 @@ const getRequestPostulations = async (req, res) => {
 }
 
 const getFullPostulationtById = async (req, res) => {
-    getFullPostulationtByIdService(req.params['helperId'], req.params['requestId']).then( postulation => {
+    getFullPostulationtByIdService(req.params[ 'helperId' ], req.params[ 'requestId' ]).then( postulation => {
         if(postulation.success){
             return res.status(200).json({
                 success: true,
@@ -54,7 +54,7 @@ const getFullPostulationtById = async (req, res) => {
 }
 
 const deletePostulationById = async (req, res) => {
-    deletePostulationByIdService(req.params['helperId'],req.params['requestId'], req.username).then( postulation => {
+    deletePostulationByIdService(req.params[ 'helperId' ],req.params[ 'requestId' ], req.username).then( postulation => {
         if(postulation.success){
             return res.status(200).json({
                 success: true,
