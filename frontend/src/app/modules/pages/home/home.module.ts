@@ -6,9 +6,9 @@ import { MapComponent } from './components/map/map.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LandingRoutingModule } from '../landing/landing-routing.module';
 import { HomeRoutingModule } from './home-routing.module';
-import { AddHelpAplicationComponent } from './components/add-help-aplication/add-help-aplication.component';
-import { HelpAplicationFormComponent } from './components/help-aplication-form/help-aplication-form.component';
-import { DialogHelpAplicationComponent } from './components/dialog-help-aplication/dialog-help-aplication.component';
+import { AddHelpRequestComponent } from './components/add-help-request/add-help-request.component';
+import { HelpRequestFormComponent } from './components/help-request-form/help-request-form.component';
+import { DialogHelpRequestComponent } from './components/dialog-help-request/dialog-help-request.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HelpMapMarkerComponent } from './components/help-map-marker/help-map-marker.component';
 import { DialogHelpRequestInfoComponent } from './components/dialog-help-request-info/dialog-help-request-info.component';
@@ -18,9 +18,9 @@ import { DialogHelpRequestInfoComponent } from './components/dialog-help-request
   declarations: [
     MapComponent,
     HomePageComponent,
-    AddHelpAplicationComponent,
-    HelpAplicationFormComponent,
-    DialogHelpAplicationComponent,
+    AddHelpRequestComponent,
+    HelpRequestFormComponent,
+    DialogHelpRequestComponent,
     HelpMapMarkerComponent,
     DialogHelpRequestInfoComponent,
   ],

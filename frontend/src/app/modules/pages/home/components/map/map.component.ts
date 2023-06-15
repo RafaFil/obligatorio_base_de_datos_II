@@ -2,8 +2,8 @@ import { Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core
 import { ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { Map, Marker, NavigationControl } from 'maplibre-gl';
 import { HelpMapMarkerComponent } from '../help-map-marker/help-map-marker.component';
-import { HelpAplicationService } from 'src/app/modules/core/services/help-aplication.service';
-import { HelpAplication } from 'src/app/modules/core/interfaces/helpAplication';
+import { HelpRequestService } from 'src/app/modules/core/services/help-request.service';
+import { HelpRequest } from 'src/app/modules/core/interfaces/helpRequest';
 
 
 
@@ -23,9 +23,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy{
 
   private currentMarkers: Marker[] = [];
 
-  public HelpRequestArr : HelpAplication[] = []
+  public HelpRequestArr : HelpRequest[] = []
   
-  constructor(private helpAplicationService : HelpAplicationService) { }
+  constructor(private helpAplicationService : HelpRequestService) { }
 
   ngOnInit(): void {
     this.HelpRequestArr = this.helpAplicationService.getAllAplications();
