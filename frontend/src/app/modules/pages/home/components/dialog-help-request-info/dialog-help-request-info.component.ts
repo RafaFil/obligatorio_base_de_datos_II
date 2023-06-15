@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { HelpAplication } from 'src/app/modules/core/interfaces/helpAplication';
+import { HelpRequest } from 'src/app/modules/core/interfaces/helpRequest';
 
 @Component({
   selector: 'app-dialog-help-request-info',
@@ -10,7 +10,7 @@ import { HelpAplication } from 'src/app/modules/core/interfaces/helpAplication';
 export class DialogHelpRequestInfoComponent implements OnInit {
 
 
-  constructor(@Inject(MAT_DIALOG_DATA) public helpRequest: HelpAplication) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public helpRequest: HelpRequest) { }
 
   ngOnInit(): void {
   }

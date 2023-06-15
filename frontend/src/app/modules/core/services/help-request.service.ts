@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HelpAplication } from '../interfaces/helpAplication';
+import { HelpRequest } from '../interfaces/helpRequest';
 import { Marker } from 'maplibre-gl';
 import { helpRequestMock } from '../mocks/helpRequest.mock';
 
 @Injectable({
   providedIn: 'root'
 })
-export class HelpAplicationService {
+export class HelpRequestService {
 
-  helpRequestArr : HelpAplication[] = []
+  helpRequestArr : HelpRequest[] = []
 
   constructor() { }
 
@@ -24,7 +24,7 @@ export class HelpAplicationService {
 
   }
 
-  submitAplication(helpAplication : HelpAplication) {
+  submitAplication(helpAplication : HelpRequest) {
 
     this.helpRequestArr.push(helpAplication);
   }

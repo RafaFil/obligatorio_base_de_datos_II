@@ -1,8 +1,8 @@
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogHelpAplicationComponent } from '../dialog-help-aplication/dialog-help-aplication.component';
+import { DialogHelpRequestComponent } from '../dialog-help-request/dialog-help-request.component';
 import { DialogHelpRequestInfoComponent } from '../dialog-help-request-info/dialog-help-request-info.component';
-import { HelpAplication } from 'src/app/modules/core/interfaces/helpAplication';
+import { HelpRequest } from 'src/app/modules/core/interfaces/helpRequest';
 
 @Component({
   selector: 'app-help-map-marker',
@@ -12,7 +12,7 @@ import { HelpAplication } from 'src/app/modules/core/interfaces/helpAplication';
 export class HelpMapMarkerComponent implements OnInit {
 
   @Input() helpRequestId!: string;
-  @Input() helpRequest!: HelpAplication;
+  @Input() helpRequest!: HelpRequest;
 
   constructor(public elementRef: ElementRef,
               private dialog : MatDialog) { }

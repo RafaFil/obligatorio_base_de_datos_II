@@ -1,8 +1,8 @@
-import { HelpAplication } from "../interfaces/helpAplication";
+import { HelpRequest } from "../interfaces/helpRequest";
 
 export class helpRequestMock {
     
-    HelpRequestArr : HelpAplication[] = [
+    HelpRequestArr : HelpRequest[] = [
         {   title: "Ayuda 1",
             description: "Descripcion 1",
             street: "8 octubre",
