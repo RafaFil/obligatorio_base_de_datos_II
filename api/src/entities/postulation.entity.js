@@ -1,16 +1,14 @@
 class Postulation{
     constructor(
-        id,
         userId,
         requestId,
-        dateOfPostulation,
+        dateOfPostulation = new Date(Date.now()),
         wasAccepted = false
     ){
-        this.id = id;
         this.userId = userId;
         this.requestId = requestId;
-        this.dateOfPostulation = dateOfPostulation;
         this.wasAccepted = wasAccepted;
+        this.dateOfPostulation = dateOfPostulation;
     }
 
     acceptPostulation(){
@@ -19,4 +17,8 @@ class Postulation{
     cancelPostulation(){
         this.wasAccepted = false;
     }
+}
+
+module.exports = {
+    Postulation
 }

@@ -90,11 +90,11 @@ CREATE TABLE IF NOT EXISTS calificaciones(
 );
 
 CREATE TABLE IF NOT EXISTS 	postulaciones(
-	id SERIAL PRIMARY KEY,
 	ayudante_ci VARCHAR(8) NOT NULL REFERENCES usuarios(ci) ON DELETE CASCADE,
 	solicitud_id SERIAL NOT NULL REFERENCES solicitudes_ayuda(id) ON DELETE CASCADE,
 	fecha DATE NOT NULL,
-	fue_aceptada BOOLEAN NOT NULL
+	fue_aceptada BOOLEAN NOT NULL,
+	PRIMARY KEY (ayudante_ci, solicitud_id)
 );
 
 CREATE TABLE IF NOT EXISTS 	mensajes(
