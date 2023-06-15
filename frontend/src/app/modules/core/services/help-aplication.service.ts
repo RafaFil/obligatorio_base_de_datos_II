@@ -26,9 +26,7 @@ export class HelpAplicationService {
 
   submitAplication(helpAplication : HelpAplication) {
 
-    const marker = new Marker({}).setLngLat([-56.15,-34.88]);
-
-    //return this.helpAplicationArr.push(marker);
+    this.helpRequestArr.push(helpAplication);
   }
 
   

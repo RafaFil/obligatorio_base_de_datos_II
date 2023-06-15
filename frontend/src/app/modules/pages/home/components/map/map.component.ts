@@ -55,23 +55,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy{
       this.map.repaint = false;
     }
 
-    /*for (let index = 0; index < this.HelpRequestArr.length; index++) {
-
-      const lat = this.HelpRequestArr[index].lat;
-      const lng = this.HelpRequestArr[index].lng;
-      
-      if ( lat &&  lng && this.map) {
-
-        const marker = new Marker({
-          element: this.mapMarkerComponent[index].elementRef.nativeElement
-        })
-        .setLngLat([lng, lat])
-        .addTo(this.map)
-      }
-    }*/
-
     this.mapMarkerComponents.forEach((mapMarkerComponent, index) => {
-      console.log(index)
+
+
       const lat = this.HelpRequestArr[index].lat;
       const lng = this.HelpRequestArr[index].lng;
 
@@ -79,15 +65,15 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy{
         const marker = new Marker({
           element: mapMarkerComponent.elementRef.nativeElement
         })
-          .setLngLat([lng, lat])
-          .addTo(this.map);
+        .setLngLat([lng, lat])
+        .addTo(this.map);
       }
     });
 
-      if (this.map) {
-        this.map.repaint = true;
-        this.map.triggerRepaint();
-      }
+    if (this.map) {
+      this.map.repaint = true;
+      this.map.triggerRepaint();
+    }
 
     }
     

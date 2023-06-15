@@ -3,6 +3,7 @@ import { HelpAplicationFormComponent } from '../help-aplication-form/help-aplica
 import { HelpAplication } from 'src/app/modules/core/interfaces/helpAplication';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { GeoCodeService } from 'src/app/modules/core/services/geo-code.service';
+import { HelpAplicationService } from 'src/app/modules/core/services/help-aplication.service';
 
 @Component({
   selector: 'app-dialog-help-aplication',
@@ -14,7 +15,8 @@ export class DialogHelpAplicationComponent implements OnInit {
   @ViewChild('helpAppForm') helpAplicationForm!: HelpAplicationFormComponent;
 
   constructor(private dialog : MatDialogRef<HelpAplicationFormComponent>,
-              private geocode : GeoCodeService) { }
+              private geocode : GeoCodeService,
+              private helpRequestService : HelpAplicationService) { }
 
   ngOnInit(): void {
   }
@@ -41,18 +43,32 @@ export class DialogHelpAplicationComponent implements OnInit {
         userDO : "a" //Sacarlo del local storage
       };
 
-      //const adress = `Montevideo, Uruguay, ${street}, ${corner}`;
-      //1600 Amphitheatre Parkway, Mountain View, CA
-      //cambiar a 
-      const adress = "2738 8 de octubre, Montevideo, Uruguay"
+      const adress = `${corner} ${street}, Montevideo, Uruguay`
 
       this.geocode.getCordinatesFromLocation(adress).subscribe(
-        res => {
-          console.log(res);
-        }
-      );
+
+        (res : any) => {
+
+          const results = res.results;
+          if (results && results.length > 0) {
+            const formattedAddress = results[0].geometry;
+            
+            helpAplication.lat = formattedAddress["lat"];
+            helpAplication.lng = formattedAddress["lng"];
+
+            console.log(helpAplication);
+
+            this.helpRequestService.submitAplication(helpAplication);
+            this.dialog.close(helpAplication);
+
+          } else {
+            
+            console.log('No se encontró una dirección para las coordenadas proporcionadas.');
+            this.dialog.close(helpAplication);
+          }
+        });
       
-      this.dialog.close(helpAplication);
+      
     }
   }
 
