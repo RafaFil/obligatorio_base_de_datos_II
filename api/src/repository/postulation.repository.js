@@ -1,6 +1,8 @@
 const { pool } = require("../connection/db.conn")
 const { dataResult, usedPKCode } = require("./data.repository")
 
+// formatea un " * "
+const ALLPARSED = "ayudante_ci AS userId, solicitud_id AS requestId, fecha AS dateOfPostulation, fue_aceptada AS wasAccepted "
 
 const getSolicitantRequestHelper = async function (userId, requestId) {
     return pool.query
@@ -19,7 +21,7 @@ const getSolicitantRequestHelper = async function (userId, requestId) {
 }
 
 const getPostulationsOfRequest = async function (requestId) {
-    return (pool.query(`SELECT ${allParsed} FROM postulaciones p WHERE p.solicitud_id = $1 ;`, [requestId])).then(res => {
+    return (pool.query(`SELECT ${ALLPARSED} FROM postulaciones p WHERE p.solicitud_id = $1 ;`, [requestId])).then(res => {
         if (res.rows.length > 0) {
             return new dataResult(true, res.rows)
         } else {
@@ -31,7 +33,7 @@ const getPostulationsOfRequest = async function (requestId) {
 }
 
 const getPostulation = async function (helperId, requestId) {
-    return (pool.query(`SELECT ${allParsed} FROM postulaciones p 
+    return (pool.query(`SELECT ${ALLPARSED} FROM postulaciones p 
     WHERE p.solicitud_id = $1 AND p.ayudante_ci = $2;`, [requestId, helperId])).then(res => {
         if (res.rows.length > 0) {
             return new dataResult(true, res.rows[0])
@@ -45,7 +47,7 @@ const getPostulation = async function (helperId, requestId) {
 
 const createPostulation = async function (postulation) {
     return (pool.query(`INSERT INTO postulaciones(ayudante_ci, solicitud_id, fecha, fue_aceptada)
-        VALUES($1, $2, $3, $4)  RETURNING ${allParsed};`,
+        VALUES($1, $2, $3, $4)  RETURNING ${ALLPARSED};`,
         [postulation.userId, postulation.requestId, postulation.dateOfPostulation, postulation.wasAccepted ]))
         .then(res => {
             if (res.rows.length > 0) {
@@ -63,7 +65,7 @@ const createPostulation = async function (postulation) {
 
 const deletePostulation = async function (userId, requestId) {
     return (pool.query(`DELETE FROM postulaciones p 
-        WHERE p.ayudante_ci = $1 AND p.solicitud_id = $2 RETURNING ${allParsed} ;`,
+        WHERE p.ayudante_ci = $1 AND p.solicitud_id = $2 RETURNING ${ALLPARSED} ;`,
         [userId, requestId]))
         .then(res => {
             if (res.rows.length > 0) {
@@ -79,8 +81,6 @@ const deletePostulation = async function (userId, requestId) {
         })
 }
 
-// formatea un " * "
-const allParsed = "ayudante_ci AS userId, solicitud_id AS requestId, fecha AS dateOfPostulation, fue_aceptada AS wasAccepted "
 module.exports = {
     getSolicitantRequestHelper,
     getPostulation,
