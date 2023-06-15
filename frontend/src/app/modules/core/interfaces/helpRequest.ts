@@ -1,4 +1,4 @@
-export interface HelpAplication {
+export interface HelpRequest {
     title: string,
     description: string,
     ability?: string,
