@@ -1,22 +1,22 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { HelpAplicationFormComponent } from '../help-aplication-form/help-aplication-form.component';
-import { HelpAplication } from 'src/app/modules/core/interfaces/helpAplication';
+import { HelpRequestFormComponent } from '../help-request-form/help-request-form.component';
+import { HelpRequest } from 'src/app/modules/core/interfaces/helpRequest';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { GeoCodeService } from 'src/app/modules/core/services/geo-code.service';
-import { HelpAplicationService } from 'src/app/modules/core/services/help-aplication.service';
+import { HelpRequestService } from 'src/app/modules/core/services/help-request.service';
 
 @Component({
-  selector: 'app-dialog-help-aplication',
-  templateUrl: './dialog-help-aplication.component.html',
-  styleUrls: ['./dialog-help-aplication.component.scss']
+  selector: 'app-dialog-help-request',
+  templateUrl: './dialog-help-request.component.html',
+  styleUrls: ['./dialog-help-request.component.scss']
 })
-export class DialogHelpAplicationComponent implements OnInit {
+export class DialogHelpRequestComponent implements OnInit {
 
-  @ViewChild('helpAppForm') helpAplicationForm!: HelpAplicationFormComponent;
+  @ViewChild('helpAppForm') helpAplicationForm!: HelpRequestFormComponent;
 
-  constructor(private dialog : MatDialogRef<HelpAplicationFormComponent>,
+  constructor(private dialog : MatDialogRef<HelpRequestFormComponent>,
               private geocode : GeoCodeService,
-              private helpRequestService : HelpAplicationService) { }
+              private helpRequestService : HelpRequestService) { }
 
   ngOnInit(): void {
   }
@@ -37,7 +37,7 @@ export class DialogHelpAplicationComponent implements OnInit {
 
     else {
 
-      const helpAplication : HelpAplication = {
+      const helpAplication : HelpRequest = {
         title : title,
         description : description,
         userDO : "a" //Sacarlo del local storage
