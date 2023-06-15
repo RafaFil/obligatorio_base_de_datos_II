@@ -5,11 +5,11 @@ import { Ability } from 'src/app/modules/core/interfaces/ability';
 import { AbilityService } from 'src/app/modules/core/services/ability.service';
 
 @Component({
-  selector: 'app-help-aplication-form',
-  templateUrl: './help-aplication-form.component.html',
-  styleUrls: ['./help-aplication-form.component.scss']
+  selector: 'app-help-request-form',
+  templateUrl: './help-request-form.component.html',
+  styleUrls: ['./help-request-form.component.scss']
 })
-export class HelpAplicationFormComponent implements OnInit {
+export class HelpRequestFormComponent implements OnInit {
 
   abilitiesArr : Ability[] = [
     {
