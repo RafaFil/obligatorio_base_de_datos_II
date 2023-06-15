@@ -15,7 +15,7 @@ const bcrypt = require('bcrypt')
 // Routers
 const userRouter = require("./src/routes/user.routes")
 const postulationsRouter = require("./src/routes/postulation.routes")
-
+const requestRouter = require("./src/routes/request.routes")
 
 const BASE_ROUTE = "/api/v1";
 
@@ -43,6 +43,7 @@ app.use(BASE_ROUTE, userRouter)
 
 // protected routes
 app.use(BASE_ROUTE, postulationsRouter)
+app.use(BASE_ROUTE, requestRouter)
 
 // run server
 app.listen(3000, () => {

@@ -52,7 +52,7 @@ class helpRequestData{
         }
 
     //for previews, reduced request
-    constructor(
+    /*constructor(
         id, 
         title, 
         dateOfPublishing, 
@@ -62,7 +62,7 @@ class helpRequestData{
             this.title = title;
             this.dateOfPublishing = dateOfPublishing;
             this.isActive = isActive;
-        }
+        }*/
     }
 
 module.exports = {
