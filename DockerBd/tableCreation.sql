@@ -25,8 +25,7 @@ CREATE TABLE  IF NOT EXISTS usuarios (
 	ci VARCHAR(8) PRIMARY KEY,
 	nombre VARCHAR(50) NOT NULL,
 	apellido VARCHAR(50) NOT NULL,
-	hashpwd VARCHAR(255) NOT NULL,
-	dispuesto_ayudar BOOLEAN NOT NULL,
+	hashpwd CHAR(60) NOT NULL,
 	confirmada_identidad BOOLEAN NOT NULL,
 	carta_presentacion VARCHAR(150)
 );
@@ -54,17 +53,11 @@ CREATE TABLE IF NOT EXISTS habilidades_usuarios(
 	nivel SMALLINT NOT NULL CHECK (nivel < 6 AND nivel > 0)
 );
 
-CREATE TABLE IF NOT EXISTS ubicaciones(
-	id SERIAL PRIMARY KEY,
-	nombre VARCHAR(100) NOT NULL,
-	latitud FLOAT NOT NULL,
-	longitud FLOAT NOT NULL
-);
-
 CREATE TABLE IF NOT EXISTS solicitudes_ayuda(
 	id SERIAL PRIMARY KEY,
 	habilidad_requerida SERIAL NOT NULL REFERENCES habilidades(id),
-	ubicacion_id SERIAL NOT NULL REFERENCES ubicaciones(id),
+	latitud FLOAT NOT NULL,
+	longitud FLOAT NOT NULL,
 	solicitante_ci VARCHAR(8) REFERENCES usuarios(ci) ON DELETE CASCADE,
 	nivel_requerido SMALLINT NOT NULL CHECK (nivel_requerido < 6 AND nivel_requerido > 0),
 	esta_activa BOOLEAN NOT NULL,
@@ -103,6 +96,23 @@ CREATE TABLE IF NOT EXISTS 	mensajes(
 	texto VARCHAR(100) NOT NULL,
 	fecha_hora_enviado TIMESTAMP NOT NULL
 );
+
+
+-- TRIGGERS --
+
+CREATE FUNCTION check_not_friends()
+  RETURNS trigger AS
+$func$
+BEGIN
+   IF EXISTS (SELECT * FROM amistades a WHERE a.usuario2_ci = NEW.usuario1_ci AND a.usuario1_ci = NEW.usuario2_ci) THEN
+    RAISE EXCEPTION 'Estas personas ya son amigas.';
+   END IF;
+   RETURN NEW;
+END
+$func$  LANGUAGE plpgsql;
+
+CREATE OR REPLACE TRIGGER ya_son_amigos BEFORE INSERT ON amistades
+FOR EACH ROW EXECUTE PROCEDURE check_not_friends();
 
 
 -- CLIENT USER --
