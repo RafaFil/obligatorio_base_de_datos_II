@@ -1,0 +1,23 @@
+<mat-toolbar color="primary">
+    <button mat-icon-button class="example-icon" 
+    aria-label="Example icon-button with menu icon"
+    matTooltip="Ver todas las solicitudes disponibles">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span>SuppBuddy</span>
+    <span class="example-spacer"></span>
+
+    <button mat-icon-button class="sb-profile-router-btn" 
+    aria-label="Example icon-button with heart icon"
+    matTooltip="Ir al perfil"
+    (click)="goToUserProfile()">
+        <mat-icon>person</mat-icon>
+    </button>
+
+    <button mat-icon-button class="sb-logout-btn" 
+    aria-label="Example icon-button with share icon"
+    matTooltip="Cerrar sesion"
+    (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+    </button>
+</mat-toolbar>

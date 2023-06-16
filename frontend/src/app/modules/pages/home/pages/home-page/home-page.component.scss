@@ -1,13 +1,14 @@
-/*.sb-home-cont {
-    position: relative;
-}
-
-.sb-add-help {
-    display: inline-block;
-    position: absolute;
-    z-index: 1;
-}
-
-.sb-map {
-    display: inline-block;
+/*.sb-home-wrapper {
+    height: 100%;
 }*/
+
+.sb-home-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; 
+  }
+  
+.sb-map {
+    flex: 1; 
+}
+
