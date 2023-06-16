@@ -1,0 +1,32 @@
+<app-toolbar></app-toolbar>
+<h1 class="mt-3">Nombre del usuario</h1>
+<p>Un poco de info del usuario</p>
+
+<mat-tab-group mat-align-tabs="center" dynamicHeight>
+
+    <mat-tab label="solicitudes"> 
+        Content 1 
+    </mat-tab>
+
+    <mat-tab label="postulaciones"> 
+        Content 2 
+    </mat-tab>
+
+    <mat-tab label="habilidades"> 
+
+        <div class="sb-habilidades-tab container">
+
+            <app-ability-card *ngFor="let skill of skillsArr" 
+            [skill] = "skill"></app-ability-card>
+
+            <div class="sb-add-skill">
+                <button mat-raised-button color="warn" class="mt-5 mb-3" (click)="openAddSkillDialog()">
+                    <mat-icon>add</mat-icon>
+                    Añadir Habilidad
+                </button>
+            </div>
+
+        </div>
+    </mat-tab>
+
+</mat-tab-group>

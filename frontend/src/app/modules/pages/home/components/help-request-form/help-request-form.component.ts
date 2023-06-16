@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatChip } from '@angular/material/chips';
 import { Ability } from 'src/app/modules/core/interfaces/ability';
-import { AbilityService } from 'src/app/modules/core/services/ability.service';
+import { SkillService } from 'src/app/modules/core/services/skill.service';
 
 @Component({
   selector: 'app-help-request-form',
@@ -30,7 +30,7 @@ export class HelpRequestFormComponent implements OnInit {
     "Maestro"
   ]
 
-  constructor(private abilityService : AbilityService,
+  constructor(private skillService : SkillService,
               private formBuilder : FormBuilder) { }
 
   ngOnInit(): void {
@@ -47,10 +47,10 @@ export class HelpRequestFormComponent implements OnInit {
 
   getAllAbility () {
 
-    this.abilityService.getAllAbility()
-    .subscribe ( abilities => {
-      if (abilities.success) {
-        console.log(abilities.data);
+    this.skillService.getAllAbility()
+    .subscribe ( skill => {
+      if (skill.success) {
+        console.log(skill.data);
       }
     });
   }

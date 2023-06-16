@@ -1,4 +1,5 @@
 export interface Ability {
     name : string,
-    description : string
+    description?: string,
+    level?: string
 }

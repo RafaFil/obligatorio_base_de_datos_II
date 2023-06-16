@@ -1,0 +1,27 @@
+<mat-card class="sb-skill-card mt-3">
+
+    <mat-card-header>
+        <mat-card-title>{{skill.name}}</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+        <p>Nivel de habilidad</p>
+        <mat-form-field appearance="outline">
+            <mat-select disabled="{{!isOnEdit}}" placeholder="{{skill.level}}" [(ngModel)]="selectedLevel">
+                <mat-option *ngFor="let level of abilityLevel" [value]="level">
+                    {{level}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-divider></mat-divider>
+    </mat-card-content>
+
+    <mat-card-actions>
+        <button mat-raised-button color="primary" *ngIf="!isOnEdit"
+        (click)="changeLevel()">Cambiar nivel</button>
+
+        <button mat-raised-button color="warn" *ngIf="isOnEdit" 
+        (click)="confirmChangeLevel()">Guardar cambios</button>
+    </mat-card-actions>
+
+</mat-card>

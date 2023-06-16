@@ -9,11 +9,28 @@ const apiURL = "http://localhost:3000/api/v1"
 @Injectable({
   providedIn: 'root'
 })
-export class AbilityService {
+export class SkillService {
 
   constructor(private http : HttpClient) { }
 
   getAllAbility () : Observable<apiMessage<Ability[]>> {
     return this.http.get<apiMessage<Ability[]>>(`${apiURL}/ability`);
+  }
+
+  updateAbilityLevel( level : string ) {
+
+  }
+
+  addHability() {
+
+  }
+
+  getSkillLevel() {
+    return  [
+      "Principiante",
+      "Medio",
+      "Alto",
+      "Maestro"
+    ]
   }
 }
