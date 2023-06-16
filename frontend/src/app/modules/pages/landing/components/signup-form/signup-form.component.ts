@@ -62,7 +62,7 @@ export class SignupFormComponent implements OnInit {
       this.userService.registerUser(userData)
       .subscribe( res => {
         if (res.success) {
-          alert(res.data)
+          alert("Se ha registrado correctamente.")
           return;
         }
         alert("algo ha salido mal")
