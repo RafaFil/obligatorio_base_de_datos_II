@@ -47,8 +47,8 @@ const getAllUserSkillsFromDB = async function (userId) {
 
 const getAllRequestSkillsFromDB = async function (requestId) {
     return pool.query
-        (`SELECT h.id, h.nombre AS name, s.nivel_requerido AS lvl 
-        FROM habilidades h INNER JOIN habilidades_solicitudes hs ON hs.habilidad_requerida = h.id
+        (`SELECT h.id, h.nombre AS name, hs.nivel AS lvl 
+        FROM habilidades h INNER JOIN habilidades_solicitudes hs ON hs.habilidad_id = h.id
         WHERE hs.solicitud_id = $1`, [requestId]).then(res => {
         if (res.rows.length > 0) {
             return new dataResult(true, res.rows)
