@@ -36,9 +36,9 @@ const getUserCreds = async function (DO) {
 }
 
 const insertNewUser = async function (newUser, hashPwd) {
-    return (pool.query("INSERT INTO usuarios(ci, nombre, apellido, dispuesto_ayudar, confirmada_identidad, hashpwd)" +
-        "VALUES($1, $2, $3, $4, $5, $6)  RETURNING " + allParsed + ";",
-        [newUser.DO, newUser.name, newUser.lastName, newUser.willHelp, newUser.verified, hashPwd]))
+    return (pool.query("INSERT INTO usuarios(ci, nombre, apellido, confirmada_identidad, hashpwd)" +
+        "VALUES($1, $2, $3, $4, $5)  RETURNING " + allParsed + ";",
+        [newUser.DO, newUser.name, newUser.lastName, newUser.verified, hashPwd]))
         .then(res => {
             if (res.rows.length > 0) {
                 return new dataResult(true, res.rows[0])
@@ -54,7 +54,7 @@ const insertNewUser = async function (newUser, hashPwd) {
 }
 
 // formatea un " * "
-const allParsed = "ci AS do, nombre AS name, apellido AS lastName, dispuesto_ayudar AS willHelp, confirmada_identidad AS verified "
+const allParsed = "ci AS do, nombre AS name, apellido AS lastName, confirmada_identidad AS verified "
 module.exports = {
     getAllUsersFromDB,
     getUserByDOfromDB,

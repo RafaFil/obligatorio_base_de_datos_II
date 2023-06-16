@@ -59,7 +59,7 @@ export class UserService {
   //Idem generic
   registerUser(u : User) : Observable<apiMessage<Object>> {
 
-    return this.http.post<apiMessage<Object>>(`${apiURL}/user/register`,u)
+    return this.http.post<apiMessage<Object>>(`${apiURL}/users/register`,u)
     .pipe(
       catchError( err => of(err))
     );
@@ -74,7 +74,7 @@ export class UserService {
     return this.http.post<apiMessage<{
       user : User,
       token : string
-    }>>(`${apiURL}/user/auth`,credentials)
+    }>>(`${apiURL}/users/auth`,credentials)
       .pipe(
         tap(response => {
           if (response.success) {
@@ -87,7 +87,7 @@ export class UserService {
   }
 
   validateToken(): Observable<any> {
-    const url = `${apiURL}/user/renew`;
+    const url = `${apiURL}/users/renew`;
 
     return this.http.get<apiMessage<any>>( url )
       .pipe(

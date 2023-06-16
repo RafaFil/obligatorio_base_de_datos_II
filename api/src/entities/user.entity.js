@@ -4,7 +4,6 @@ class User {
     name
     lastName
     birthDate
-    willHelp
     verified
     description
     rating
@@ -16,7 +15,6 @@ class User {
         name = "Jane", 
         lastName = "Doe", 
         birthDate = new Date("2000-01-01"),
-        willHelp = false,
         verified = false,
         description = null) 
         
@@ -25,7 +23,6 @@ class User {
         this.name = name;
         this.lastName = lastName;
         this.birthDate = birthDate;
-        this.willHelp = willHelp;
         this.verified = verified;
         this.description = description;
     }

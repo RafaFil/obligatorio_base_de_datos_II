@@ -151,7 +151,7 @@ const renewToken = async (req, res) => {
             message: `No user was found for username ${DO}`
         });
     }
-
+    
     const token = await generateJWT( DO, user.name );
 
     return res.status(200).json({
