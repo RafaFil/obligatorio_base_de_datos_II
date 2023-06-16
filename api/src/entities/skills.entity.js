@@ -1,6 +1,5 @@
 class Skill{
     
-    
     constructor(id, skillName){
         this.id = id;
         this.name = skillName
@@ -20,10 +19,8 @@ class userSkill extends Skill{
         else if(lvl < 0){
             lvl = 0
         }
-        else{
-            this.lvl = lvl
-        }
-        
+
+        this.lvl = lvl        
     }
 }
 class requiredSkill extends Skill{
