@@ -8,7 +8,7 @@ const getAllSkillsFromDB = async function () {
         if (res.rows.length > 0) {
             return new dataResult(true, res.rows)
         } else {
-            return new dataResult(true, null, 204, "No postulation found")
+            return new dataResult(true, null, 204, "No Skills found")
         }
     }).catch(err => {
         return new dataResult(false, null, err.code, err.message)
@@ -23,7 +23,7 @@ const getSkillFromDB = async function (skillId) {
         if (res.rows.length > 0) {
             return new dataResult(true, res.rows)
         } else {
-            return new dataResult(true, null, 204, "No postulation found")
+            return new dataResult(true, null, 204, "No Skill found")
         }
     }).catch(err => {
         return new dataResult(false, null, err.code, err.message)
@@ -38,7 +38,7 @@ const getAllUserSkillsFromDB = async function (userId) {
         if (res.rows.length > 0) {
             return new dataResult(true, res.rows[0])
         } else {
-            return new dataResult(true, null, 204, "No postulation found")
+            return new dataResult(true, null, 204, "No Skills found")
         }
     }).catch(err => {
         return new dataResult(false, null, err.code, err.message)
@@ -53,7 +53,22 @@ const getAllRequestSkillsFromDB = async function (requestId) {
         if (res.rows.length > 0) {
             return new dataResult(true, res.rows[0])
         } else {
-            return new dataResult(true, null, 204, "No postulation found")
+            return new dataResult(true, null, 204, "No Required Skills found")
+        }
+    }).catch(err => {
+        return new dataResult(false, null, err.code, err.message)
+    })
+}
+
+const addSkillToUserInDB = async function (skillId, skillLvl, userId) {
+    return pool.query
+        (`INSERT INTO habilidades_usuario(user_ci, habilidad_id, nivel) 
+        VALUES ($1, $2, $3) RETURNING id, nombre AS name, nivel AS lvl`, 
+        [userId, skillId, skillLvl]).then(res => {
+        if (res.rows.length > 0) {
+            return new dataResult(true, res.rows[0])
+        } else {
+            return new dataResult(true, null, 204, "No Skill Added")
         }
     }).catch(err => {
         return new dataResult(false, null, err.code, err.message)
@@ -64,5 +79,6 @@ module.exports = {
     getAllSkillsFromDB,
     getSkillFromDB,
     getAllUserSkillsFromDB,
-    getAllRequestSkillsFromDB
+    getAllRequestSkillsFromDB,
+    addSkillToUserInDB
 }

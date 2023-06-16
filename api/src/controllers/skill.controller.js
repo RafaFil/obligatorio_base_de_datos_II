@@ -113,6 +113,42 @@ const getAllRequestSkills = async (req, res) => {
     });
 }
 
+
+const addSkillToUser = async ( req , res) => {
+
+    const { skillId, skillName, skillLvl } = req.body;
+
+    if (!skillId || !skillName || !skillLvl || !req.username) {
+        return res.status(400).json({
+            success: false,
+            message: 'missing fields in body'
+        });
+    }
+
+    const newskill = new userSkill(skillId, skillName, req.username, skillLvl);
+
+    addSkillToUserService(newskill).then ( result => {
+
+        if (!result.success) {
+            return res.status(400).json({
+                success: false,
+                message: result.message
+            });
+        }
+        return res.status(200).json({
+            success: true,
+            data: result.data
+        });
+    })
+    .catch( err => {
+        console.log(err);
+        return res.status(500).json({
+            success: false,
+            message: `Internal server error.`
+        });
+    })
+}
+
 module.exports = {
     getAllSkills,
     getSkill,

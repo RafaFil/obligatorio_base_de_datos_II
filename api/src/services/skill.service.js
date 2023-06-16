@@ -16,9 +16,14 @@ async function getAllRequestSkillsService(requestId) {
     return await getAllRequestSkillsFromDB(requestId);
 }
 
+async function addSkillToUserService(newUserSkill) {
+    return await addSkillToUserInDB(newUserSkill.skillId, newUserSkill.lvl, newUserSkill.userId)
+}
+
 module.exports = {
     getAllSkillsService,
     getSkillService,
     getAllUserSkillsService,
-    getAllRequestSkillsService
+    getAllRequestSkillsService,
+    addSkillToUserService
 }
