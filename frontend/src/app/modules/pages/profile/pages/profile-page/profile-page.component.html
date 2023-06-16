@@ -5,11 +5,22 @@
 <mat-tab-group mat-align-tabs="center" dynamicHeight>
 
     <mat-tab label="solicitudes"> 
-        Content 1 
+
+        <div class="sb-solicituteds-tab container">
+            <app-help-request-card *ngFor="let helpRequest of helpRequestArr" 
+            [helpRequest]="helpRequest"></app-help-request-card>
+        </div>
+
     </mat-tab>
 
     <mat-tab label="postulaciones"> 
-        Content 2 
+        
+        <div class="sb-request-tab container">
+            <app-help-aplication-card *ngFor="let helpAplication of helpAplicationArr" 
+            [helpRequest]="helpAplication">
+            </app-help-aplication-card>
+        </div>
+
     </mat-tab>
 
     <mat-tab label="habilidades"> 

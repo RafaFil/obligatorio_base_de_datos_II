@@ -9,6 +9,9 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
 import { AbilityCardComponent } from './components/abilities/ability-card/ability-card.component';
 import { AddSkillDialogComponent } from './components/abilities/add-skill-dialog/add-skill-dialog.component';
 import { AddSkillFormComponent } from './components/abilities/add-skill-form/add-skill-form.component';
+import { HelpRequestCardComponent } from './components/helpRequest/help-request-card/help-request-card.component';
+import { HelpRequstInfoComponent } from './components/helpRequest/help-requst-info/help-requst-info.component';
+import { HelpAplicationCardComponent } from './components/helpAplication/help-aplication-card/help-aplication-card.component';
 
 
 @NgModule({
@@ -17,6 +20,9 @@ import { AddSkillFormComponent } from './components/abilities/add-skill-form/add
     AbilityCardComponent,
     AddSkillDialogComponent,
     AddSkillFormComponent,
+    HelpRequestCardComponent,
+    HelpRequstInfoComponent,
+    HelpAplicationCardComponent,
   ],
   imports: [
     CommonModule,

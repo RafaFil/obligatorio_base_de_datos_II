@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Ability } from 'src/app/modules/core/interfaces/ability';
 import { AddSkillDialogComponent } from '../../components/abilities/add-skill-dialog/add-skill-dialog.component';
+import { HelpRequest } from 'src/app/modules/core/interfaces/helpRequest';
+import { HelpRequestService } from 'src/app/modules/core/services/help-request.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -19,9 +21,21 @@ export class ProfilePageComponent implements OnInit {
 
   ]
 
-  constructor(private dialog : MatDialog) { }
+  helpRequestArr : HelpRequest[] = [
+
+  ]
+
+  helpAplicationArr : HelpRequest[] = [
+
+  ]
+
+  constructor(private dialog : MatDialog,
+              private helpRequestService : HelpRequestService) { }
 
   ngOnInit(): void {
+    
+    this.helpRequestArr = this.helpRequestService.getAllAplications()
+    this.helpAplicationArr = this.helpRequestArr;
   }
 
 

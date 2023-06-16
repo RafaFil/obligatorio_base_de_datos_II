@@ -1,4 +1,4 @@
-h1 {
+h1, p {
     display: flex;
     justify-content: center;
 }
@@ -17,3 +17,10 @@ h1 {
     display: flex;
     justify-content: center;
 }
+
+/*:host ::ng-deep .mat-tab-header {
+    top: 0;
+    z-index: 1000; 
+    position: sticky;
+    position: -webkit-sticky; /* macOS/iOS Safari   
+}*/
