@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS calificaciones(
 	usuario_ci VARCHAR(8) REFERENCES usuarios(ci),
 	solicitud_id SERIAL NOT NULL UNIQUE REFERENCES solicitudes_ayuda(id),
 	comentario VARCHAR(100),
-	estrellas SMALLINT NOT NULL CHECK (estrellas > 0 AND estrellas < 6)
+	estrellas SMALLINT NOT NULL CHECK (estrellas > 0 AND estrellas < 6),
 	PRIMARY KEY(usuario_ci, solicitud_id)
 );
 
@@ -133,3 +133,13 @@ FOR EACH ROW EXECUTE PROCEDURE check_not_friends();
 CREATE USER client WITH PASSWORD 'user'; 
 GRANT SELECT, UPDATE, DELETE, INSERT ON ALL TABLES IN SCHEMA public to client;
 GRANT USAGE ON ALL SEQUENCES IN SCHEMA public to client;
+
+
+-- MOCK DATA FOR TESTING --
+--todos tienen la password 'admin'--
+INSERT INTO usuarios(ci,nombre,apellido,hashpwd, confirmada_identidad, carta_presentacion)
+ VALUES('11111111', 'John', 'Doe', '$2b$10$F7FOmB8duokUVOwHwJ0dOuUdm33DkPIQTESPGwjof6kx6OxzerogW' , true, 'soy el primer sujeto de prueba, necesito ayuda seguido.'),
+ ('22222222', 'Jane', 'Doe','$2b$10$F7FOmB8duokUVOwHwJ0dOuUdm33DkPIQTESPGwjof6kx6OxzerogW' , true, 'soy el segundo sujeto de prueba, doy ayuda seguido.'),
+ ('33333333', 'Jorge', 'Doe', '$2b$10$F7FOmB8duokUVOwHwJ0dOuUdm33DkPIQTESPGwjof6kx6OxzerogW' , true, 'soy el tercer sujeto de prueba, necesito y doy ayuda seguido.'),
+ ('44444444', 'Isabel', 'Doe', '$2b$10$F7FOmB8duokUVOwHwJ0dOuUdm33DkPIQTESPGwjof6kx6OxzerogW' , true, 'como descargo whatsapp'),
+ ('55555555', 'Lionel', 'Messi', '$2b$10$F7FOmB8duokUVOwHwJ0dOuUdm33DkPIQTESPGwjof6kx6OxzerogW' , true, 'soy yo, el jugador numero 1');
