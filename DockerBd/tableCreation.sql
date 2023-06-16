@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS amistades (
 );
 
 CREATE TABLE IF NOT EXISTS contactos_usuarios(
-	user_ci VARCHAR(8) PRIMARY KEY REFERENCES usuarios(ci) ON DELETE CASCADE,
+	user_ci VARCHAR(8) REFERENCES usuarios(ci) ON DELETE CASCADE,
 	contacto VARCHAR(50) NOT NULL
 );
 
@@ -48,18 +48,19 @@ CREATE TABLE IF NOT EXISTS habilidades(
 );
 
 CREATE TABLE IF NOT EXISTS habilidades_usuarios(
-	user_ci VARCHAR(8) PRIMARY KEY REFERENCES usuarios(ci) ON DELETE CASCADE,
+	user_ci VARCHAR(8) NOT NULL REFERENCES usuarios(ci) ON DELETE CASCADE,
 	habilidad_id SERIAL NOT NULL REFERENCES habilidades(id) ON DELETE CASCADE,
-	nivel SMALLINT NOT NULL CHECK (nivel < 6 AND nivel > 0)
+	nivel SMALLINT NOT NULL CHECK (nivel < 6 AND nivel > 0),
+	PRIMARY KEY(user_ci, habilidad_id)
 );
 
 CREATE TABLE IF NOT EXISTS solicitudes_ayuda(
 	id SERIAL PRIMARY KEY,
-	habilidad_requerida SERIAL NOT NULL REFERENCES habilidades(id),
+	habilidad_requerida SERIAL REFERENCES habilidades(id),
 	latitud FLOAT NOT NULL,
 	longitud FLOAT NOT NULL,
 	solicitante_ci VARCHAR(8) REFERENCES usuarios(ci) ON DELETE CASCADE,
-	nivel_requerido SMALLINT NOT NULL CHECK (nivel_requerido < 6 AND nivel_requerido > 0),
+	nivel_requerido SMALLINT CHECK (nivel_requerido < 6 AND nivel_requerido > 0),
 	esta_activa BOOLEAN NOT NULL,
 	fue_resuelta BOOLEAN NOT NULL,
 	fecha_publicacion DATE NOT NULL,
@@ -91,8 +92,8 @@ CREATE TABLE IF NOT EXISTS 	postulaciones(
 );
 
 CREATE TABLE IF NOT EXISTS 	mensajes(
-	usuario1_ci VARCHAR(8) REFERENCES usuarios(ci) ON DELETE CASCADE,
-	usuario2_ci VARCHAR(8) REFERENCES usuarios(ci) ON DELETE CASCADE,
+	usuario_emisor_ci VARCHAR(8) REFERENCES usuarios(ci) ON DELETE CASCADE,
+	usuario_receptor_ci VARCHAR(8) REFERENCES usuarios(ci) ON DELETE CASCADE,
 	texto VARCHAR(100) NOT NULL,
 	fecha_hora_enviado TIMESTAMP NOT NULL
 );
