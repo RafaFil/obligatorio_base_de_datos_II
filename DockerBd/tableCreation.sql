@@ -65,6 +65,7 @@ CREATE TABLE IF NOT EXISTS solicitudes_ayuda(
 	titulo VARCHAR(50) NOT NULL,
 	descripcion VARCHAR(150)
 );
+CREATE INDEX IF NOT EXISTS solicitantes ON solicitudes_ayuda (solicitante_ci);
 
 CREATE TABLE IF NOT EXISTS habilidades_solicitudes(
 	solicitud_id SERIAL NOT NULL REFERENCES solicitudes_ayuda(id) ON DELETE CASCADE,
@@ -82,11 +83,13 @@ CREATE TABLE IF NOT EXISTS comentarios_solicitudes(
 );
 
 CREATE TABLE IF NOT EXISTS calificaciones(
-	usuario_ci VARCHAR(8) PRIMARY KEY REFERENCES usuarios(ci),
+	usuario_ci VARCHAR(8) REFERENCES usuarios(ci),
 	solicitud_id SERIAL NOT NULL UNIQUE REFERENCES solicitudes_ayuda(id),
 	comentario VARCHAR(100),
 	estrellas SMALLINT NOT NULL CHECK (estrellas > 0 AND estrellas < 6)
+	PRIMARY KEY(usuario_ci, solicitud_id)
 );
+
 
 CREATE TABLE IF NOT EXISTS 	postulaciones(
 	ayudante_ci VARCHAR(8) NOT NULL REFERENCES usuarios(ci) ON DELETE CASCADE,
@@ -95,6 +98,10 @@ CREATE TABLE IF NOT EXISTS 	postulaciones(
 	fue_aceptada BOOLEAN NOT NULL,
 	PRIMARY KEY (ayudante_ci, solicitud_id)
 );
+
+CREATE VIEW solicitante_solicitud_ayudante AS
+	SELECT p.ayudante_ci AS helperId, p.solicitud_id AS requestId, s.solicitante_ci AS solicitantId
+    FROM postulaciones p INNER JOIN solicitudes_ayuda s on p.solicitud_id = s.id ;
 
 CREATE TABLE IF NOT EXISTS 	mensajes(
 	usuario_emisor_ci VARCHAR(8) REFERENCES usuarios(ci) ON DELETE CASCADE,
