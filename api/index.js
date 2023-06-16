@@ -14,6 +14,7 @@ const bcrypt = require('bcrypt')
 
 // Routers
 const userRouter = require("./src/routes/user.routes")
+const skillRouter = require("./src/routes/skill.routes")
 const postulationsRouter = require("./src/routes/postulation.routes")
 const requestRouter = require("./src/routes/request.routes")
 
@@ -40,6 +41,7 @@ const { validateBody } = require("./src/middlewares/validateBody.middleware")
 
 // public routes
 app.use(BASE_ROUTE, userRouter)
+app.use(BASE_ROUTE, skillRouter)
 
 // protected routes
 app.use(BASE_ROUTE, postulationsRouter)
