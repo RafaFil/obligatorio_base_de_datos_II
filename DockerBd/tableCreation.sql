@@ -143,3 +143,24 @@ INSERT INTO usuarios(ci,nombre,apellido,hashpwd, confirmada_identidad, carta_pre
  ('33333333', 'Jorge', 'Doe', '$2b$10$F7FOmB8duokUVOwHwJ0dOuUdm33DkPIQTESPGwjof6kx6OxzerogW' , true, 'soy el tercer sujeto de prueba, necesito y doy ayuda seguido.'),
  ('44444444', 'Isabel', 'Doe', '$2b$10$F7FOmB8duokUVOwHwJ0dOuUdm33DkPIQTESPGwjof6kx6OxzerogW' , true, 'como descargo whatsapp'),
  ('55555555', 'Lionel', 'Messi', '$2b$10$F7FOmB8duokUVOwHwJ0dOuUdm33DkPIQTESPGwjof6kx6OxzerogW' , true, 'soy yo, el jugador numero 1');
+
+INSERT INTO habilidades(id, nombre)
+ VALUES(DEFAULT, 'Carpintería'),
+ (DEFAULT, 'Informática'),
+ (DEFAULT, 'Sanitaria'),
+ (DEFAULT, 'Derecho'),
+ (DEFAULT, 'Deporte');
+
+INSERT INTO habilidades_usuarios(user_ci, habilidad_id, nivel)
+ VALUES('11111111', 1, 5),
+ ('22222222', 2, 5),
+ ('22222222', 4, 2),
+ ('33333333', 1, 1),
+ ('55555555', 5, 5);
+
+INSERT INTO amistades(usuario1_ci, usuario2_ci)
+ VALUES('11111111', '55555555'),
+ ('22222222', '33333333'),
+ ('22222222', '44444444'),
+ ('33333333', '11111111');
+
