@@ -141,6 +141,35 @@ $func$  LANGUAGE plpgsql;
 CREATE OR REPLACE TRIGGER solicitud_abierta BEFORE INSERT ON postulaciones
 FOR EACH ROW EXECUTE PROCEDURE check_request_active();
 
+CREATE FUNCTION check_has_skill()
+  RETURNS trigger AS
+$func$
+DECLARE
+cant_habilidades_utiles_user INTEGER;
+cant_habilidades_solicitud INTEGER;
+
+BEGIN
+    SELECT COUNT(*) INTO cant_habilidades_utiles_user
+    FROM habilidades_usuarios hu
+	INNER JOIN habilidades_solicitudes hs ON hs.habilidad_id = hu.habilidad_id
+    WHERE hs.solicitud_id = NEW.solicitud_id AND hu.user_ci = NEW.ayudante_ci AND hs.habilidad_id = hu.habilidad_id;
+   
+   
+   SELECT COUNT(*) INTO cant_habilidades_solicitud
+		FROM habilidades_solicitudes hs
+		WHERE hs.solicitud_id = NEW.solicitud_id;
+
+	IF cant_habilidades_solicitud > cant_habilidades_utiles_user
+    	THEN
+    	RAISE EXCEPTION 'El usuario no tiene la/s habilidad/es necesarias.';
+    	END IF;
+   RETURN NEW;
+END
+$func$  LANGUAGE plpgsql;
+
+CREATE OR REPLACE TRIGGER cumple_habilidades_necesarias BEFORE INSERT ON postulaciones
+FOR EACH ROW EXECUTE PROCEDURE check_has_skill();
+
 -- CLIENT USER --
 
 CREATE USER client WITH PASSWORD 'user'; 
@@ -169,6 +198,8 @@ INSERT INTO habilidades_usuarios(user_ci, habilidad_id, nivel)
 	('22222222', 2, 5),
 	('22222222', 4, 2),
 	('33333333', 1, 1),
+	('33333333', 4, 5),
+	('33333333', 2, 2),
 	('55555555', 5, 5);
 
 INSERT INTO amistades(usuario1_ci, usuario2_ci)
@@ -190,5 +221,4 @@ INSERT INTO habilidades_solicitudes(solicitud_id, habilidad_id, nivel)
 
 INSERT INTO postulaciones(ayudante_ci, solicitud_id, fecha, fue_aceptada)
 	VALUES('22222222', 1, '2023-06-16', true),
-	('33333333', 1, '2023-06-16', false),
-	('22222222', 2, '2023-06-17', false);
+	('33333333', 2, '2023-06-16', false);
