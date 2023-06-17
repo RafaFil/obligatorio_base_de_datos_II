@@ -8,7 +8,7 @@
         <p>Habilidad: {{helpRequest.ability}}</p>
     </mat-card-content>
     <mat-card-actions>
-        <button mat-raised-button color="warn">Cancelar</button>
+        <button mat-raised-button color="warn" (click)="openCancelDialog()">Cancelar</button>
         <button mat-raised-button color="primary">
             <mat-icon>question_answer</mat-icon>
             Haz tu pregunta

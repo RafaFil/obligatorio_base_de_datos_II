@@ -7,11 +7,11 @@ import { HelpRequstInfoComponent } from './components/helpRequest/help-requst-in
 
 const routes: Routes = [
   {
-    path: '', component: ProfilePageComponent,children:
-    [
-      //podria cambiarse por id de la solicitud
-      { path:'helprequest/:title', component: HelpRequstInfoComponent }
-    ]
+    path: '', component: ProfilePageComponent
+  },
+  {
+    //podria cambiarse por id de la solicitud
+    path: 'helprequest/:title', component: HelpRequstInfoComponent 
   }
 ];
 

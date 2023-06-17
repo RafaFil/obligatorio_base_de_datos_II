@@ -27,6 +27,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatCardModule} from '@angular/material/card';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
+
 
 const MaterialComponents = [
     MatCheckboxModule,
@@ -56,7 +58,8 @@ const MaterialComponents = [
     MatSidenavModule,
     MatTooltipModule,
     MatCardModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatBottomSheetModule
 ];
 
 @NgModule({
