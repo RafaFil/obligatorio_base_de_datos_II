@@ -127,6 +127,19 @@ $func$  LANGUAGE plpgsql;
 CREATE OR REPLACE TRIGGER ya_son_amigos BEFORE INSERT ON amistades
 FOR EACH ROW EXECUTE PROCEDURE check_not_friends();
 
+CREATE FUNCTION check_request_active()
+  RETURNS trigger AS
+$func$
+BEGIN
+   IF (SELECT esta_activa FROM solicitudes_ayuda s WHERE s.id = NEW.solicitud_id) = false THEN
+    RAISE EXCEPTION 'Esta solicitud esta inactiva.';
+   END IF;
+   RETURN NEW;
+END
+$func$  LANGUAGE plpgsql;
+
+CREATE OR REPLACE TRIGGER solicitud_abierta BEFORE INSERT ON postulaciones
+FOR EACH ROW EXECUTE PROCEDURE check_request_active();
 
 -- CLIENT USER --
 
