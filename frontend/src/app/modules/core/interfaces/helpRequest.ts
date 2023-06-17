@@ -1,7 +1,7 @@
 export interface HelpRequest {
     title: string,
     description: string,
-    ability?: string,
+    skill?: string,
     level?: string,
     street?: string,
     corner?: string,

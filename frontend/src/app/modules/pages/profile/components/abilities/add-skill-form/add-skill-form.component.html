@@ -1,0 +1,21 @@
+<form [formGroup]="addSkillForm">
+
+    <mat-form-field class="example-full-width" appearance="outline" class="sb-form">
+        <mat-label>Seleccione habilidad</mat-label>
+        <input type="text" matInput [formControl]="addSkillForm.controls.skillName" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{option}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="sb-form">
+        <mat-select placeholder="Seleccione nivel" (selectionChange)="changeLevel($event.value)" >
+            <mat-option *ngFor="let level of skillLevel" [value]="level">
+                {{level}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+</form>

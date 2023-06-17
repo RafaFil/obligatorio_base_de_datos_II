@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatChip } from '@angular/material/chips';
-import { Ability } from 'src/app/modules/core/interfaces/ability';
-import { AbilityService } from 'src/app/modules/core/services/ability.service';
+import { Skill } from 'src/app/modules/core/interfaces/skill';
+import { SkillService } from 'src/app/modules/core/services/skill.service';
 
 @Component({
   selector: 'app-help-request-form',
@@ -11,7 +11,7 @@ import { AbilityService } from 'src/app/modules/core/services/ability.service';
 })
 export class HelpRequestFormComponent implements OnInit {
 
-  abilitiesArr : Ability[] = [
+  abilitiesArr : Skill[] = [
     {
       name: "carpinteria", description: "trabaja con madera"
     },
@@ -23,14 +23,14 @@ export class HelpRequestFormComponent implements OnInit {
     },
   ]
 
-  abilityLevel : string[] = [
+  skillLevel : string[] = [
     "Principiante",
     "Medio",
     "Alto",
     "Maestro"
   ]
 
-  constructor(private abilityService : AbilityService,
+  constructor(private skillService : SkillService,
               private formBuilder : FormBuilder) { }
 
   ngOnInit(): void {
@@ -39,28 +39,28 @@ export class HelpRequestFormComponent implements OnInit {
   helpAplicationForm = this.formBuilder.group({
     title : ["",[Validators.required]],
     description : ["",[Validators.required]],
-    ability:[],
+    skill:[],
     level: [""],
     street : [""],
     corner: [""],
   });
 
-  getAllAbility () {
+  getAllSkill () {
 
-    this.abilityService.getAllAbility()
-    .subscribe ( abilities => {
-      if (abilities.success) {
-        console.log(abilities.data);
+    this.skillService.getAllSkills()
+    .subscribe ( skill => {
+      if (skill.success) {
+        console.log(skill.data);
       }
     });
   }
 
   changeLevel(value : any) {
 
-    const ability = this.helpAplicationForm.controls.ability.value;
+    const skill = this.helpAplicationForm.controls.skill.value;
 
-    // only if a ability is selected
-    if (ability) {
+    // only if a skill is selected
+    if (skill) {
 
       this.helpAplicationForm.patchValue({
         level : value
@@ -75,7 +75,7 @@ export class HelpRequestFormComponent implements OnInit {
   addChip(chip: MatChip) {
 
     this.helpAplicationForm.patchValue({
-      ability : chip.value
+      skill : chip.value
     });
   }
 

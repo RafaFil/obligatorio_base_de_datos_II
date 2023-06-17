@@ -4,10 +4,12 @@ import { CommonModule } from '@angular/common';
 import { BaseDialogComponent } from './components/base-dialog/base-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/material.module';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
 @NgModule({
   declarations: [
-    BaseDialogComponent
+    BaseDialogComponent,
+    ToolbarComponent
   ],
   imports: [
     CommonModule,
@@ -16,7 +18,8 @@ import { MaterialModule } from 'src/app/material.module';
     RouterModule
   ],
   exports: [
-    BaseDialogComponent
+    BaseDialogComponent,
+    ToolbarComponent
   ]
 })
 export class SharedModule { }

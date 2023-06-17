@@ -1,0 +1,27 @@
+h1, p {
+    display: flex;
+    justify-content: center;
+}
+.sb-habilidades-tab {
+    position: relative;
+}
+
+/*.add-button {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    z-index: 1;
+}*/
+
+.sb-add-skill {
+    display: flex;
+    justify-content: center;
+}
+
+/*:host ::ng-deep .mat-tab-header {
+    top: 0;
+    z-index: 1000; 
+    position: sticky;
+    position: -webkit-sticky; 
+}*/
+
