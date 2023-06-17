@@ -138,29 +138,44 @@ GRANT USAGE ON ALL SEQUENCES IN SCHEMA public to client;
 -- MOCK DATA FOR TESTING --
 --todos tienen la password 'admin'--
 INSERT INTO usuarios(ci,nombre,apellido,hashpwd, confirmada_identidad, carta_presentacion)
- VALUES('11111111', 'John', 'Doe', '$2b$10$F7FOmB8duokUVOwHwJ0dOuUdm33DkPIQTESPGwjof6kx6OxzerogW' , true, 'soy el primer sujeto de prueba, necesito ayuda seguido.'),
- ('22222222', 'Jane', 'Doe','$2b$10$F7FOmB8duokUVOwHwJ0dOuUdm33DkPIQTESPGwjof6kx6OxzerogW' , true, 'soy el segundo sujeto de prueba, doy ayuda seguido.'),
- ('33333333', 'Jorge', 'Doe', '$2b$10$F7FOmB8duokUVOwHwJ0dOuUdm33DkPIQTESPGwjof6kx6OxzerogW' , true, 'soy el tercer sujeto de prueba, necesito y doy ayuda seguido.'),
- ('44444444', 'Isabel', 'Doe', '$2b$10$F7FOmB8duokUVOwHwJ0dOuUdm33DkPIQTESPGwjof6kx6OxzerogW' , true, 'como descargo whatsapp'),
- ('55555555', 'Lionel', 'Messi', '$2b$10$F7FOmB8duokUVOwHwJ0dOuUdm33DkPIQTESPGwjof6kx6OxzerogW' , true, 'soy yo, el jugador numero 1');
+	VALUES('11111111', 'John', 'Doe', '$2b$10$F7FOmB8duokUVOwHwJ0dOuUdm33DkPIQTESPGwjof6kx6OxzerogW' , true, 'soy el primer sujeto de prueba, necesito ayuda seguido.'),
+	('22222222', 'Jane', 'Doe','$2b$10$F7FOmB8duokUVOwHwJ0dOuUdm33DkPIQTESPGwjof6kx6OxzerogW' , true, 'soy el segundo sujeto de prueba, doy ayuda seguido.'),
+	('33333333', 'Jorge', 'Doe', '$2b$10$F7FOmB8duokUVOwHwJ0dOuUdm33DkPIQTESPGwjof6kx6OxzerogW' , true, 'soy el tercer sujeto de prueba, necesito y doy ayuda seguido.'),
+	('44444444', 'Isabel', 'Doe', '$2b$10$F7FOmB8duokUVOwHwJ0dOuUdm33DkPIQTESPGwjof6kx6OxzerogW' , true, 'como descargo whatsapp'),
+	('55555555', 'Lionel', 'Messi', '$2b$10$F7FOmB8duokUVOwHwJ0dOuUdm33DkPIQTESPGwjof6kx6OxzerogW' , true, 'soy yo, el jugador numero 1');
 
 INSERT INTO habilidades(id, nombre)
- VALUES(DEFAULT, 'Carpintería'),
- (DEFAULT, 'Informática'),
- (DEFAULT, 'Sanitaria'),
- (DEFAULT, 'Derecho'),
- (DEFAULT, 'Deporte');
+	VALUES(DEFAULT, 'Carpintería'),
+	(DEFAULT, 'Informática'),
+	(DEFAULT, 'Sanitaria'),
+	(DEFAULT, 'Derecho'),
+	(DEFAULT, 'Deporte');
 
 INSERT INTO habilidades_usuarios(user_ci, habilidad_id, nivel)
- VALUES('11111111', 1, 5),
- ('22222222', 2, 5),
- ('22222222', 4, 2),
- ('33333333', 1, 1),
- ('55555555', 5, 5);
+	VALUES('11111111', 1, 5),
+	('22222222', 2, 5),
+	('22222222', 4, 2),
+	('33333333', 1, 1),
+	('55555555', 5, 5);
 
 INSERT INTO amistades(usuario1_ci, usuario2_ci)
- VALUES('11111111', '55555555'),
- ('22222222', '33333333'),
- ('22222222', '44444444'),
- ('33333333', '11111111');
+	VALUES('11111111', '55555555'),
+	('22222222', '33333333'),
+	('22222222', '44444444'),
+	('33333333', '11111111');
 
+INSERT INTO solicitudes_ayuda(id, latitud, longitud, solicitante_ci, esta_activa, fue_resuelta, fecha_publicacion, titulo, descripcion)
+	VALUES(DEFAULT, -34.8962494, -56.19227155, '11111111', true, false, '2023-06-15', 'No puedo poner canal 5', 'Mi hijo me dijo que es algo de achedemi, no se que es.'),
+	(DEFAULT, -34.8887717, -56.1636717, '33333333', true, false, '2023-06-16', 'No me sale la tesis', 'No entiendo las leyes de datos, algun ingeniero o abogado o similar?'),
+	(DEFAULT, -34.8930337, -56.1566015, '55555555', true, false, '2023-06-16', 'somos 9', 'falta uno pa fuvol 5 preferiblemente arquero');
+	
+INSERT INTO habilidades_solicitudes(solicitud_id, habilidad_id, nivel) 
+	VALUES(1, 2, 5),
+	(2,2,3),
+	(2,4,3),
+	(3,5,5);
+
+INSERT INTO postulaciones(ayudante_ci, solicitud_id, fecha, fue_aceptada)
+	VALUES('22222222', 1, '2023-06-16', true),
+	('33333333', 1, '2023-06-16', false),
+	('22222222', 2, '2023-06-17', false);
