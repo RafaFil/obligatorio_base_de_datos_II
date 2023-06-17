@@ -170,6 +170,22 @@ $func$  LANGUAGE plpgsql;
 CREATE OR REPLACE TRIGGER cumple_habilidades_necesarias BEFORE INSERT ON postulaciones
 FOR EACH ROW EXECUTE PROCEDURE check_has_skill();
 
+CREATE FUNCTION check_not_auto_apply()
+  RETURNS trigger AS
+$func$
+BEGIN
+   IF EXISTS (SELECT * FROM solicitudes_ayuda s 
+   WHERE s.id = new.solicitud_id AND s.solicitante_ci = NEW.ayudante_ci)
+   THEN
+    RAISE EXCEPTION 'No se puede postular a su propia solicitud';
+   END IF;
+   RETURN NEW;
+END
+$func$  LANGUAGE plpgsql;
+
+CREATE OR REPLACE TRIGGER auto_postularse_si_mismo BEFORE INSERT ON postulaciones
+FOR EACH ROW EXECUTE PROCEDURE check_not_auto_apply();
+
 -- CLIENT USER --
 
 CREATE USER client WITH PASSWORD 'user'; 
@@ -210,7 +226,7 @@ INSERT INTO amistades(usuario1_ci, usuario2_ci)
 
 INSERT INTO solicitudes_ayuda(id, latitud, longitud, solicitante_ci, esta_activa, fue_resuelta, fecha_publicacion, titulo, descripcion)
 	VALUES(DEFAULT, -34.8962494, -56.19227155, '11111111', true, false, '2023-06-15', 'No puedo poner canal 5', 'Mi hijo me dijo que es algo de achedemi, no se que es.'),
-	(DEFAULT, -34.8887717, -56.1636717, '33333333', true, false, '2023-06-16', 'No me sale la tesis', 'No entiendo las leyes de datos, algun ingeniero o abogado o similar?'),
+	(DEFAULT, -34.8887717, -56.1636717, '44444444', true, false, '2023-06-16', 'No me sale la tesis', 'No entiendo las leyes de datos, algun ingeniero o abogado o similar?'),
 	(DEFAULT, -34.8930337, -56.1566015, '55555555', true, false, '2023-06-16', 'somos 9', 'falta uno pa fuvol 5 preferiblemente arquero');
 	
 INSERT INTO habilidades_solicitudes(solicitud_id, habilidad_id, nivel) 
