@@ -27,8 +27,8 @@
 
         <div class="sb-habilidades-tab container">
 
-            <app-ability-card *ngFor="let skill of skillsArr" 
-            [skill] = "skill"></app-ability-card>
+            <app-skill-card *ngFor="let skill of skillsArr" 
+            [skill] = "skill"></app-skill-card>
 
             <div class="sb-add-skill">
                 <button mat-raised-button color="warn" class="mt-5 mb-3" (click)="openAddSkillDialog()">

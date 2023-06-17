@@ -6,7 +6,7 @@ import { ProfileRoutingModule } from './profile-routing.module';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
-import { AbilityCardComponent } from './components/abilities/ability-card/ability-card.component';
+import { SkillCardComponent } from './components/abilities/skill-card/skill-card.component';
 import { AddSkillDialogComponent } from './components/abilities/add-skill-dialog/add-skill-dialog.component';
 import { AddSkillFormComponent } from './components/abilities/add-skill-form/add-skill-form.component';
 import { HelpRequestCardComponent } from './components/helpRequest/help-request-card/help-request-card.component';
@@ -19,7 +19,7 @@ import { CancelAplicationDialogComponent } from './components/helpAplication/can
 @NgModule({
   declarations: [
     ProfilePageComponent,
-    AbilityCardComponent,
+    SkillCardComponent,
     AddSkillDialogComponent,
     AddSkillFormComponent,
     HelpRequestCardComponent,

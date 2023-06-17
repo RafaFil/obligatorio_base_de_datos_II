@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AddSkillFormComponent } from '../add-skill-form/add-skill-form.component';
-import { Ability } from 'src/app/modules/core/interfaces/ability';
+import { Skill } from 'src/app/modules/core/interfaces/skill';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -26,7 +26,7 @@ export class AddSkillDialogComponent implements OnInit {
 
     if (skillName && level) {
       
-      const skill : Ability = {
+      const skill : Skill = {
         name : skillName,
         level : level
       }

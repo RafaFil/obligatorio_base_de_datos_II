@@ -8,7 +8,7 @@
         <p>Nivel de habilidad</p>
         <mat-form-field appearance="outline">
             <mat-select disabled="{{!isOnEdit}}" placeholder="{{skill.level}}" [(ngModel)]="selectedLevel">
-                <mat-option *ngFor="let level of abilityLevel" [value]="level">
+                <mat-option *ngFor="let level of skillLevel" [value]="level">
                     {{level}}
                 </mat-option>
             </mat-select>

@@ -25,7 +25,7 @@ export class DialogHelpRequestComponent implements OnInit {
     
     const title = this.helpAplicationForm.helpAplicationForm.controls.title.value;
     const description = this.helpAplicationForm.helpAplicationForm.controls.description.value;
-    const ability = this.helpAplicationForm.helpAplicationForm.controls.ability.value;
+    const skill = this.helpAplicationForm.helpAplicationForm.controls.skill.value;
     const level = this.helpAplicationForm.helpAplicationForm.controls.level.value;
     const street = this.helpAplicationForm.helpAplicationForm.controls.street.value;
     const corner = this.helpAplicationForm.helpAplicationForm.controls.corner.value;

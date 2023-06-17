@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatChip } from '@angular/material/chips';
-import { Ability } from 'src/app/modules/core/interfaces/ability';
+import { Skill } from 'src/app/modules/core/interfaces/skill';
 import { SkillService } from 'src/app/modules/core/services/skill.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { SkillService } from 'src/app/modules/core/services/skill.service';
 })
 export class HelpRequestFormComponent implements OnInit {
 
-  abilitiesArr : Ability[] = [
+  abilitiesArr : Skill[] = [
     {
       name: "carpinteria", description: "trabaja con madera"
     },
@@ -23,7 +23,7 @@ export class HelpRequestFormComponent implements OnInit {
     },
   ]
 
-  abilityLevel : string[] = [
+  skillLevel : string[] = [
     "Principiante",
     "Medio",
     "Alto",
@@ -39,15 +39,15 @@ export class HelpRequestFormComponent implements OnInit {
   helpAplicationForm = this.formBuilder.group({
     title : ["",[Validators.required]],
     description : ["",[Validators.required]],
-    ability:[],
+    skill:[],
     level: [""],
     street : [""],
     corner: [""],
   });
 
-  getAllAbility () {
+  getAllSkill () {
 
-    this.skillService.getAllAbility()
+    this.skillService.getAllSkills()
     .subscribe ( skill => {
       if (skill.success) {
         console.log(skill.data);
@@ -57,10 +57,10 @@ export class HelpRequestFormComponent implements OnInit {
 
   changeLevel(value : any) {
 
-    const ability = this.helpAplicationForm.controls.ability.value;
+    const skill = this.helpAplicationForm.controls.skill.value;
 
-    // only if a ability is selected
-    if (ability) {
+    // only if a skill is selected
+    if (skill) {
 
       this.helpAplicationForm.patchValue({
         level : value
@@ -75,7 +75,7 @@ export class HelpRequestFormComponent implements OnInit {
   addChip(chip: MatChip) {
 
     this.helpAplicationForm.patchValue({
-      ability : chip.value
+      skill : chip.value
     });
   }
 

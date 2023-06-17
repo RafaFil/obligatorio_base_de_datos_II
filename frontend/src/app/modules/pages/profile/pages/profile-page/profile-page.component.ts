@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Ability } from 'src/app/modules/core/interfaces/ability';
+import { Skill } from 'src/app/modules/core/interfaces/skill';
 import { AddSkillDialogComponent } from '../../components/abilities/add-skill-dialog/add-skill-dialog.component';
 import { HelpRequest } from 'src/app/modules/core/interfaces/helpRequest';
 import { HelpRequestService } from 'src/app/modules/core/services/help-request.service';
@@ -12,7 +12,7 @@ import { HelpRequestService } from 'src/app/modules/core/services/help-request.s
 })
 export class ProfilePageComponent implements OnInit {
 
-  skillsArr : Ability[] = [
+  skillsArr : Skill[] = [
 
     {name:"Cocina", level:"mastero"},
     {name:"Metalurguia", level:"principiante"},
@@ -43,7 +43,7 @@ export class ProfilePageComponent implements OnInit {
 
     const dialogRef = this.dialog.open(AddSkillDialogComponent);
     
-    dialogRef.afterClosed().subscribe( (newSkill : Ability) => {
+    dialogRef.afterClosed().subscribe( (newSkill : Skill) => {
       
       console.log(newSkill);
     })

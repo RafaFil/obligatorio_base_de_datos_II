@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { apiMessage } from '../interfaces/apiMessage';
-import { Ability } from '../interfaces/ability';
+import { Skill } from '../interfaces/skill';
 
 const apiURL = "http://localhost:3000/api/v1"
 
@@ -13,15 +13,15 @@ export class SkillService {
 
   constructor(private http : HttpClient) { }
 
-  getAllAbility () : Observable<apiMessage<Ability[]>> {
-    return this.http.get<apiMessage<Ability[]>>(`${apiURL}/ability`);
+  getAllSkills () : Observable<apiMessage<Skill[]>> {
+    return this.http.get<apiMessage<Skill[]>>(`${apiURL}/skill`);
   }
 
-  updateAbilityLevel( level : string ) {
+  updateSkillLevel( level : string ) {
 
   }
 
-  addHability() {
+  addSkill() {
 
   }
 

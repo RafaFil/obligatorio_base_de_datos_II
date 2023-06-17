@@ -1,19 +1,19 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Ability } from 'src/app/modules/core/interfaces/ability';
+import { Skill } from 'src/app/modules/core/interfaces/skill';
 import { SkillService } from 'src/app/modules/core/services/skill.service';
 
 @Component({
-  selector: 'app-ability-card',
-  templateUrl: './ability-card.component.html',
-  styleUrls: ['./ability-card.component.scss']
+  selector: 'app-skill-card',
+  templateUrl: './skill-card.component.html',
+  styleUrls: ['./skill-card.component.scss']
 })
-export class AbilityCardComponent implements OnInit {
+export class SkillCardComponent implements OnInit {
 
   isOnEdit = false;
 
-  @Input() skill !: Ability;
+  @Input() skill !: Skill;
 
-  abilityLevel : string[] = [
+  skillLevel : string[] = [
     "Principiante",
     "Medio",
     "Alto",
@@ -37,7 +37,7 @@ export class AbilityCardComponent implements OnInit {
 
     if (this.selectedLevel) {
 
-      this.skillService.updateAbilityLevel(this.selectedLevel);
+      this.skillService.updateSkillLevel(this.selectedLevel);
       console.log(this.selectedLevel);
       this.isOnEdit = false;
     }
