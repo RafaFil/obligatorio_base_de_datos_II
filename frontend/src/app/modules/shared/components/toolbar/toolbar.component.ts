@@ -9,34 +9,40 @@ import { UserService } from 'src/app/modules/core/services/user.service';
 })
 export class ToolbarComponent implements OnInit {
 
-  isOnProfile = false;
+  isOnProfile!: boolean;
 
   constructor(private userService : UserService,
-              private router : Router) { }
+              private router : Router) { 
+
+                if (this.router.url == "/home") {
+                  this.isOnProfile = false;
+                }
+                else {
+                  this.isOnProfile = true
+                }
+
+  }
 
   ngOnInit(): void {
   }
 
   goToHomepage() {
-    
-    console.log(this.isOnProfile);
-    this.isOnProfile = false;
-    console.log(this.isOnProfile);
+
     this.router.navigate(["/home"]);
+
   }
 
   goToUserProfile() {
 
-    console.log(this.isOnProfile);
-    this.isOnProfile = true;
-    console.log(this.isOnProfile);
     this.router.navigate(["/profile"]);
+    
   }
 
   logout() {
 
     this.userService.logout();
     this.router.navigate(["/"]);
+
   }
 
 }
