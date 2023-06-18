@@ -82,6 +82,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy{
     if (this.map) {
 
       this.map.setCenter([lng,lat]);
+      
     }
   }
 }
