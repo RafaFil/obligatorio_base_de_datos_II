@@ -6,14 +6,14 @@ const ALLPARSED = "ayudante_ci AS userId, solicitud_id AS requestId, fecha AS da
 
 const getSolicitantRequestHelper = async function (userId, requestId) {
     return pool.query
-        (`SELECT p.ayudante_ci AS helperId, p.solicitud_id AS requestId, s.solicitante_ci AS solicitantId
-        FROM postulaciones p INNER JOIN solicitudes_ayuda s on p.solicitud_id = s.id 
-        WHERE (p.ayudante_ci = $1 OR s.solicitante_ci = $1 ) AND s.id = $2;`,
+        (`SELECT *
+        FROM solicitante_solicitud_ayudante 
+        WHERE (helperId = $1 OR solicitantId = $1 ) AND requestId = $2;`,
         [userId, requestId]).then(res => {
         if (res.rows.length > 0) {
             return new dataResult(true, res.rows)
         } else {
-            return new dataResult(true, null, 204, "No postulation found")
+            return new dataResult(false, null, 204, "No postulation found")
         }
     }).catch(err => {
         return new dataResult(false, null, err.code, err.message)
