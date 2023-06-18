@@ -12,3 +12,25 @@
     flex: 1; 
 }
 
+.sb-request-drawer {
+    width: 35%;
+}
+
+@media (max-width: 700px) {
+    .sb-request-drawer {
+        width: 80%;
+    }
+}
+
+h1 {
+    text-align: center;
+}
+
+.sb-search-input {
+    position: sticky;
+    top: 0;
+    z-index: 99999;
+    background: white;
+    width: 100%;
+}
+

@@ -9,9 +9,11 @@ import { HomeRoutingModule } from './home-routing.module';
 import { AddHelpRequestComponent } from './components/add-help-request/add-help-request.component';
 import { HelpRequestFormComponent } from './components/help-request-form/help-request-form.component';
 import { DialogHelpRequestComponent } from './components/dialog-help-request/dialog-help-request.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HelpMapMarkerComponent } from './components/help-map-marker/help-map-marker.component';
 import { DialogHelpRequestInfoComponent } from './components/dialog-help-request-info/dialog-help-request-info.component';
+import { RequestCardComponent } from './components/request-card/request-card.component';
+import { FilterSearchPipe } from './pipes/filter-search.pipe';
 
 
 @NgModule({
@@ -23,13 +25,16 @@ import { DialogHelpRequestInfoComponent } from './components/dialog-help-request
     DialogHelpRequestComponent,
     HelpMapMarkerComponent,
     DialogHelpRequestInfoComponent,
+    RequestCardComponent,
+    FilterSearchPipe,
   ],
   imports: [
     CommonModule,
     MaterialModule,
     HomeRoutingModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class HomeModule { }
