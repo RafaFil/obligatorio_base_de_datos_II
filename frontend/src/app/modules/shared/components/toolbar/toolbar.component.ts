@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/modules/core/services/user.service';
 
@@ -8,6 +8,8 @@ import { UserService } from 'src/app/modules/core/services/user.service';
   styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent implements OnInit {
+
+  @Output() toggleSideNavEvent: EventEmitter<void> = new EventEmitter<void>();
 
   isOnProfile!: boolean;
 
@@ -24,6 +26,11 @@ export class ToolbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  toogleSideNav() {
+
+    this.toggleSideNavEvent.emit();
   }
 
   goToHomepage() {

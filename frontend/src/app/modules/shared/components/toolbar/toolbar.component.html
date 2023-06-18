@@ -3,7 +3,8 @@
     <button mat-icon-button class="example-icon" 
     aria-label="Example icon-button with menu icon"
     matTooltip="Ver todas las solicitudes disponibles"
-    *ngIf="!isOnProfile">
+    *ngIf="!isOnProfile"
+    (click)="toogleSideNav()">
         <mat-icon>menu</mat-icon>
     </button>
 

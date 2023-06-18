@@ -23,12 +23,12 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy{
 
   private currentMarkers: Marker[] = [];
 
-  public HelpRequestArr : HelpRequest[] = []
+  @Input() public HelpRequestArr : HelpRequest[] = []
   
   constructor(private helpAplicationService : HelpRequestService) { }
 
   ngOnInit(): void {
-    this.HelpRequestArr = this.helpAplicationService.getAllAplications();
+    
   }
 
   ngAfterViewInit() {
@@ -77,4 +77,12 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy{
 
     }
     
+  goToLocation(lng : number, lat : number) {
+    
+    if (this.map) {
+
+      this.map.setCenter([lng,lat]);
+      
+    }
+  }
 }
