@@ -14,6 +14,7 @@ import { HelpMapMarkerComponent } from './components/help-map-marker/help-map-ma
 import { DialogHelpRequestInfoComponent } from './components/dialog-help-request-info/dialog-help-request-info.component';
 import { RequestCardComponent } from './components/request-card/request-card.component';
 import { FilterSearchPipe } from './pipes/filter-search.pipe';
+import { SearchRequestFiltersComponent } from './components/search-request-filters/search-request-filters.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { FilterSearchPipe } from './pipes/filter-search.pipe';
     DialogHelpRequestInfoComponent,
     RequestCardComponent,
     FilterSearchPipe,
+    SearchRequestFiltersComponent,
   ],
   imports: [
     CommonModule,

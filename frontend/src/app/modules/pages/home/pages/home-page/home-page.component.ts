@@ -52,7 +52,10 @@ export class HomePageComponent implements OnInit {
     this.isDrawerOpen = false;
   }
 
-
+  requestFilterSelected() {
+    
+    alert ("sapeeee");
+  }
 
 
 

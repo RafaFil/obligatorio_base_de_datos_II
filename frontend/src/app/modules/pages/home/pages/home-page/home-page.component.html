@@ -11,6 +11,10 @@
                 <mat-icon matPrefix>search</mat-icon>
             </mat-form-field>
 
+            <app-search-request-filters 
+            (chipSelected)="requestFilterSelected()">
+            </app-search-request-filters>
+
             <app-request-card *ngFor="let request of requsetsArr | filterSearch:searchText" 
             [request]="request"
             (goToMap)="goToRequestMapLocation($event)">
