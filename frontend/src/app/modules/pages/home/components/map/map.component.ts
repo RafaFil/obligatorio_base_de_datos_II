@@ -41,6 +41,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy{
     });
     this.map.addControl(new NavigationControl({}), 'top-right');
 
+
     this.loadMarkers();
 
   }
