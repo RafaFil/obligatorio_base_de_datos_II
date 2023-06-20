@@ -1,4 +1,4 @@
-const { getAllSkillsFromDB, getAllUserSkillsFromDB, getSkillFromDB, getAllRequestSkillsFromDB } = require("../repository/skill.repository");
+const { getAllSkillsFromDB, getAllUserSkillsFromDB, getSkillFromDB, getAllRequestSkillsFromDB, addSkillToUserInDB } = require("../repository/skill.repository");
 
 async function getAllSkillsService() {
     return await getAllSkillsFromDB();

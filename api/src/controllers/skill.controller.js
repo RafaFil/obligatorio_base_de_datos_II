@@ -1,5 +1,5 @@
 const { Skill, userSkill, requiredSkill } = require("../entities/skills.entity");
-const { getAllSkillsService, getAllUserSkillsService, getSkillService, getAllRequestSkillsService } = require("../services/skill.service");
+const { getAllSkillsService, getAllUserSkillsService, getSkillService, getAllRequestSkillsService, addSkillToUserService } = require("../services/skill.service");
 
 const getAllSkills = async (req, res) => {
     getAllSkillsService().then( skills => {
@@ -118,10 +118,17 @@ const addSkillToUser = async ( req , res) => {
 
     const { skillId, skillName, skillLvl } = req.body;
 
-    if (!skillId || !skillName || !skillLvl || !req.username) {
+    if (!skillId || !skillName || !skillLvl ) {
         return res.status(400).json({
             success: false,
             message: 'missing fields in body'
+        });
+    }
+
+    if (!req.username) {
+        return res.status(404).json({
+            success: false,
+            message: 'User not found'
         });
     }
 
@@ -153,5 +160,6 @@ module.exports = {
     getAllSkills,
     getSkill,
     getAllUserSkills,
-    getAllRequestSkills
+    getAllRequestSkills,
+    addSkillToUser
 }

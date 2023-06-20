@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { validateJWT } = require('../middlewares/validateJWT.middleware');
-const { getAllSkills, getSkill, getAllUserSkills, getAllRequestSkills } = require('../controllers/skill.controller');
+const { getAllSkills, getSkill, getAllUserSkills, getAllRequestSkills, addSkillToUser } = require('../controllers/skill.controller');
 const { validateBody } = require('../middlewares/validateBody.middleware');
 
 const BASE_ROUTE = '/skills'
@@ -23,7 +23,7 @@ skillsRouter.get(`${BASE_ROUTE}/request/:requestId`, async (req, res) => {
 });
 
 skillsRouter.post(`${BASE_ROUTE}/addSkill`, validateBody, validateJWT, async (req,res) => {
-    
+    return addSkillToUser(req,res);
 })
 
 module.exports = skillsRouter;
