@@ -1,6 +1,54 @@
 <app-base-dialog [dialogTitle]="helpRequest.title">
-    <pre sb-content>
-        {{helpRequest | json }} 
-    </pre>
-    <button sb-actions mat-raised-button>Quiero Ayudar!!!</button>
+    <div sb-content class="container">
+        <div class="row">
+            <div class="row">
+                <mat-card-header>
+                    <mat-card-title>Solicitante</mat-card-title>
+                    <mat-card-subtitle> <!-- Cambiar a Nombre y Apellido de usuario? --> 
+                        <p>{{helpRequest.userDO}}</p> 
+                    </mat-card-subtitle> <!-- No me gusta doxxear la cédula de la gente -->
+                </mat-card-header>
+            </div>
+            <mat-card-header>
+                <mat-card-title>Descripcion</mat-card-title>
+                <mat-card-subtitle>
+                    <p>{{helpRequest.description}}</p>
+                </mat-card-subtitle>
+            </mat-card-header>
+        </div>
+        <div class="row">
+            <mat-card-header>
+                <mat-card-title>Habilidades Requeridas</mat-card-title>
+                <mat-card-subtitle>
+                    <p>{{helpRequest.skill}}</p> <!-- Hay que cambiarlo para que muestre nombre y maestría -->
+                </mat-card-subtitle>
+            </mat-card-header>
+        </div>
+        <div class="row">
+            <mat-card-header>
+                <mat-card-title>Calle</mat-card-title>
+                <mat-card-subtitle>
+                    <p>{{helpRequest.street}}</p>
+                </mat-card-subtitle>
+            </mat-card-header>
+        </div>
+        <div class="row">
+            <mat-card-header>
+                <mat-card-title>Esquina</mat-card-title>
+                <mat-card-subtitle>
+                    <p>{{helpRequest.corner}}</p>
+                </mat-card-subtitle>
+            </mat-card-header>
+        </div>
+        <div class="row">
+            <mat-card-header>
+                <mat-card-title>Fecha de Creacion</mat-card-title>
+                <mat-card-subtitle>
+                    <p>{{helpRequest.corner}}</p>
+                </mat-card-subtitle>
+            </mat-card-header>
+        </div>
+        
+    </div>
+    <button sb-actions mat-raised-button color="primary">Quiero Ayudar!!!</button>
 </app-base-dialog>

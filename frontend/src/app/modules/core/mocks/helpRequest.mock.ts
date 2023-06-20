@@ -4,7 +4,7 @@ export class helpRequestMock {
     
     HelpRequestArr : HelpRequest[] = [
         {   title: "Ayuda 1",
-            description: "Descripcion 1",
+            description: "Descripcion 1 Descripcion 1Descripcion 1 Descripcion 1Descripcion 1Descripcion 1Descripcion 1Descripcion 1Descripcion 1Descripcion 1 Descripcion 1 Descripcion 1Descripcion 1 Descripcion 1Descripcion 1Descripcion 1Descripcion 1Descripcion 1Descripcion 1Des",
             street: "8 octubre",
             corner: "Avenida siempreviva",
             userDO: "111111111",
