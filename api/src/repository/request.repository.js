@@ -1,6 +1,6 @@
 const { pool } = require("../connection/db.conn");
 const { dataResult } = require("./data.repository");
-const { getAllFriendsRequestsBuilder } = require("../helpers/request.helper")
+const { getAllFriendsRequestsBuilder, skillsQueryBuilder } = require("../helpers/request.helper")
 
 requestAllParsed = "id, latitud as lat, longitud as lng, solicitante_ci as userDO, esta_activa as isActive, fue_resuelta as wasResolved, fecha_publicacion as dateOfPublishing, titulo as title, descripcion as description";
 userAllParsed = "ci AS do, nombre AS name, apellido AS lastName, confirmada_identidad AS verified";
@@ -46,7 +46,7 @@ const getQuestionsFromRequestDB = async function (requestId) {
 }
 
 const createRequestDB = async function (helpRequest){
-    return (pool.query('BEGIN; WITH solicitud_ayuda_con_skills AS(INSERT INTO solicitudes_ayuda(latitud,longitud,solicitante_ci,esta_activa,fue_resuelta,fecha_publicacion,titulo,descripcion) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id)',[helpRequest.lat,helpRequest.lng,helpRequest.userDO,helpRequest.isActive,helpRequest.wasResolved,helpRequest.dateOfPublishing,helpRequest.title,helpRequest.description]).then(res => {
+    return (pool.query('INSERT INTO solicitudes_ayuda(latitud,longitud,solicitante_ci,esta_activa,fue_resuelta,fecha_publicacion,titulo,descripcion) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id',[helpRequest.lat,helpRequest.lng,helpRequest.userDO,helpRequest.isActive,helpRequest.wasResolved,helpRequest.dateOfPublishing,helpRequest.title,helpRequest.description]).then(res => {
         if(res.rows.length > 0){
             return new dataResult(true,res.rows);
         }
@@ -58,14 +58,22 @@ const createRequestDB = async function (helpRequest){
     }));
 }
 
-const createRequestSkillsDB = async function(requestSkills,requestId){
-    buildingQuery = `INSERT INTO habilidades_solicitudes(solicitud_id,habilidad_id,nivel) VALUES`;
-    
-    pool.query(buildingQuery,arrayOfValues)
+const createRequestSkillsDB = async function(requestSkills){
+    buildingQuery = skillsQueryBuilder(requestSkills);
+    return pool.query(buildingQuery,requestSkills).then(res => {
+        if(res.rows.length > 0){
+            return new dataResult(true,res.rows);
+        }
+        else {
+            return new dataResult(false, null, 400, "Request not added correctly.")
+        }
+    }).catch(err => {
+        return new dataResult(false, null, err.code, err.message)
+    });
 }
 
 const createRequestCommentDB = async function(reqComment){
-    return (pool.query(`INSERT INTO comentarios_solicitudes(usuario_id,solicitud_id,texto_pregunta,texto_respuesta) VALUES ($1,$2,$3,$4) RETURNING `+ requestCommentsAllParsed,[reqComment.userDO,reqComment.requestId,reqComment.question,reqComment.answer]).then(res =>{
+    return (pool.query(`INSERT INTO comentarios_solicitudes(usuario_id,solicitud_id,texto_pregunta,texto_respuesta) VALUES ($1,$2,$3,$4) RETURNING `+ requestCommentsAllParsed,[reqComment.userDO,reqComment.requestId,reqComment.question,reqComment.answer])).then(res =>{
         if(res.rows.length > 0){
             return new dataResult(true,res.rows);
         }
@@ -74,7 +82,7 @@ const createRequestCommentDB = async function(reqComment){
         }
     }).catch(err => {
         return new dataResult(false, null, err.code, err.message)
-    }));
+    });
 }
 
 const answerRequestCommentDB = async function(reqComment){
@@ -164,7 +172,20 @@ const getFriendsDB = async function (userId){
 
 const getRequestsDB = async function (friendsArray){
     queryFilter = getAllFriendsRequestsBuilder(friendsArray);
-    return (pool.query(`SELECT sa.id, sa.titulo as title, sa.fecha_publicacion as dateOfPublishing, sa.latitud as lat, sa.longitud as lng, h.nombre as habilidad from solicitudes_ayuda sa join habilidades_solicitudes hs on sa.id = hs.solicitud_id join habilidades h on hs.habilidad_id = h.id `+ queryFilter ,friendsArray)).then(res =>{
+    return (pool.query(`SELECT sa.id, sa.titulo as title, sa.fecha_publicacion as dateOfPublishing, sa.latitud as lat, sa.longitud as lng, h.nombre as habilidad from solicitudes_ayuda sa join habilidades_solicitudes hs on sa.id = hs.solicitud_id join habilidades h on hs.habilidad_id = h.id `+ queryFilter ,friendsArray).then(res =>{
+        if(res.rows.length > 0){
+            return new dataResult(true,res.rows);
+        }
+        else {
+            return new dataResult(false, null, 404, "Requests not Found.")
+        }
+    }).catch(err => {
+        return new dataResult(false, null, err.code, err.message)
+    }));
+}
+
+const deleteRequestDB = async function (requestId){
+    return (pool.query(`DELETE FROM solicitudes_ayuda sa WHERE sa.id = $1 RETURNING id`,requestId)).then(res =>{
         if(res.rows.length > 0){
             return new dataResult(true,res.rows);
         }
@@ -186,5 +207,6 @@ module.exports = {
     answerRequestCommentDB,
     isRequestActiveDB,
     getFriendsDB,
-    getRequestsDB
+    getRequestsDB,
+    deleteRequestDB
 }

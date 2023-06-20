@@ -1,22 +1,15 @@
-const skillsQueryBuilder = (initialSkillsQuery,skills)=>{
-    buildingQuery = initialSkillsQuery
+const skillsQueryBuilder = (requestSkills)=>{
+    buildingQuery = `INSERT INTO habilidades_solicitudes(solicitud_id,habilidad_id,nivel) VALUES`
     arrayOfValues = []
-    for (let index = 0; index < requestSkills.length*2; index = index + 2) {
-        if(index+3 == requestSkills.length*2){
-            buildingQuery = buildingQuery.concat(`(requestId,$${index+1},$${index+2}); COMMIT;`)
-        }
-        else if(index = 0){
-            buildingQuery = buildingQuery.concat(`SELECT requestId,$${index+1},$${index+2},`)
+    for (let index = 0; index < requestSkills.length;index = index + 3) {
+        if(index+3 == requestSkills.length){
+            buildingQuery = buildingQuery.concat(`($${index+1},$${index+2},$${index+3}) RETURNING *;`);
         }
         else{
-            buildingQuery = buildingQuery.concat(`(requestId,$${index+1},$${index+2}),`)
+            buildingQuery = buildingQuery.concat(`($${index+1},$${index+2},$${index+3}),`);
         }
     }
-    for (let index = 0; index<requestSkills.length; index++){
-        arrayOfValues.push(requestSkills[index].id);
-        arrayOfValues.push(requestSkills[index].lvl);
-    }
-    return
+    return buildingQuery;
 }
 
 const getAllFriendsRequestsBuilder = (friends) =>{

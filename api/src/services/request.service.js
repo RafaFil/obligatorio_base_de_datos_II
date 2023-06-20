@@ -1,8 +1,9 @@
 const { helpRequest } = require('../entities/helpRequest.entity')
 const { requestComments } = require('../entities/requestComments.entity');
+const { dataResult } = require("../repository/data.repository");
 const { checkForMultipleRequests } = require('../helpers/request.helper');
+const {getAllRequestSkillsService} = require('./skill.service');
 const requestRepository = require('../repository/request.repository');
-const skillService = require('../services/skill.service')
 
 async function getRequestsByUserDOService(UserId){
     userRequestQuery = await requestRepository.getRequestsByUserDO_DB(UserId);
@@ -19,7 +20,7 @@ async function getRequestsByUserDOService(UserId){
 async function rebuildRequest(requestData){
     result = [...requestData];
     for (let index = 0; index < result.length; index++) {
-        skillsArray = await skillService.getAllRequestSkillsService(result[index].id)
+        skillsArray = await getAllRequestSkillsService(result[index].id)
         result[index] = {
             id : result[index].id, 
             title: result[index].title, 
@@ -39,7 +40,7 @@ async function rebuildRequest(requestData){
 async function rebuildRequestWithUserData(requestData){
     result = [...requestData];
     for (let index = 0; index < result.length; index++) {
-        skillsArray = await skillService.getAllRequestSkillsService(result[index].id)
+        skillsArray = await getAllRequestSkillsService(result[index].id)
         result[index] = {
             id : result[index].id, 
             title: result[index].title, 
@@ -55,6 +56,7 @@ async function rebuildRequestWithUserData(requestData){
             lastname : result[index].lastname,
             verified : result[index].verified,
         }
+        console.log(result[index]);
     }
     return result;
 }
@@ -77,12 +79,24 @@ async function getQuestionsFromRequestService(requestId){
 
 async function createRequestService(httpBody){
     request = new helpRequest(1,httpBody.title,httpBody.lat,httpBody.lng,httpBody.userDO,httpBody.dateOfPublishing,httpBody.description);
-    skills = httpBody.skills;
+    requestSkills = httpBody.skills;
     requestQuery = await requestRepository.createRequestDB(request);
     if(requestQuery.success){
         createdRequest = requestQuery.data
-        await requestRepository.createRequestSkillsDB(skills,createdRequest[0].id);
-        return await getRequestByIdService(createdRequest[0].id);
+        arrayOfValues = [];
+        for (let index = 0; index<requestSkills.length; index++){
+            arrayOfValues.push(createdRequest[0].id);
+            arrayOfValues.push(requestSkills[index].id);
+            arrayOfValues.push(requestSkills[index].lvl);
+        }
+        skillsInsert = await requestRepository.createRequestSkillsDB(arrayOfValues);
+        if(skillsInsert.success){
+            return await getRequestByIdService(createdRequest[0].id);
+        }
+        else{
+            await requestRepository.deleteRequestDB(createdRequest[0].id);
+            return new dataResult(false, null, 400, "Skills not added correctly.");
+        }
     }
     return requestQuery;
 }
