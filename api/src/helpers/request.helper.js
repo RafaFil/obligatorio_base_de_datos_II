@@ -1,3 +1,5 @@
+const {getAllRequestSkillsService} = require('../services/skill.service');
+
 const skillsQueryBuilder = (requestSkills)=>{
     buildingQuery = `INSERT INTO habilidades_solicitudes(solicitud_id,habilidad_id,nivel) VALUES`
     arrayOfValues = []
@@ -53,9 +55,54 @@ const buildPreviewJSON = (request) =>{
     }
 }
 
+async function rebuildRequest(requestData){
+    result = [...requestData];
+    for (let index = 0; index < result.length; index++) {
+        skillsArray = await getAllRequestSkillsService(result[index].id)
+        result[index] = {
+            id : result[index].id, 
+            title: result[index].title, 
+            lat : result[index].lat,
+            lng : result[index].lng,
+            userDO: result[index].userdo,
+            dateOfPublishing : result[index].dateofpublishing, 
+            isActive : result[index].isactive, 
+            wasResolved : result[index].wasresolved, 
+            description : result[index].description,
+            skills : skillsArray.data
+        }
+    }
+    return result;
+}
+
+async function rebuildRequestWithUserData(requestData){
+    result = [...requestData];
+    for (let index = 0; index < result.length; index++) {
+        skillsArray = await getAllRequestSkillsService(result[index].id)
+        result[index] = {
+            id : result[index].id, 
+            title: result[index].title, 
+            lat : result[index].lat,
+            lng : result[index].lng,
+            dateOfPublishing : result[index].dateofpublishing, 
+            isActive : result[index].isactive, 
+            wasResolved : result[index].wasresolved, 
+            description : result[index].description,
+            skills : skillsArray.data,
+            userDO: result[index].do,
+            name: result[index].name,
+            lastname : result[index].lastname,
+            verified : result[index].verified,
+        }
+    }
+    return result;
+}
+
 module.exports ={
     skillsQueryBuilder,
     getAllFriendsRequestsBuilder,
     checkForMultipleRequests,
-    buildPreviewJSON
+    buildPreviewJSON,
+    rebuildRequestWithUserData,
+    rebuildRequest
 }
