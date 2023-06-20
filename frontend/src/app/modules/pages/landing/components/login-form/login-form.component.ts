@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserAuth } from 'src/app/modules/core/interfaces/userAuth';
 import { UserService } from 'src/app/modules/core/services/user.service';
 
@@ -12,7 +13,8 @@ export class LoginFormComponent implements OnInit {
 
   usuarioDO!: string | null;
 
-  constructor(private formBuilder : FormBuilder, private userService : UserService) { }
+  constructor(private formBuilder : FormBuilder, private userService : UserService,
+              private router : Router) { }
 
   ngOnInit(): void {
   }
@@ -42,14 +44,14 @@ export class LoginFormComponent implements OnInit {
         if (!result.success) {
             alert("Ups nuestros servidores en kazajistan han explotado, tome un video");
         }
-        
-        //hacer el redirect al home del user
-        //tambien ver como meter el save el inspector y bla bla bla
+
+        else {
+          this.router.navigate(["/home"]);
+        }
       });
       
     }
 
-    //alert("faltan campos");
   }
 
 

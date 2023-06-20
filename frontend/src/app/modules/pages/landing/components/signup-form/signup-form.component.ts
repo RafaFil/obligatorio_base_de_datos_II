@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { User } from 'src/app/modules/core/interfaces/user';
 import { UserService } from 'src/app/modules/core/services/user.service';
 
@@ -11,7 +12,8 @@ import { UserService } from 'src/app/modules/core/services/user.service';
 export class SignupFormComponent implements OnInit {
 
 
-  constructor(private formBuilder : FormBuilder, private userService : UserService) { }
+  constructor(private formBuilder : FormBuilder, private userService : UserService,
+              private router : Router) { }
 
   ngOnInit(): void {
   }
@@ -63,7 +65,7 @@ export class SignupFormComponent implements OnInit {
       .subscribe( res => {
         if (res.success) {
           alert("Se ha registrado correctamente.")
-          return;
+          this.router.navigate(["/home"]);
         }
         alert("algo ha salido mal")
         return;
