@@ -15,15 +15,16 @@ const skillsQueryBuilder = (requestSkills)=>{
 }
 
 const getAllFriendsRequestsBuilder = (friends) =>{
-    buildQuery = 'WHERE ';
+    buildQuery = 'WHERE (';
     for (let index = 0; index < friends.length; index++) {
         if(index+1 == friends.length){
-            buildQuery += `sa.solicitante_ci = $${index+1};`;
+            buildQuery += `sa.solicitante_ci = $${index+1}`;
         }
         else{
             buildQuery += `sa.solicitante_ci = $${index+1} OR `;
         }
     }
+    buildQuery += ")"
     return buildQuery
 
 }
