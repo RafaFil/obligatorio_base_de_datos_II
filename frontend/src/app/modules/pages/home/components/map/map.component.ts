@@ -33,6 +33,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy{
   }
 
   ngAfterViewInit() {
+
     const initialState = { lng: -56.157485609445175 , lat: -34.88791314870603 , zoom: 15 };
     this.map = new Map({
       container: this.mapContainer.nativeElement,
@@ -42,8 +43,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy{
     });
     this.map.addControl(new NavigationControl({}), 'top-right');
 
-
-    this.loadMarkers();
+    this.map.on('load', () => {
+      this.loadMarkers();
+    });
 
   }
 
@@ -52,6 +54,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy{
   }
 
   loadMarkers() {
+
+    console.log(this.HelpRequestArr);
 
     if (this.map) {
       this.map.repaint = false;

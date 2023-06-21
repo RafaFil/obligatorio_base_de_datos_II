@@ -28,6 +28,7 @@ export class HomePageComponent implements OnInit {
         if ( requests.success && requests.data ) {
   
           this.requsetsArr = requests.data;
+          this.loadMarkersIntoMap(" ");
         }
       }
     );
