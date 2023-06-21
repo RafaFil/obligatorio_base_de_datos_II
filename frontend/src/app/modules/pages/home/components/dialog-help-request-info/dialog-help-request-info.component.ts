@@ -14,13 +14,15 @@ export class DialogHelpRequestInfoComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public helpRequest: HelpRequestData) { 
 
-    this.helpRequestMap.set(0,this.helpRequest.userDO);
+
+    console.log(helpRequest);
+    /*this.helpRequestMap.set(0,this.helpRequest.user.DO);
     this.helpRequestMap.set(1,this.helpRequest.title);
     this.helpRequestMap.set(2,this.helpRequest.description);
     this.helpRequestMap.set(3,this.helpRequest.skill);
     this.helpRequestMap.set(4,this.helpRequest.street);
     this.helpRequestMap.set(5,this.helpRequest.corner);
-    this.helpRequestMap.set(6,this.helpRequest.corner);
+    this.helpRequestMap.set(6,this.helpRequest.corner);*/
   }
 
 

@@ -13,13 +13,13 @@ export class HelpRequestFormComponent implements OnInit {
 
   abilitiesArr : Skill[] = [
     {
-      name: "carpinteria", description: "trabaja con madera"
+      name: "carpinteria"
     },
     {
-      name: "metalurgia", description: "trabaja con madera"
+      name: "metalurgia"
     },
     {
-      name: "cocina", description: "trabaja con madera"
+      name: "cocina"
     },
   ]
 

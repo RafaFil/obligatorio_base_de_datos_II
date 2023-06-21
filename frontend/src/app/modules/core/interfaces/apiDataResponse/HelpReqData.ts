@@ -1,4 +1,5 @@
 import { Skill } from "../skill"
+import { UserDataResponse } from "./userDataResponse"
 
 export interface HelpRequestData {
     id : number,
@@ -8,11 +9,13 @@ export interface HelpRequestData {
     level?: string,
     street?: string,
     corner?: string,
-    userDO : string,
+    user : UserDataResponse,
     name : string,
     last_name: string,
-    verified: boolean
+    verified: boolean,
     lng?: number,
     lat?: number,
-    dateOfPublishing?: Date
+    dateOfPublishing?: Date,
+    isActive?: boolean,
+    wasResolved?: boolean
 }
