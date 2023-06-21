@@ -141,9 +141,7 @@ const authUser = async (req, res) => {
 
 // TODO
 const renewToken = async (req, res) => {
-    const { DO } = req;
-
-    const user = await findByDO(DO);
+    const user = await findByDO(req.username);
 
     if (!user.success) {
         return res.status(404).json({
@@ -152,12 +150,12 @@ const renewToken = async (req, res) => {
         });
     }
     
-    const token = await generateJWT( DO, user.name );
+    const token = await generateJWT( req.username, user.name );
 
     return res.status(200).json({
         success: true,
         data: {
-            user,
+            user : user.data,
             token
         }
     });
