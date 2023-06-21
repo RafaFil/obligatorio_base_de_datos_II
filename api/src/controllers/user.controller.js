@@ -146,7 +146,7 @@ const renewToken = async (req, res) => {
     const user = await findByDO(DO);
 
     if (!user.data) {
-        res.status(404).json({
+        return res.status(404).json({
             success: false,
             message: `No user was found for username ${DO}`
         });
