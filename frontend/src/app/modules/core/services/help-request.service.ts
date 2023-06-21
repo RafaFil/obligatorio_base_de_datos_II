@@ -28,7 +28,7 @@ export class HelpRequestService {
 
   getHelpRequestById(id : number) : Observable<apiMessage<HelpRequestData>> {
     
-    return this.http.get<apiMessage<HelpRequestData>>(`${apiURL}/:${id}`)
+    return this.http.get<apiMessage<HelpRequestData>>(`${apiURL}/withId/${id}`)
     .pipe(
       catchError( err => of(err))
     );
