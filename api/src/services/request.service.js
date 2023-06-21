@@ -22,7 +22,7 @@ async function getRequestByIdService(requestId){
         requestData = await rebuildRequestWithUserData(userRequestQuery.data);
         return {
             success : userRequestQuery.success,
-            data : requestData
+            data : requestData[0]
         }
     }
     return userRequestQuery

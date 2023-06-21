@@ -5,17 +5,19 @@ export interface HelpRequestData {
     id : number,
     title: string,
     description: string,
-    skill?: Skill[],
+    skills: Skill[],
     level?: string,
     street?: string,
     corner?: string,
-    user : UserDataResponse,
-    name : string,
-    last_name: string,
-    verified: boolean,
-    lng?: number,
-    lat?: number,
-    dateOfPublishing?: Date,
+    user : {
+        userDO : string,
+        name : string,
+        lastname: string,
+        verified: boolean
+    },
+    lng: number,
+    lat: number,
+    dateofpublishing: string,
     isActive?: boolean,
     wasResolved?: boolean
 }
