@@ -4,6 +4,7 @@ import { Map, Marker, NavigationControl } from 'maplibre-gl';
 import { HelpMapMarkerComponent } from '../help-map-marker/help-map-marker.component';
 import { HelpRequestService } from 'src/app/modules/core/services/help-request.service';
 import { HelpRequest } from 'src/app/modules/core/interfaces/helpRequest';
+import { HelpRequestPreviewData } from 'src/app/modules/core/interfaces/apiDataResponse/HelpRequestPreviewData';
 
 
 
@@ -23,7 +24,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy{
 
   private currentMarkers: Marker[] = [];
 
-  @Input() public HelpRequestArr : HelpRequest[] = []
+  @Input() public HelpRequestArr : HelpRequestPreviewData[] = []
   
   constructor(private helpAplicationService : HelpRequestService) { }
 

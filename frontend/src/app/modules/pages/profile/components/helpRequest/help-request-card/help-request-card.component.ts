@@ -3,6 +3,7 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { Router } from '@angular/router';
 import { HelpRequest } from 'src/app/modules/core/interfaces/helpRequest';
 import { ApplicantsSheetComponent } from '../applicants-sheet/applicants-sheet.component';
+import { HelpRequestPreviewData } from 'src/app/modules/core/interfaces/apiDataResponse/HelpRequestPreviewData';
 
 @Component({
   selector: 'app-help-request-card',
@@ -11,7 +12,7 @@ import { ApplicantsSheetComponent } from '../applicants-sheet/applicants-sheet.c
 })
 export class HelpRequestCardComponent implements OnInit {
 
-  @Input() helpRequest!: HelpRequest
+  @Input() helpRequest!: HelpRequestPreviewData
 
   constructor(private sheet : MatBottomSheet,
               private router : Router) { }

@@ -58,7 +58,7 @@ export class DialogHelpRequestComponent implements OnInit {
 
             console.log(helpAplication);
 
-            this.helpRequestService.submitAplication(helpAplication);
+            this.helpRequestService.submitHelpRequest(helpAplication);
             this.dialog.close(helpAplication);
 
           } else {

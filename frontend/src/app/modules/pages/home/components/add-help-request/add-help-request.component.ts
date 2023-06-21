@@ -28,7 +28,7 @@ export class AddHelpRequestComponent implements OnInit {
       console.log(HelpRequestData);
       //use suscribe and that bla bla bla 
       this.eventData.emit();
-      this.helpAplicationService.submitAplication(HelpRequestData);
+      this.helpAplicationService.submitHelpRequest(HelpRequestData);
     });
   }
 

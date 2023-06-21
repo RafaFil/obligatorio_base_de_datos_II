@@ -59,12 +59,11 @@ export class SignupFormComponent implements OnInit {
         password : password,
         name : name,
         last_name: last_name,
-        contact : contact
       }
       this.userService.registerUser(userData)
       .subscribe( res => {
         if (res.success) {
-          alert("Se ha registrado correctamente.")
+          
           this.router.navigate(["/home"]);
         }
         alert("algo ha salido mal")

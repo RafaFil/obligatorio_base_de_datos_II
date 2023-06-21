@@ -4,6 +4,8 @@ import { Skill } from 'src/app/modules/core/interfaces/skill';
 import { AddSkillDialogComponent } from '../../components/abilities/add-skill-dialog/add-skill-dialog.component';
 import { HelpRequest } from 'src/app/modules/core/interfaces/helpRequest';
 import { HelpRequestService } from 'src/app/modules/core/services/help-request.service';
+import { HelpRequestData } from 'src/app/modules/core/interfaces/apiDataResponse/HelpReqData';
+import { HelpRequestPreviewData } from 'src/app/modules/core/interfaces/apiDataResponse/HelpRequestPreviewData';
 
 @Component({
   selector: 'app-profile-page',
@@ -21,11 +23,11 @@ export class ProfilePageComponent implements OnInit {
 
   ]
 
-  helpRequestArr : HelpRequest[] = [
+  helpRequestArr : HelpRequestPreviewData[] = [
 
   ]
 
-  helpAplicationArr : HelpRequest[] = [
+  helpAplicationArr : HelpRequestPreviewData[] = [
 
   ]
 
@@ -34,7 +36,13 @@ export class ProfilePageComponent implements OnInit {
 
   ngOnInit(): void {
     
-    this.helpRequestArr = this.helpRequestService.getAllAplications()
+    this.helpRequestService.getAllHelpRequest().subscribe( res => {
+
+      if (res.success && res.data) {
+
+        this.helpRequestArr = res.data;
+      }
+    })
     this.helpAplicationArr = this.helpRequestArr;
   }
 

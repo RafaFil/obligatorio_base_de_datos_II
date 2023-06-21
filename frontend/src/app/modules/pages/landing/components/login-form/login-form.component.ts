@@ -39,13 +39,15 @@ export class LoginFormComponent implements OnInit {
       .subscribe( result => {
 
         console.log(result);
-        this.usuarioDO = localStorage.getItem("token")
+        //this.usuarioDO = localStorage.getItem("token")
 
         if (!result.success) {
-            alert("Ups nuestros servidores en kazajistan han explotado, tome un video");
+
+            alert("ha ocurrido un error");
         }
 
         else {
+
           this.router.navigate(["/home"]);
         }
       });
