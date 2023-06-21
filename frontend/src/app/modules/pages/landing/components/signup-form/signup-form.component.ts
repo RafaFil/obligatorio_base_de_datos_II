@@ -64,10 +64,9 @@ export class SignupFormComponent implements OnInit {
       .subscribe( res => {
         if (res.success) {
           
-          this.router.navigate(["/home"]);
+          this.router.navigate(["/login"]);
         }
-        alert("algo ha salido mal")
-        return;
+        
       })
     }
 

@@ -13,12 +13,12 @@ import { CoreModule } from './modules/core/core.module';
     AppComponent
   ],
   imports: [
+    CoreModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
-    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
