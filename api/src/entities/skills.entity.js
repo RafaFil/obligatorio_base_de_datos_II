@@ -9,8 +9,7 @@ class userSkill extends Skill{
     
     constructor(skillId, skillName, userId, lvl){
         
-        super(skillId);
-        super(skillName);
+        super(skillId, skillName);
         this.userId = userId
         
         if(lvl > 5){
@@ -27,8 +26,7 @@ class requiredSkill extends Skill{
     
     constructor(skillId, skillName, lvl){
         
-        super(skillId);
-        super(skillName);
+        super(skillId, skillName);
 
         if(lvl > 5){
             lvl = 5;

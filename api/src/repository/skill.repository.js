@@ -63,7 +63,7 @@ const getAllRequestSkillsFromDB = async function (requestId) {
 const addSkillToUserInDB = async function (skillId, skillLvl, userId) {
     return pool.query
         (`INSERT INTO habilidades_usuario(user_ci, habilidad_id, nivel) 
-        VALUES ($1, $2, $3) RETURNING id, nombre AS name, nivel AS lvl`, 
+        VALUES ($1, $2, $3) RETURNING habilidad_id AS id, nombre AS name, nivel AS lvl`, 
         [userId, skillId, skillLvl]).then(res => {
         if (res.rows.length > 0) {
             return new dataResult(true, res.rows[0])
@@ -75,10 +75,28 @@ const addSkillToUserInDB = async function (skillId, skillLvl, userId) {
     })
 }
 
+const editSkillLevelDB = async function (userId, skillId, newLvl) {
+    return pool.query
+        (`UPDATE habilidades_usuarios
+        SET nivel = $3
+        WHERE user_ci = $1 AND habilidad_id = $2
+        RETURNING habilidad_id AS skillId, user_ci AS DO, nivel AS lvl`, 
+        [userId, skillId, newLvl]).then(res => {
+        if (res.rows.length > 0) {
+            return new dataResult(true, res.rows[0])
+        } else {
+            return new dataResult(true, null, 204, "No Skill Edited")
+        }
+    }).catch(err => {
+        return new dataResult(false, null, err.code, err.message)
+    })
+}
+
 module.exports = {
     getAllSkillsFromDB,
     getSkillFromDB,
     getAllUserSkillsFromDB,
     getAllRequestSkillsFromDB,
-    addSkillToUserInDB
+    addSkillToUserInDB,
+    editSkillLevelDB
 }

@@ -15,15 +15,16 @@ const skillsQueryBuilder = (requestSkills)=>{
 }
 
 const getAllFriendsRequestsBuilder = (friends) =>{
-    buildQuery = 'WHERE ';
+    buildQuery = 'WHERE (';
     for (let index = 0; index < friends.length; index++) {
         if(index+1 == friends.length){
-            buildQuery += `sa.solicitante_ci = $${index+1};`;
+            buildQuery += `sa.solicitante_ci = $${index+1}`;
         }
         else{
             buildQuery += `sa.solicitante_ci = $${index+1} OR `;
         }
     }
+    buildQuery += ")"
     return buildQuery
 
 }
@@ -36,7 +37,7 @@ const checkForMultipleRequests = (requestsArray) =>{
             requestsMap.set(newRequest.id,newRequest);
         }
         else{
-            requestsMap.get(request.id).habilidad.push(request.habilidad);
+            requestsMap.get(request.id).skills.push(request.habilidad);
         }
     });
     return Array.from(requestsMap.values());
@@ -48,10 +49,11 @@ const buildPreviewJSON = (request) =>{
     return {
         id : request.id,
         title: request.title,
-        dateOfPublishing : request.dateOfPublishing,
+        dateofpublishing : request.dateofpublishing,
         lat : request.lat,
         lng : request.lng,
-        habilidad : requestSkillsArray
+        skills : requestSkillsArray,
+        description : request.description
     }
 }
 
@@ -65,7 +67,7 @@ async function rebuildRequest(requestData){
             lat : result[index].lat,
             lng : result[index].lng,
             userDO: result[index].userdo,
-            dateOfPublishing : result[index].dateofpublishing, 
+            dateofpublishing : result[index].dateofpublishing, 
             isActive : result[index].isactive, 
             wasResolved : result[index].wasresolved, 
             description : result[index].description,
@@ -84,15 +86,17 @@ async function rebuildRequestWithUserData(requestData){
             title: result[index].title, 
             lat : result[index].lat,
             lng : result[index].lng,
-            dateOfPublishing : result[index].dateofpublishing, 
+            dateofpublishing : result[index].dateofpublishing, 
             isActive : result[index].isactive, 
             wasResolved : result[index].wasresolved, 
             description : result[index].description,
             skills : skillsArray.data,
-            userDO: result[index].do,
-            name: result[index].name,
-            lastname : result[index].lastname,
-            verified : result[index].verified,
+            user : {
+                userDO: result[index].do,
+                name: result[index].name,
+                lastname : result[index].lastname,
+                verified : result[index].verified
+            }
         }
     }
     return result;

@@ -8,7 +8,7 @@ const requestRouter = Router();
 
 requestRouter.use(BASE_ROUTE,validateJWT);
 
-requestRouter.get(`${BASE_ROUTE}`,async (req,res) => {
+requestRouter.get(`${BASE_ROUTE}`, async (req,res) => {
     return getRequests(req,res);
 })
 
@@ -16,7 +16,7 @@ requestRouter.get(`${BASE_ROUTE}/userDO/:userId`, async (req,res) =>{
     return getRequestsByUserDO(req,res);
 });
 
-requestRouter.get(`${BASE_ROUTE}/:requestId`, async (req,res) => {
+requestRouter.get(`${BASE_ROUTE}withId/:requestId`, async (req,res) => {
     return getRequestById(req, res);
 })
 
