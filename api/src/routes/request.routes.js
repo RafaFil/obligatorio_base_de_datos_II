@@ -16,7 +16,7 @@ requestRouter.get(`${BASE_ROUTE}/userDO/:userId`, async (req,res) =>{
     return getRequestsByUserDO(req,res);
 });
 
-requestRouter.get(`${BASE_ROUTE}withId/:requestId`, async (req,res) => {
+requestRouter.get(`${BASE_ROUTE}/withId/:requestId`, async (req,res) => {
     return getRequestById(req, res);
 })
 
