@@ -1,15 +1,19 @@
 <mat-card class="example-card mt-3">
-    <mat-card-header>
+    <mat-card-header class="sb-card-head">
         <mat-card-title>{{request.title}}</mat-card-title>
         <mat-card-subtitle>{{request.street}}, {{request.corner}}</mat-card-subtitle>
     </mat-card-header>
-    <mat-card-content>
-        <p>{{request.description}}.</p> 
-        <p>Habilidad(s) {{request.skill}}</p>
-    </mat-card-content>
+    <div class="sb-card-cont">
+        <mat-card-content>
+            <p>{{request.description}}.</p> 
+            <p>Habilidad(s) {{request.skill}}</p>
+        </mat-card-content>
+    </div>
     <mat-card-actions>
-        <button mat-raised-button color (click)="goToMapLocation()" color="primary">
-            <mat-icon>map</mat-icon>
-        </button>
+        <div class="sb-req-card-btn">
+            <button mat-raised-button color (click)="goToMapLocation()" color="primary" class="sb-btn-goto">
+                <mat-icon>map</mat-icon>
+            </button>
+        </div>
     </mat-card-actions>
 </mat-card>

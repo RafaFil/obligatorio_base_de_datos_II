@@ -41,6 +41,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy{
     });
     this.map.addControl(new NavigationControl({}), 'top-right');
 
+
     this.loadMarkers();
 
   }
@@ -67,7 +68,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy{
         })
         .setLngLat([lng, lat])
         .addTo(this.map);
+
+        this.currentMarkers.push(marker);
       }
+
     });
 
     if (this.map) {
@@ -81,8 +85,16 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy{
     
     if (this.map) {
 
-      this.map.setCenter([lng,lat]);
+      this.map.setCenter([lng,lat])
       
+      this.currentMarkers.forEach ( (marker, index) => {
+        
+        if (marker.getLngLat().lng == lng && marker.getLngLat().lat == lat) {
+
+          this.mapMarkerComponents.get(index)?.displayDialogRequest();
+
+        }
+      })
     }
   }
 }

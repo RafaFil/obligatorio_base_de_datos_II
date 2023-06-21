@@ -54,7 +54,7 @@ export class HomePageComponent implements OnInit {
 
   requestFilterSelected() {
     
-    alert ("sapeeee");
+    return
   }
 
 
