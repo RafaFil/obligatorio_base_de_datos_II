@@ -1,5 +1,5 @@
 const { Skill, userSkill, requiredSkill } = require("../entities/skills.entity");
-const { getAllSkillsService, getAllUserSkillsService, getSkillService, getAllRequestSkillsService } = require("../services/skill.service");
+const { getAllSkillsService, getAllUserSkillsService, getSkillService, getAllRequestSkillsService, addSkillToUserService, editUserSkillLvlService } = require("../services/skill.service");
 
 const getAllSkills = async (req, res) => {
     getAllSkillsService().then( skills => {
@@ -118,10 +118,17 @@ const addSkillToUser = async ( req , res) => {
 
     const { skillId, skillName, skillLvl } = req.body;
 
-    if (!skillId || !skillName || !skillLvl || !req.username) {
+    if (!skillId || !skillName || !skillLvl ) {
         return res.status(400).json({
             success: false,
             message: 'missing fields in body'
+        });
+    }
+
+    if (!req.username) {
+        return res.status(404).json({
+            success: false,
+            message: 'User not found'
         });
     }
 
@@ -149,9 +156,58 @@ const addSkillToUser = async ( req , res) => {
     })
 }
 
+const editSkillUser = async ( req , res) => {
+
+    const { skillId, skillLvl } = req.body;
+
+    if (!skillId || !skillLvl ) {
+        return res.status(400).json({
+            success: false,
+            message: 'missing fields in body'
+        });
+    }
+
+    if (!req.username) {
+        return res.status(404).json({
+            success: false,
+            message: 'User not found'
+        });
+    }
+
+    const newSkillLvl = new userSkill(skillId,"name", req.username, skillLvl);
+    editUserSkillLvlService(newSkillLvl).then ( result => {
+
+        if (!result.success) {
+            return res.status(400).json({
+                success: false,
+                message: result.message
+            });
+        }
+        if(result.data){
+            return res.status(200).json({
+                success: true,
+                data: result.data
+            });
+        }
+        return res.status(204).json({
+            success: true,
+            data: undefined
+        });
+    })
+    .catch( err => {
+        console.log(err);
+        return res.status(500).json({
+            success: false,
+            message: `Internal server error.`
+        });
+    })
+}
+
 module.exports = {
     getAllSkills,
     getSkill,
     getAllUserSkills,
-    getAllRequestSkills
+    getAllRequestSkills,
+    addSkillToUser,
+    editSkillUser
 }

@@ -206,10 +206,15 @@ const getRequests = (req,res) =>{
                 message: requests.message
             });
         }
-        return res.status(200).json({
+        if (!requests.data){
+        return res.status(204).json({
             success: true,
-            data: requests.data
-        });
+            data : []
+        });}
+        return res.status(200).json({
+            success : true,
+            data : requests.data
+        })
     })
     .catch( err => {
         console.log(err);
