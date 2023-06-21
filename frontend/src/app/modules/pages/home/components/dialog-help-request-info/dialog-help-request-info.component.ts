@@ -10,6 +10,9 @@ import { GeoCodeService } from 'src/app/modules/core/services/geo-code.service';
   styleUrls: ['./dialog-help-request-info.component.scss']
 })
 export class DialogHelpRequestInfoComponent implements OnInit {
+
+  isLoading = true;
+
   helpRequestMap = new Map()
   helpRequestIndex = ["Solicitante","Descripcion","Habilidades Requeridas","Ubicación","Fecha de Creación"]
 
@@ -32,6 +35,7 @@ export class DialogHelpRequestInfoComponent implements OnInit {
       this.helpRequestMap.set(3,street);
       this.helpRequestMap.set(4, new Date(this.helpRequest.dateofpublishing).toLocaleDateString());
 
+      this.isLoading = false;
     });
     
   }

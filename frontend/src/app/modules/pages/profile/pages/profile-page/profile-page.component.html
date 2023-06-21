@@ -1,6 +1,7 @@
 <app-toolbar></app-toolbar>
-<h1 class="mt-3">Nombre del usuario</h1>
-<p>Un poco de info del usuario</p>
+<h1 class="mt-3">{{runningUser?.name}} {{runningUser?.lastname}}
+    <mat-icon *ngIf="runningUser?.verified" matTooltip="Usuario Verificado" color="primary">check_circle</mat-icon>
+</h1>
 
 <mat-tab-group mat-align-tabs="center" dynamicHeight>
 

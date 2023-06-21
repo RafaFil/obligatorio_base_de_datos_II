@@ -6,6 +6,8 @@ import { HelpRequest } from 'src/app/modules/core/interfaces/helpRequest';
 import { HelpRequestService } from 'src/app/modules/core/services/help-request.service';
 import { HelpRequestData } from 'src/app/modules/core/interfaces/apiDataResponse/HelpReqData';
 import { HelpRequestPreviewData } from 'src/app/modules/core/interfaces/apiDataResponse/HelpRequestPreviewData';
+import { UserService } from 'src/app/modules/core/services/user.service';
+import { UserDataResponse } from 'src/app/modules/core/interfaces/apiDataResponse/userDataResponse';
 
 @Component({
   selector: 'app-profile-page',
@@ -13,6 +15,8 @@ import { HelpRequestPreviewData } from 'src/app/modules/core/interfaces/apiDataR
   styleUrls: ['./profile-page.component.scss']
 })
 export class ProfilePageComponent implements OnInit {
+
+  runningUser?: UserDataResponse;
 
   skillsArr : Skill[] = [
 
@@ -32,10 +36,13 @@ export class ProfilePageComponent implements OnInit {
   ]
 
   constructor(private dialog : MatDialog,
-              private helpRequestService : HelpRequestService) { }
+              private helpRequestService : HelpRequestService,
+              private userService : UserService) { }
 
   ngOnInit(): void {
     
+    this.runningUser = this.userService.getRunningUser();
+
     this.helpRequestService.getAllHelpRequest().subscribe( res => {
 
       if (res.success && res.data) {

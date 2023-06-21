@@ -112,6 +112,11 @@ export class UserService {
       );
   }
 
+  getRunningUser() {
+
+    return this.runningUser;
+  }
+
   logout(): void {
     localStorage.removeItem('token');
   }
