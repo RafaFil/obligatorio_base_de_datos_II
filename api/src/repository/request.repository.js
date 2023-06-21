@@ -152,7 +152,7 @@ const getFriendsDB = async function (userId) {
             return new dataResult(true, res.rows);
         }
         else {
-            return new dataResult(false, null, 404, "User not found.")
+            return new dataResult(false, null, 404, "No requests for user")
         }
     }).catch(err => {
         return new dataResult(false, null, err.code, err.message)
@@ -161,15 +161,17 @@ const getFriendsDB = async function (userId) {
 
 const getRequestsDB = async function (friendsArray) {
     queryFilter = getAllFriendsRequestsBuilder(friendsArray);
+    
     return (pool.query(
-        `SELECT sa.id, sa.titulo as title, sa.fecha_publicacion as dateOfPublishing, sa.latitud as lat, sa.longitud as lng, h.nombre as habilidad 
+        `SELECT sa.id, sa.titulo as title, sa.fecha_publicacion as dateOfPublishing, sa.latitud as lat, sa.longitud as lng, h.nombre as habilidad, sa.descripcion as description
         FROM solicitudes_ayuda sa join habilidades_solicitudes hs on sa.id = hs.solicitud_id join habilidades h on hs.habilidad_id = h.id 
         ${queryFilter} AND sa.esta_activa = true ;`, friendsArray).then(res => {
+            
             if (res.rows.length > 0) {
                 return new dataResult(true, res.rows);
             }
             else {
-                return new dataResult(false, null, 404, "Requests not Found.")
+                return new dataResult(true, null, 204, "No requests.")
             }
         }).catch(err => {
             return new dataResult(false, null, err.code, err.message)
