@@ -1,6 +1,18 @@
-<app-base-dialog [dialogTitle]="'Titulo Solicitud'">
-    <pre sb-content>
-        {{helpRequest | json }} 
-    </pre>
-    <button sb-actions mat-raised-button color="primary">Quiero Ayudar!!!</button>
+<app-base-dialog [dialogTitle]="helpRequest.title">
+    <div sb-content class="container">
+        <div *ngFor="let kvp of helpRequestMap | keyvalue ">
+            <div class="row">
+                <mat-card-header>
+                    <mat-card-title>{{helpRequestIndex[kvp.key]}}</mat-card-title>
+                    <mat-card-subtitle>
+                        <p>{{kvp.value}}</p> 
+                    </mat-card-subtitle>
+                </mat-card-header>
+            </div>
+        </div>
+    </div>
+    <div>
+        <button sb-actions mat-raised-button color="primary">Quiero Ayudar!!!</button>
+    </div>
 </app-base-dialog>
+
