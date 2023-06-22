@@ -1,8 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { HelpRequestData } from 'src/app/modules/core/interfaces/apiDataResponse/HelpReqData';
 import { HelpRequest } from 'src/app/modules/core/interfaces/helpRequest';
 import { GeoCodeService } from 'src/app/modules/core/services/geo-code.service';
+import { PostulationService } from 'src/app/modules/core/services/postulation.service';
 
 @Component({
   selector: 'app-dialog-help-request-info',
@@ -17,7 +19,9 @@ export class DialogHelpRequestInfoComponent implements OnInit {
   helpRequestIndex = ["Solicitante","Descripcion","Habilidades Requeridas","Ubicación","Fecha de Creación"]
 
   constructor(@Inject(MAT_DIALOG_DATA) public helpRequest: HelpRequestData, 
-              private geoCoding : GeoCodeService) { 
+              private geoCoding : GeoCodeService,
+              private postulationService : PostulationService,
+              private snackBar: MatSnackBar) { 
     
   }
 
@@ -44,6 +48,16 @@ export class DialogHelpRequestInfoComponent implements OnInit {
     });
   }
 
-  
+  submitPostulation() {
+    this.postulationService.submitPostulation(this.helpRequest.id).subscribe(
+      res => {
+
+        if (res.success) {
+          this.snackBar.open(`Postulacion sastifactoria a ${this.helpRequest.title}`)
+        }
+
+      }
+    )
+  }
 
 }

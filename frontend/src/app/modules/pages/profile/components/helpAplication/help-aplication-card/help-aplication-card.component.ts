@@ -5,13 +5,13 @@ import { CancelAplicationDialogComponent } from '../cancel-aplication-dialog/can
 import { HelpRequestPreviewData } from 'src/app/modules/core/interfaces/apiDataResponse/HelpRequestPreviewData';
 
 @Component({
-  selector: 'app-help-aplication-card',
-  templateUrl: './help-aplication-card.component.html',
-  styleUrls: ['./help-aplication-card.component.scss']
+  selector: 'app-postulation-card',
+  templateUrl: './postulation-card.component.html',
+  styleUrls: ['./postulation-card.component.scss']
 })
-export class HelpAplicationCardComponent implements OnInit {
+export class PostulationCardComponent implements OnInit {
 
-  @Input() helpRequest!: HelpRequestPreviewData;
+  @Input() postulation!: HelpRequestPreviewData;
 
   constructor(private dialog : MatDialog) { }
 

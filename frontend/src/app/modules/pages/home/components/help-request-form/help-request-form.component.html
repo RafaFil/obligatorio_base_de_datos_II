@@ -1,18 +1,18 @@
-<form [formGroup]="helpAplicationForm">
+<form [formGroup]="helpRequestForm">
 
     <mat-form-field class="sb-form-field" appearance="outline">
         <mat-label>Titulo</mat-label>
-        <input matInput [formControl]="helpAplicationForm.controls.title">
+        <input matInput [formControl]="helpRequestForm.controls.title">
     </mat-form-field>
 
     <mat-form-field class="sb-form-field" appearance="outline">
         <mat-label>Descripcion</mat-label>
-        <textarea matInput [formControl]="helpAplicationForm.controls.description"></textarea>
+        <textarea matInput [formControl]="helpRequestForm.controls.description"></textarea>
     </mat-form-field>
 
     <mat-form-field class="sb-form-field" appearance="outline">
         <mat-label>Habilidades</mat-label>
-        <mat-chip-list #chipList selectable [formControl]="helpAplicationForm.controls.skill">
+        <mat-chip-list #chipList selectable [formControl]="helpRequestForm.controls.skill">
             <mat-chip *ngFor="let skill of abilitiesArr" 
             color="primary"
             #c="matChip"
@@ -26,7 +26,7 @@
     <mat-form-field class="sb-form-field" appearance="outline">
         <mat-label>Nivel de habilidad</mat-label>
         <mat-select (selectionChange)="changeLevel($event.value)" 
-        disabled="{{!helpAplicationForm.controls.skill.value}}">
+        disabled="{{!helpRequestForm.controls.skill.value}}">
             <mat-option *ngFor="let level of skillLevel" [value]="level">
                 {{level}}
             </mat-option>
@@ -36,11 +36,11 @@
     <h3>UBICACION</h3>
     <mat-form-field class="sb-form-field" appearance="outline">
         <mat-label>Calle</mat-label>
-        <input matInput [formControl]="helpAplicationForm.controls.street">
+        <input matInput [formControl]="helpRequestForm.controls.street">
     </mat-form-field>
     <mat-form-field class="sb-form-field" appearance="outline">
         <mat-label>Numero de puerta</mat-label>
-        <input matInput [formControl]="helpAplicationForm.controls.corner">
+        <input matInput [formControl]="helpRequestForm.controls.corner">
     </mat-form-field>
 
 </form>

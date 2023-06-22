@@ -36,7 +36,7 @@ export class HelpRequestFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  helpAplicationForm = this.formBuilder.group({
+  helpRequestForm = this.formBuilder.group({
     title : ["",[Validators.required]],
     description : ["",[Validators.required]],
     skill:[],
@@ -57,12 +57,12 @@ export class HelpRequestFormComponent implements OnInit {
 
   changeLevel(value : any) {
 
-    const skill = this.helpAplicationForm.controls.skill.value;
+    const skill = this.helpRequestForm.controls.skill.value;
 
     // only if a skill is selected
     if (skill) {
 
-      this.helpAplicationForm.patchValue({
+      this.helpRequestForm.patchValue({
         level : value
       });
     }
@@ -74,7 +74,7 @@ export class HelpRequestFormComponent implements OnInit {
 
   addChip(chip: MatChip) {
 
-    this.helpAplicationForm.patchValue({
+    this.helpRequestForm.patchValue({
       skill : chip.value
     });
   }

@@ -26,7 +26,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy{
 
   @Input() public HelpRequestArr : HelpRequestPreviewData[] = []
   
-  constructor(private helpAplicationService : HelpRequestService) { }
+  constructor() { }
 
   ngOnInit(): void {
     

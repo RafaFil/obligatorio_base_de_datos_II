@@ -31,7 +31,7 @@ export class ProfilePageComponent implements OnInit {
 
   ]
 
-  helpAplicationArr : HelpRequestPreviewData[] = [
+  postulationsArr : HelpRequestPreviewData[] = [
 
   ]
 
@@ -50,7 +50,7 @@ export class ProfilePageComponent implements OnInit {
         this.helpRequestArr = res.data;
       }
     })
-    this.helpAplicationArr = this.helpRequestArr;
+    this.postulationsArr = this.helpRequestArr;
   }
 
 

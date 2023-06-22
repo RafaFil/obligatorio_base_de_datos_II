@@ -14,7 +14,7 @@ export class AddHelpRequestComponent implements OnInit {
   @Output() eventData = new EventEmitter<any>();
 
   constructor(private matDialog : MatDialog,
-              private helpAplicationService : HelpRequestService) { }
+              private helpRequestService : HelpRequestService) { }
 
   ngOnInit(): void {
   }
@@ -28,7 +28,7 @@ export class AddHelpRequestComponent implements OnInit {
       console.log(HelpRequestData);
       //use suscribe and that bla bla bla 
       this.eventData.emit();
-      this.helpAplicationService.submitHelpRequest(HelpRequestData);
+      this.helpRequestService.submitHelpRequest(HelpRequestData);
     });
   }
 

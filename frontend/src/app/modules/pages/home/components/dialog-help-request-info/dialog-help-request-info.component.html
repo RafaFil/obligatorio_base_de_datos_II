@@ -18,7 +18,9 @@
         </div>
     </div>
     
-    <button sb-actions mat-raised-button color="primary" *ngIf="!isLoading">Quiero Ayudar!!!</button>
+    <button sb-actions mat-raised-button color="primary" 
+    *ngIf="!isLoading"
+    (click)="submitPostulation()">Quiero Ayudar!!!</button>
 
 </app-base-dialog>
 

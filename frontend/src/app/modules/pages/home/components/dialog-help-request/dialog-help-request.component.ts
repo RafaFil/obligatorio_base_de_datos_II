@@ -12,7 +12,7 @@ import { HelpRequestService } from 'src/app/modules/core/services/help-request.s
 })
 export class DialogHelpRequestComponent implements OnInit {
 
-  @ViewChild('helpAppForm') helpAplicationForm!: HelpRequestFormComponent;
+  @ViewChild('helpAppForm') helpRequestForm!: HelpRequestFormComponent;
 
   constructor(private dialog : MatDialogRef<HelpRequestFormComponent>,
               private geocode : GeoCodeService,
@@ -23,12 +23,12 @@ export class DialogHelpRequestComponent implements OnInit {
 
   pullDataAplicationForm() {
     
-    const title = this.helpAplicationForm.helpAplicationForm.controls.title.value;
-    const description = this.helpAplicationForm.helpAplicationForm.controls.description.value;
-    const skill = this.helpAplicationForm.helpAplicationForm.controls.skill.value;
-    const level = this.helpAplicationForm.helpAplicationForm.controls.level.value;
-    const street = this.helpAplicationForm.helpAplicationForm.controls.street.value;
-    const corner = this.helpAplicationForm.helpAplicationForm.controls.corner.value;
+    const title = this.helpRequestForm.helpRequestForm.controls.title.value;
+    const description = this.helpRequestForm.helpRequestForm.controls.description.value;
+    const skill = this.helpRequestForm.helpRequestForm.controls.skill.value;
+    const level = this.helpRequestForm.helpRequestForm.controls.level.value;
+    const street = this.helpRequestForm.helpRequestForm.controls.street.value;
+    const corner = this.helpRequestForm.helpRequestForm.controls.corner.value;
 
     if (!title || !description) {
 

@@ -17,9 +17,9 @@
     <mat-tab label="postulaciones"> 
         
         <div class="sb-request-tab container">
-            <app-help-aplication-card *ngFor="let helpAplication of helpAplicationArr" 
-            [helpRequest]="helpAplication">
-            </app-help-aplication-card>
+            <app-postulation-card *ngFor="let postulation of postulationsArr" 
+            [postulation]="postulation">
+            </app-postulation-card>
         </div>
 
     </mat-tab>
