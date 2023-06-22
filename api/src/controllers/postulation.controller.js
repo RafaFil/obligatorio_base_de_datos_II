@@ -56,7 +56,7 @@ const getFullPostulationtById = async (req, res) => {
 }
 
 const getAllUserPostulations = async (req, res) => {
-    getAllUserPostulationsService(req.params['helperId']).then(postulation => {
+    getAllUserPostulationsService(req.username).then(postulation => {
         if (postulation.success && postulation.data) {
             return res.status(200).json({
                 success: true,
