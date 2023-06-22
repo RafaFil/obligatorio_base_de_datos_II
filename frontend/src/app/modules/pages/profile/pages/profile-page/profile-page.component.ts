@@ -59,7 +59,7 @@ export class ProfilePageComponent implements OnInit {
     this.postulationService.getAllUserPostulation().subscribe(
       res => {
         
-        if (res.success && res.data) {
+        if (res && res.success && res.data) {
 
           this.postulationsArr = res.data;
         }

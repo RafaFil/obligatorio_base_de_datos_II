@@ -53,7 +53,9 @@ export class DialogHelpRequestInfoComponent implements OnInit {
       res => {
 
         if (res.success) {
-          this.snackBar.open(`Postulacion sastifactoria a ${this.helpRequest.title}`)
+          this.snackBar.open(`Postulacion sastifactoria a ${this.helpRequest.title}`,"", {
+            duration: 3000
+          })
         }
 
       }
