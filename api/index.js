@@ -17,6 +17,7 @@ const userRouter = require("./src/routes/user.routes")
 const skillRouter = require("./src/routes/skill.routes")
 const postulationsRouter = require("./src/routes/postulation.routes")
 const requestRouter = require("./src/routes/request.routes")
+const friendsRouter = require('./src/routes/friend.routes');
 
 const BASE_ROUTE = "/api/v1";
 
@@ -37,7 +38,8 @@ app.use(cors());
 app.use(morgan('combined'));
 
 const { validateJWT } = require("./src/middlewares/validateJWT.middleware")
-const { validateBody } = require("./src/middlewares/validateBody.middleware")
+const { validateBody } = require("./src/middlewares/validateBody.middleware");
+
 
 // public routes
 app.use(BASE_ROUTE, userRouter)
@@ -46,6 +48,7 @@ app.use(BASE_ROUTE, skillRouter)
 // protected routes
 app.use(BASE_ROUTE, postulationsRouter)
 app.use(BASE_ROUTE, requestRouter)
+app.use(BASE_ROUTE, friendsRouter)
 
 // run server
 app.listen(3000, () => {
