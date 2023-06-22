@@ -23,7 +23,7 @@ const getRequestsByUserDO_DB = async function (UserId) {
 const getRequestWithUserByRequestIdDB = async function (requestId) {
     return (pool.query("SELECT " + requestAllParsed + ", " + userAllParsed + " FROM solicitudes_ayuda sa INNER JOIN usuarios u ON sa.solicitante_ci = u.ci WHERE sa.id = $1", [requestId]).then(res => {
         if (res.rows.length > 0) {
-            return new dataResult(true, res.rows);
+            return new dataResult(true, res.rows[0]);
         } else {
             return new dataResult(false, null, 404, "No requests found")
         }

@@ -45,6 +45,20 @@ const getPostulation = async function (helperId, requestId) {
     })
 }
 
+const getUsersPostulationsDB = async function (helperId) {
+    return (pool.query(`SELECT ${ALLPARSED}, s.titulo AS title, s.descripcion AS description, u.nombre AS userName, u.apellido AS userLastName
+    FROM postulaciones p INNER JOIN solicitudes_ayuda s ON s.id = p.solicitud_id INNER JOIN usuarios u ON s.solicitante_ci = u.ci
+    WHERE p.ayudante_ci = $1;`, [helperId])).then(res => {
+        if (res.rows.length > 0) {
+            return new dataResult(true, res.rows)
+        } else {
+            return new dataResult(true, null, 204, "No postulation found")
+        }
+    }).catch(err => {
+        return new dataResult(false, null, err.code, err.message)
+    })
+}
+
 const createPostulation = async function (postulation) {
     return (pool.query(`INSERT INTO postulaciones(ayudante_ci, solicitud_id, fecha, fue_aceptada)
         VALUES($1, $2, $3, $4)  RETURNING ${ALLPARSED};`,
@@ -86,5 +100,6 @@ module.exports = {
     getPostulation,
     getPostulationsOfRequest,
     createPostulation,
+    getUsersPostulationsDB,
     deletePostulation
 }
