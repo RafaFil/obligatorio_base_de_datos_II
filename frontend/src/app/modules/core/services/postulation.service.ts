@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, of } from 'rxjs';
 import { apiMessage } from '../interfaces/apiMessage';
 import { PostulationData } from '../interfaces/apiDataResponse/PostulationData';
+import { PostulationUserData } from '../interfaces/apiDataResponse/PostulationsUserData';
 
 const apiURL = "http://localhost:3000/api/v1"
 
@@ -13,7 +14,13 @@ export class PostulationService {
 
   constructor(private http : HttpClient) { }
 
+  getAllUserPostulation() : Observable<apiMessage<PostulationUserData>> {
 
+    return this.http.get<apiMessage<PostulationUserData>>(`${apiURL}/postulations/mine`)
+    .pipe(
+      catchError( err => of(err))
+    );
+  }
 
   submitPostulation(requestId : number) : Observable <apiMessage<PostulationData>> {
 
