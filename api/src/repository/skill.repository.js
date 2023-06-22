@@ -36,7 +36,7 @@ const getAllUserSkillsFromDB = async function (userId) {
         FROM habilidades h INNER JOIN habilidades_usuarios hu ON hu.habilidad_id = h.id
         WHERE hu.user_ci = $1`, [userId]).then(res => {
         if (res.rows.length > 0) {
-            return new dataResult(true, res.rows[0])
+            return new dataResult(true, res.rows)
         } else {
             return new dataResult(true, null, 204, "No Skills found")
         }

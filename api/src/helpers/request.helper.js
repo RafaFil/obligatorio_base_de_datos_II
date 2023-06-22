@@ -78,27 +78,24 @@ async function rebuildRequest(requestData){
 }
 
 async function rebuildRequestWithUserData(requestData){
-    result = [...requestData];
-    for (let index = 0; index < result.length; index++) {
-        skillsArray = await getAllRequestSkillsService(result[index].id)
-        result[index] = {
-            id : result[index].id, 
-            title: result[index].title, 
-            lat : result[index].lat,
-            lng : result[index].lng,
-            dateofpublishing : result[index].dateofpublishing, 
-            isActive : result[index].isactive, 
-            wasResolved : result[index].wasresolved, 
-            description : result[index].description,
+        skillsArray = await getAllRequestSkillsService(requestData.id)
+        result = {
+            id : requestData.id, 
+            title: requestData.title, 
+            lat : requestData.lat,
+            lng : requestData.lng,
+            dateofpublishing : requestData.dateofpublishing, 
+            isActive : requestData.isactive, 
+            wasResolved : requestData.wasresolved, 
+            description : requestData.description,
             skills : skillsArray.data,
             user : {
-                userDO: result[index].do,
-                name: result[index].name,
-                lastname : result[index].lastname,
-                verified : result[index].verified
+                userDO: requestData.do,
+                name: requestData.name,
+                lastname : requestData.lastname,
+                verified : requestData.verified
             }
         }
-    }
     return result;
 }
 

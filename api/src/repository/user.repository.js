@@ -54,7 +54,7 @@ const insertNewUser = async function (newUser, hashPwd) {
 }
 
 // formatea un " * "
-const allParsed = "ci AS do, nombre AS name, apellido AS lastName, confirmada_identidad AS verified "
+const allParsed = "ci AS DO, nombre AS name, apellido AS lastName, confirmada_identidad AS verified "
 module.exports = {
     getAllUsersFromDB,
     getUserByDOfromDB,

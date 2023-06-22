@@ -1,6 +1,7 @@
 const { User } = require('../entities/user.entity');
 const { getAllUsersService, register, auth, findByDO } = require('../services/user.service')
 const { generateJWT } = require('../helpers/jwt.helper');
+const { checkDO } = require('../helpers/ci.helper');
 
 const getAllUsers = async (req, res) => {
     getAllUsersService().then( users => {
@@ -61,6 +62,13 @@ const registerUser = async ( { body } , res) => {
         return res.status(400).json({
             success: false,
             message: 'missing fields in body'
+        });
+    }
+
+    if(!checkDO(DO)){
+        return res.status(400).json({
+            success: false,
+            message: 'DO is not correct'
         });
     }
 
