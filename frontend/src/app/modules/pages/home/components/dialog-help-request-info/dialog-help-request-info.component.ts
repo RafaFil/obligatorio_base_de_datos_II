@@ -18,6 +18,11 @@ export class DialogHelpRequestInfoComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public helpRequest: HelpRequestData, 
               private geoCoding : GeoCodeService) { 
+    
+  }
+
+
+  ngOnInit(): void {
 
     let skillsName = ""
     this.helpRequest.skills.forEach (skill => {
@@ -25,7 +30,7 @@ export class DialogHelpRequestInfoComponent implements OnInit {
     });
 
     let street;
-    this.geoCoding.getLocationFromCoordinates(helpRequest.lat, helpRequest.lng)
+    this.geoCoding.getLocationFromCoordinates(this.helpRequest.lat, this.helpRequest.lng)
     .subscribe(res => {
       
       street = res.results[0].formatted;
@@ -37,12 +42,6 @@ export class DialogHelpRequestInfoComponent implements OnInit {
 
       this.isLoading = false;
     });
-    
-  }
-
-
-  ngOnInit(): void {
-    
   }
 
   
