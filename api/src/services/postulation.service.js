@@ -1,5 +1,5 @@
 const { dataResult } = require("../repository/data.repository")
-const { getSolicitantRequestHelper, getPostulationsOfRequest, getPostulation, createPostulation, deletePostulation } = require("../repository/postulation.repository")
+const { getSolicitantRequestHelper, getPostulationsOfRequest, getPostulation, createPostulation, deletePostulation, getUsersPostulationsDB } = require("../repository/postulation.repository")
 
 
 const checkIfPostulationAuthorOrSolicitant = async(userId, requestId) => {
@@ -22,6 +22,9 @@ const getFullPostulationtByIdService = async(userId, requestId) => {
     }
     return new dataResult(false,null,403,"No permission")
 }
+const getAllUserPostulationsService = async(userId) => {
+        return await getUsersPostulationsDB(userId)
+}
 const deletePostulationByIdService = async(userId, requestId, whosAskingId) => {
     let permitted = await (checkIfPostulationAuthorOrSolicitant(whosAskingId, requestId))
     if(permitted){
@@ -36,6 +39,7 @@ const applyToRequestService = async(postulation) => {
 module.exports = {
     getRequestPostulationsService,
     getFullPostulationtByIdService,
+    getAllUserPostulationsService,
     deletePostulationByIdService,
     applyToRequestService
 }
