@@ -9,6 +9,8 @@ import { HelpRequestPreviewData } from 'src/app/modules/core/interfaces/apiDataR
 import { UserService } from 'src/app/modules/core/services/user.service';
 import { UserDataResponse } from 'src/app/modules/core/interfaces/apiDataResponse/userDataResponse';
 import { SkillService } from 'src/app/modules/core/services/skill.service';
+import { PostulationService } from 'src/app/modules/core/services/postulation.service';
+import { PostulationUserData } from 'src/app/modules/core/interfaces/apiDataResponse/PostulationsUserData';
 
 @Component({
   selector: 'app-profile-page',
@@ -25,14 +27,15 @@ export class ProfilePageComponent implements OnInit {
 
   ]
 
-  postulationsArr : HelpRequestPreviewData[] = [
+  postulationsArr : PostulationUserData[] = [
 
   ]
 
   constructor(private dialog : MatDialog,
               private helpRequestService : HelpRequestService,
               private userService : UserService,
-              private skillService : SkillService) { }
+              private skillService : SkillService,
+              private postulationService : PostulationService) { }
 
   ngOnInit(): void {
     
@@ -45,9 +48,23 @@ export class ProfilePageComponent implements OnInit {
         this.helpRequestArr = res.data;
       }
     })
-    this.postulationsArr = this.helpRequestArr;
+    
+    this.getAllUserPostulation();
 
     this.getAllSkillUser();
+  }
+
+  getAllUserPostulation() {
+
+    this.postulationService.getAllUserPostulation().subscribe(
+      res => {
+        
+        if (res.success && res.data) {
+
+          this.postulationsArr = res.data;
+        }
+      }
+    )
   }
 
   getAllSkillUser() {

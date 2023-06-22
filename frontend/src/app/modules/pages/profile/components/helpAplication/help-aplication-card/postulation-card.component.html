@@ -1,11 +1,10 @@
 <mat-card class="example-card mt-3">
     <mat-card-header>
-        <!-- <mat-card-title>{{helpRequest.title}} @{{helpRequest.userDO}}</mat-card-title>
-        <mat-card-subtitle>{{helpRequest.street}},{{helpRequest.corner}}</mat-card-subtitle> -->
+        <mat-card-title>{{postulation.title}} @{{postulation.username}} {{postulation.userlastname}}</mat-card-title>
+        <!--<mat-card-subtitle>{{helpRequest.street}},{{helpRequest.corner}}</mat-card-subtitle>-->
     </mat-card-header>
     <mat-card-content>
-        <!-- <p>{{helpRequest.description}}</p>
-        <p>Habilidad: {{helpRequest.skill}}</p> -->
+        <p>{{postulation.description}}</p>
     </mat-card-content>
     <mat-card-actions>
         <button mat-raised-button color="warn" (click)="openCancelDialog()">Cancelar</button>

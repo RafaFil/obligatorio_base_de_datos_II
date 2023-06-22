@@ -1,7 +1,7 @@
 export interface PostulationUserData {
 
     userid: string,
-    requestid: string,
+    requestid: number,
     dateofpostulation: string,
     wasaccepted: boolean,
     title: string,

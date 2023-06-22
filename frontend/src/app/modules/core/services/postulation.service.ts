@@ -14,9 +14,9 @@ export class PostulationService {
 
   constructor(private http : HttpClient) { }
 
-  getAllUserPostulation() : Observable<apiMessage<PostulationUserData>> {
+  getAllUserPostulation() : Observable<apiMessage<PostulationUserData[]>> {
 
-    return this.http.get<apiMessage<PostulationUserData>>(`${apiURL}/postulations/mine`)
+    return this.http.get<apiMessage<PostulationUserData[]>>(`${apiURL}/postulations/mine`)
     .pipe(
       catchError( err => of(err))
     );
@@ -31,7 +31,8 @@ export class PostulationService {
     );
   }
 
-  cancelPostulation() {
+  cancelPostulation(requestId: number, helperId: string) {
 
+    return this.http.delete(`${apiURL}/postulations/request/${requestId}/${helperId}`);
   }
 }
