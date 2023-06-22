@@ -1,5 +1,5 @@
 export interface UserDataResponse {
-    DO : string,
+    do : string,
     name : string,
     lastname: string,
     verified: boolean

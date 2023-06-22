@@ -8,6 +8,7 @@ import { HelpRequestData } from 'src/app/modules/core/interfaces/apiDataResponse
 import { HelpRequestPreviewData } from 'src/app/modules/core/interfaces/apiDataResponse/HelpRequestPreviewData';
 import { UserService } from 'src/app/modules/core/services/user.service';
 import { UserDataResponse } from 'src/app/modules/core/interfaces/apiDataResponse/userDataResponse';
+import { SkillService } from 'src/app/modules/core/services/skill.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -18,14 +19,7 @@ export class ProfilePageComponent implements OnInit {
 
   runningUser?: UserDataResponse;
 
-  skillsArr : Skill[] = [
-
-    {name:"Cocina", level:"mastero"},
-    {name:"Metalurguia", level:"principiante"},
-    {name:"Informatica", level:"mastero"},
-    {name:"luteria", level:"avanzado"},
-
-  ]
+  skillsArr : Skill[] = []
 
   helpRequestArr : HelpRequestPreviewData[] = [
 
@@ -37,7 +31,8 @@ export class ProfilePageComponent implements OnInit {
 
   constructor(private dialog : MatDialog,
               private helpRequestService : HelpRequestService,
-              private userService : UserService) { }
+              private userService : UserService,
+              private skillService : SkillService) { }
 
   ngOnInit(): void {
     
@@ -51,8 +46,26 @@ export class ProfilePageComponent implements OnInit {
       }
     })
     this.postulationsArr = this.helpRequestArr;
+
+    this.getAllSkillUser();
   }
 
+  getAllSkillUser() {
+
+    if (this.runningUser) {      
+
+      const userDO = this.runningUser["do"];
+      console.log(this.runningUser, userDO)
+      this.skillService.getAllUserSkills(userDO).subscribe(
+          res => {
+            
+            if (res.success && res.data) {
+              this.skillsArr = res.data;
+            }
+          }
+        );
+    }
+  }
 
   openAddSkillDialog() {
 

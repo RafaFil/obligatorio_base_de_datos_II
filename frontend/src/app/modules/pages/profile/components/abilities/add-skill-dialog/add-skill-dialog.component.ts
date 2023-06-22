@@ -28,7 +28,7 @@ export class AddSkillDialogComponent implements OnInit {
       
       const skill : Skill = {
         name : skillName,
-        level : level
+        lvl : level
       }
 
       this.dialog.close(skill);

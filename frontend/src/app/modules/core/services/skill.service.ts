@@ -14,7 +14,13 @@ export class SkillService {
   constructor(private http : HttpClient) { }
 
   getAllSkills () : Observable<apiMessage<Skill[]>> {
-    return this.http.get<apiMessage<Skill[]>>(`${apiURL}/skill`);
+    return this.http.get<apiMessage<Skill[]>>(`${apiURL}/skills`);
+  }
+
+  getAllUserSkills(userDo : string) : Observable<apiMessage<Skill[]>> {
+
+    return this.http.get<apiMessage<Skill[]>>(`${apiURL}/skills/user/${userDo}`);
+
   }
 
   updateSkillLevel( level : string ) {
