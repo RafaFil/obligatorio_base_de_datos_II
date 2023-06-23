@@ -10,7 +10,7 @@ import { PostulationService } from 'src/app/modules/core/services/postulation.se
 export class ApplicantsSheetComponent implements OnInit {
 
   isLoading = true;
-  AplicantsArr : String[] = []
+  AplicantsArr: String[] = [];
 
   constructor(
     @Inject(MAT_BOTTOM_SHEET_DATA) public DataReq : {title : string, id : number},
@@ -30,12 +30,18 @@ export class ApplicantsSheetComponent implements OnInit {
               ${h.verified ? 'Si' : 'No'}`)
           });
 
-          this.isLoading = false
+          this.isLoading = false;
         }
+        else {
+
+          this.isLoading = false;
+        }
+
         
       },
       error: (err) => {
-        
+
+        this.isLoading = false;
       }
     })
   }

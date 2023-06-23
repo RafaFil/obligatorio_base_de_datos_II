@@ -6,4 +6,5 @@
     <mat-list-item *ngFor="let name of AplicantsArr">
         {{name}}
     </mat-list-item>
+    <p *ngIf="AplicantsArr.length === 0">Esta solicitud no tiene postulantes</p>
 </mat-list>

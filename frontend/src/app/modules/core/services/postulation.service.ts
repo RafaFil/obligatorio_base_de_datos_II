@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, of } from 'rxjs';
+import { Observable, catchError, map, of, tap } from 'rxjs';
 import { apiMessage } from '../interfaces/apiMessage';
 import { PostulationData } from '../interfaces/apiDataResponse/PostulationData';
 import { PostulationUserData } from '../interfaces/apiDataResponse/PostulationsUserData';
@@ -48,6 +48,15 @@ export class PostulationService {
       userlastname: string,
       verified: boolean}[]>>(`${apiURL}/postulations/request/${requestId}`)
     .pipe(
+      map( res => {
+        if (res === null) {
+          res = {
+            success: false,
+            data: [],
+          }
+        }
+        return res;
+      }),
       catchError( err => of(err))
     );
   }
