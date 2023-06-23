@@ -26,7 +26,7 @@ export class ApplicantsSheetComponent implements OnInit {
           res.data.forEach( h => {
 
             this.AplicantsArr.push(
-              `${h.user.name} ${h.user.lastname} Verificado: ${h.user.verified}`)
+              `${h.name} ${h.lastname} Verificado: ${h.verified}`)
           })
         }
       }

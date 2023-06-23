@@ -5,6 +5,7 @@ import { apiMessage } from '../interfaces/apiMessage';
 import { PostulationData } from '../interfaces/apiDataResponse/PostulationData';
 import { PostulationUserData } from '../interfaces/apiDataResponse/PostulationsUserData';
 import { HelpRequestData } from '../interfaces/apiDataResponse/HelpReqData';
+import { UserDataResponse } from '../interfaces/apiDataResponse/userDataResponse';
 
 const apiURL = "http://localhost:3000/api/v1"
 
@@ -37,9 +38,9 @@ export class PostulationService {
     return this.http.delete(`${apiURL}/postulations/request/${requestId}/${helperId}`);
   }
 
-  getAllAplicantsToARequest(requestId : number) : Observable<apiMessage<HelpRequestData[]>> {
+  getAllAplicantsToARequest(requestId : number) : Observable<apiMessage<UserDataResponse[]>> {
 
-    return this.http.get<apiMessage<HelpRequestData[]>>(`${apiURL}/postulations/request/${requestId}`)
+    return this.http.get<apiMessage<UserDataResponse[]>>(`${apiURL}/postulations/request/${requestId}`)
     .pipe(
       catchError( err => of(err))
     );
