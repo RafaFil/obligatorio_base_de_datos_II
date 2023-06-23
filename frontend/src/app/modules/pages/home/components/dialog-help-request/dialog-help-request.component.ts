@@ -87,7 +87,7 @@ export class DialogHelpRequestComponent implements OnInit {
         skillsArr.push({
           id: s.id,
           name: s.name,
-          lvl: level
+          lvl: parseInt(level)
         });
     })
 
