@@ -80,7 +80,7 @@ const editSkillLevelDB = async function (userId, skillId, newLvl) {
         (`UPDATE habilidades_usuarios
         SET nivel = $3
         WHERE user_ci = $1 AND habilidad_id = $2
-        RETURNING habilidad_id AS skillId, user_ci AS DO, nivel AS lvl`, 
+        RETURNING habilidad_id AS id, user_ci AS DO, nivel AS lvl`, 
         [userId, skillId, newLvl]).then(res => {
         if (res.rows.length > 0) {
             return new dataResult(true, res.rows[0])
