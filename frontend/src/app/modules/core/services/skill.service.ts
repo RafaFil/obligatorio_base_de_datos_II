@@ -23,13 +23,19 @@ export class SkillService {
 
   }
 
-  updateSkillLevel( level : string ) {
+  updateSkillLevel(level: number, idSkill: number  ) : Observable<apiMessage<any>> {
 
+    return this.http.put<apiMessage<any>>(`${apiURL}/skills/editSkillLevel/`,
+      {
+        lvl: level,
+        id: idSkill
+      }
+    );
   }
 
   addSkill(skill : Skill) : Observable<apiMessage<{id : number, level: number}>> {
 
-    return this.http.post<apiMessage<{id : number, level: number}>>(`${apiURL}/addSkill`,skill);
+    return this.http.post<apiMessage<{id : number, level: number}>>(`${apiURL}/skills/addSkill`,skill);
   }
 
 }

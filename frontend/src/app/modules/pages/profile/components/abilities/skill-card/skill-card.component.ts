@@ -13,16 +13,13 @@ export class SkillCardComponent implements OnInit {
 
   @Input() skill !: Skill;
 
-  skillLevel : string[] = [
-    "Principiante",
-    "Medio",
-    "Alto",
-    "Maestro"
+  skillLevel : number[] = [
+    1,2,3,4,5
   ]
 
   constructor(private skillService : SkillService) { }
 
-  selectedLevel !: string;
+  selectedLevel !: number;
 
   ngOnInit(): void {
   }
@@ -37,8 +34,16 @@ export class SkillCardComponent implements OnInit {
 
     if (this.selectedLevel) {
 
-      this.skillService.updateSkillLevel(this.selectedLevel);
-      console.log(this.selectedLevel);
+      this.skillService.updateSkillLevel(this.selectedLevel, this.skill.id).subscribe({
+        next: (res) => {
+
+          if (!res.success) {
+            alert("An error has ocurred");
+          }
+        }
+      });
+    
+
       this.isOnEdit = false;
     }
 
