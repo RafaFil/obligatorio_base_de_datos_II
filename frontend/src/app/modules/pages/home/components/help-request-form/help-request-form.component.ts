@@ -57,7 +57,7 @@ export class HelpRequestFormComponent implements OnInit {
       });
     }
 
-    console.log(value);
+
 
   }
 
@@ -86,7 +86,7 @@ export class HelpRequestFormComponent implements OnInit {
     }
 
     chip.select();
-    console.log(value);
+
 
   }
 

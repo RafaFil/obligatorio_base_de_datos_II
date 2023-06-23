@@ -31,7 +31,7 @@ export class HelpMapMarkerComponent implements OnInit {
         if (res.success && res.data) {
 
           this.helpRequest = res.data
-          console.log(this.helpRequest);
+          
           this.dialog.open(DialogHelpRequestInfoComponent, {
             data: this.helpRequest
           })

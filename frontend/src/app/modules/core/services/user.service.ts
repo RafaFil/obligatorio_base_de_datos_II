@@ -78,7 +78,6 @@ export class UserService {
         tap(response => {
           if (response.success) {
             this.runningUser = response.data?.user;
-            console.log(this.runningUser);
             localStorage.setItem('token', response.data?.token!);
           }
         })
@@ -92,7 +91,7 @@ export class UserService {
     return this.http.get<apiMessage<any>>( url )
       .pipe(
         tap( response => {
-          console.log(response);
+
           if (response.success) {
             this.runningUser = response.data?.user;
             localStorage.setItem('token', response.data?.token!);

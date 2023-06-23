@@ -61,7 +61,7 @@ export class DialogHelpRequestComponent implements OnInit {
             helpAplication.lat = formattedAddress["lat"];
             helpAplication.lng = formattedAddress["lng"];
 
-            console.log(helpAplication)
+
             this.dialog.close(helpAplication);
 
           } else {
@@ -80,7 +80,7 @@ export class DialogHelpRequestComponent implements OnInit {
     const skillsArr : Skill[] = [];
     const skill = this.helpRequestForm.helpRequestForm.controls.skill.value;
     const level = this.helpRequestForm.helpRequestForm.controls.level.value;
-    console.log("VERRRRRR", skill)
+
     skill.forEach( s => {
 
       if(s && level)

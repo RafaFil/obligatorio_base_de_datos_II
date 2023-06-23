@@ -25,7 +25,7 @@ export class HelpRequestCardComponent implements OnInit {
 
   redirectToRequestInfo(id : number) {
 
-    console.log("redirect to profile/helprequest")
+
     this.router.navigate(['profile/helprequest', id]);
 
   }

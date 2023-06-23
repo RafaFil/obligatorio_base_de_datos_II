@@ -55,7 +55,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy{
 
   loadMarkers() {
 
-    console.log(this.HelpRequestArr);
+
 
     if (this.map) {
       this.map.repaint = false;

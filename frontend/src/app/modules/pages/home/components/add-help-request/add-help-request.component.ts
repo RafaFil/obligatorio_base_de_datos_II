@@ -25,7 +25,7 @@ export class AddHelpRequestComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe( (HelpRequestData : HelpRequest) => {
 
-      console.log(HelpRequestData);
+
 
       this.eventData.emit();
       this.helpRequestService.submitHelpRequest(HelpRequestData).subscribe(

@@ -21,7 +21,7 @@ export class CancelAplicationDialogComponent implements OnInit {
       this.cancelPostData.helperId
     ).subscribe( res => {
       
-      console.log(res);
+      
     })
   }
 

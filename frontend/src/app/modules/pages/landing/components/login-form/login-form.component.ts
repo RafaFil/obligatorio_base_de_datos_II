@@ -40,7 +40,6 @@ export class LoginFormComponent implements OnInit {
     this.userService.getUserByCredentials(credentials)
     .subscribe( result => {
 
-      console.log(result);
       //this.usuarioDO = localStorage.getItem("token")
 
       if (!result.success) {

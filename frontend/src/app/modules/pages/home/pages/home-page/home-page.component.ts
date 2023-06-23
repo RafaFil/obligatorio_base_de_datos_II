@@ -24,7 +24,7 @@ export class HomePageComponent implements OnInit {
   ngOnInit(): void {
     this.requestService.getAllHelpRequest().subscribe(
       requests => {
-        console.log(requests)
+
         if ( requests.success && requests.data ) {
   
           this.requsetsArr = requests.data;

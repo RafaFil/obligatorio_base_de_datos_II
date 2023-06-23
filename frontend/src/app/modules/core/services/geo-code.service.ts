@@ -16,7 +16,7 @@ export class GeoCodeService {
 
   getCordinatesFromLocation(address: string) {
 
-    console.log(encodeURIComponent(address));
+
     const url = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(address)}&key=${this.apiKey}`;
     return this.http.get(url).pipe(
       

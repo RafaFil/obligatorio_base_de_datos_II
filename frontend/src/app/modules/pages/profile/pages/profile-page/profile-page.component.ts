@@ -76,7 +76,7 @@ export class ProfilePageComponent implements OnInit {
     if (this.runningUser) {      
 
       const userDO = this.runningUser["do"];
-      console.log(this.runningUser, userDO)
+
       this.skillService.getAllUserSkills(userDO).subscribe(
           res => {
             

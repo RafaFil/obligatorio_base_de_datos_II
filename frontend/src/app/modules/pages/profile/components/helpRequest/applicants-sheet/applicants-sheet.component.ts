@@ -22,7 +22,7 @@ export class ApplicantsSheetComponent implements OnInit {
       next: (res) => {
 
         if (res.success && res.data) {
-          console.log(res.data)
+          
           res.data.forEach( h => {
 
             this.AplicantsArr.push(
