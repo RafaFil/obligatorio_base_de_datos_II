@@ -1,5 +1,6 @@
 const { dataResult } = require("../repository/data.repository")
 const { getSolicitantRequestHelper, getPostulationsOfRequest, getPostulation, createPostulation, deletePostulation, getUsersPostulationsDB } = require("../repository/postulation.repository")
+const {findByDO} = require("../services/user.service")
 
 
 const checkIfPostulationAuthorOrSolicitant = async(userId, requestId) => {
@@ -8,10 +9,22 @@ const checkIfPostulationAuthorOrSolicitant = async(userId, requestId) => {
     })
 }
 const getRequestPostulationsService = async(requestId, solicitantId) => {
-
+    console.log(solicitantId);
     let permitted = await (checkIfPostulationAuthorOrSolicitant(solicitantId, requestId))
     if(permitted){
-        return await getPostulationsOfRequest(requestId)
+        postulationsQuery = await getPostulationsOfRequest(requestId);
+        if(postulationsQuery.success){
+            postulatedPeopleArray = [];
+            postulationsQuery.data.forEach( async postulation => {
+                userPostulated = (await findByDO(postulation.userId)).data;
+                postulatedPeopleArray.push(userPostulated);
+            });
+            return {
+                success : true,
+                data : postulatedPeopleArray
+            } 
+        }
+        return postulationsQuery;
     }
     return new dataResult(false,null,403,"No permission")
 }
