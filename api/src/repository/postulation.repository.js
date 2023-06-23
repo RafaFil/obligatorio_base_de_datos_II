@@ -8,7 +8,7 @@ const getSolicitantRequestHelper = async function (userId, requestId) {
     return pool.query
         (`SELECT *
         FROM solicitante_solicitud_ayudante 
-        WHERE (helperId = $1 OR solicitantId = $1 ) AND requestId = $2;`,
+        WHERE (helperid = $1 OR solicitantid = $1 ) AND requestid = $2;`,
         [userId, requestId]).then(res => {
         if (res.rows.length > 0) {
             return new dataResult(true, res.rows)
@@ -27,7 +27,7 @@ const getPostulationsOfRequest = async function (requestId) {
         if (res.rows.length > 0) {
             return new dataResult(true, res.rows)
         } else {
-            return new dataResult(false, null, 404, "No postulations found")
+            return new dataResult(true, null, 404, "No postulations found")
         }
     }).catch(err => {
         return new dataResult(false, null, err.code, err.message)

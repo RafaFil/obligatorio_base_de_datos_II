@@ -1,15 +1,24 @@
 const { dataResult } = require("../repository/data.repository")
 const { getSolicitantRequestHelper, getPostulationsOfRequest, getPostulation, createPostulation, deletePostulation, getUsersPostulationsDB } = require("../repository/postulation.repository")
-const {findByDO} = require("../services/user.service")
-
+const { getRequestByIdService } = require("../services/request.service")
 
 const checkIfPostulationAuthorOrSolicitant = async(userId, requestId) => {
-    return getSolicitantRequestHelper(userId, requestId).then(result => {
-        return result.success
+    return getSolicitantRequestHelper(userId, requestId).then(async result => {
+        if(result.success){
+            return true;
+        } else{
+            const isCreator = await getRequestByIdService(requestId).then( request => {
+                if(request.success && request.data && request.data.user.userDO === userId){
+                    return true
+                }
+                return false;
+            })
+            return isCreator;
+        }
     })
 }
+
 const getRequestPostulationsService = async(requestId, solicitantId) => {
-    console.log(solicitantId);
     let permitted = await (checkIfPostulationAuthorOrSolicitant(solicitantId, requestId))
     if(permitted){
         return await getPostulationsOfRequest(requestId);
