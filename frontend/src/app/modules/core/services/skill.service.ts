@@ -27,16 +27,9 @@ export class SkillService {
 
   }
 
-  addSkill() {
+  addSkill(skill : Skill) : Observable<apiMessage<{id : number, level: number}>> {
 
+    return this.http.post<apiMessage<{id : number, level: number}>>(`${apiURL}/addSkill`,skill);
   }
 
-  getSkillLevel() {
-    return  [
-      "Principiante",
-      "Medio",
-      "Alto",
-      "Maestro"
-    ]
-  }
 }

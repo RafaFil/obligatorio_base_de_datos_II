@@ -88,10 +88,21 @@ export class ProfilePageComponent implements OnInit {
 
     const dialogRef = this.dialog.open(AddSkillDialogComponent);
     
-    dialogRef.afterClosed().subscribe( (newSkill : Skill) => {
-      
-      console.log(newSkill);
+
+    dialogRef.afterClosed().subscribe({
+      next: (nextSkill : Skill) => {
+
+        this.skillService.addSkill(nextSkill).subscribe({
+          next : (res) => {
+
+            if (!res.success) {
+              alert("Ocurrio un error, intente de nuevo");
+            }
+          }
+        });
+      }
     })
+    
 
   }
 }

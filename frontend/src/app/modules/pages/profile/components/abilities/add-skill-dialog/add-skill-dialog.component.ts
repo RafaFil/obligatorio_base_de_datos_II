@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { AddSkillFormComponent } from '../add-skill-form/add-skill-form.component';
 import { Skill } from 'src/app/modules/core/interfaces/skill';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { SkillService } from 'src/app/modules/core/services/skill.service';
 
 @Component({
   selector: 'app-add-skill-dialog',
@@ -12,27 +13,35 @@ export class AddSkillDialogComponent implements OnInit {
 
   @ViewChild("addSkillForm") addSkillForm!: AddSkillFormComponent;
 
-  constructor(private dialog : MatDialogRef<AddSkillFormComponent>) { }
+  skillsArr : Skill[] = [];
+
+  constructor(private dialog : MatDialogRef<AddSkillFormComponent>,
+              private skillService : SkillService) { }
 
   ngOnInit(): void {
+    
+    this.skillService.getAllSkills().subscribe(s => {
+      
+      if (s.success && s.data) {
+        this.skillsArr  = s.data;
+      }
+    })
   }
 
   pullDatafromForm() {
 
-    const skillName = this.addSkillForm.addSkillForm.controls.skillName.value;
+    const skill = this.addSkillForm.addSkillForm.controls.skill.value;
     const level = this.addSkillForm.addSkillForm.controls.level.value;
 
-    console.log(skillName,level)
-
-    if (skillName && level) {
+    if (skill && level) {
       
-      const skill : Skill = {
-        id: 5,
-        name : skillName,
+      const skillData : Skill = {
+        id: skill.id,
+        name : skill.name,
         lvl : level
       }
 
-      this.dialog.close(skill);
+      this.dialog.close(skillData);
     }
     else {
 
