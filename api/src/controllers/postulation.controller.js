@@ -3,7 +3,7 @@ const { getRequestPostulationsService, getFullPostulationtByIdService, deletePos
 
 const getRequestPostulations = async (req, res) => {
 
-    getRequestPostulationsService(req.params['requestId'], req.username,).then(postulations => {
+    getRequestPostulationsService(req.params['requestId'], req.username).then(postulations => {
         if (postulations.success && postulations.data) {
             return res.status(200).json({
                 success: true,

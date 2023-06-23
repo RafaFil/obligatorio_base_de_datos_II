@@ -12,19 +12,7 @@ const getRequestPostulationsService = async(requestId, solicitantId) => {
     console.log(solicitantId);
     let permitted = await (checkIfPostulationAuthorOrSolicitant(solicitantId, requestId))
     if(permitted){
-        postulationsQuery = await getPostulationsOfRequest(requestId);
-        if(postulationsQuery.success){
-            postulatedPeopleArray = [];
-            postulationsQuery.data.forEach( async postulation => {
-                userPostulated = (await findByDO(postulation.userId)).data;
-                postulatedPeopleArray.push(userPostulated);
-            });
-            return {
-                success : true,
-                data : postulatedPeopleArray
-            } 
-        }
-        return postulationsQuery;
+        return await getPostulationsOfRequest(requestId);
     }
     return new dataResult(false,null,403,"No permission")
 }
