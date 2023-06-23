@@ -27,6 +27,7 @@ export class AddSkillDialogComponent implements OnInit {
     if (skillName && level) {
       
       const skill : Skill = {
+        id: 5,
         name : skillName,
         lvl : level
       }

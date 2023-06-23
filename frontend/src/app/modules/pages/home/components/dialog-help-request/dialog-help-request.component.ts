@@ -4,6 +4,8 @@ import { HelpRequest } from 'src/app/modules/core/interfaces/helpRequest';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { GeoCodeService } from 'src/app/modules/core/services/geo-code.service';
 import { HelpRequestService } from 'src/app/modules/core/services/help-request.service';
+import { UserService } from 'src/app/modules/core/services/user.service';
+import { Skill } from 'src/app/modules/core/interfaces/skill';
 
 @Component({
   selector: 'app-dialog-help-request',
@@ -16,7 +18,7 @@ export class DialogHelpRequestComponent implements OnInit {
 
   constructor(private dialog : MatDialogRef<HelpRequestFormComponent>,
               private geocode : GeoCodeService,
-              private helpRequestService : HelpRequestService) { }
+              private userService : UserService) { }
 
   ngOnInit(): void {
   }
@@ -29,18 +31,21 @@ export class DialogHelpRequestComponent implements OnInit {
     const level = this.helpRequestForm.helpRequestForm.controls.level.value;
     const street = this.helpRequestForm.helpRequestForm.controls.street.value;
     const corner = this.helpRequestForm.helpRequestForm.controls.corner.value;
+    const user = this.userService.getRunningUser();
 
-    if (!title || !description) {
-
+    if (!this.helpRequestForm.helpRequestForm.valid) {
+      
       alert("faltan campos obligatorios")
     }
 
-    else {
+    else if (title && description && skill && level && street && corner && user) {
 
       const helpAplication : HelpRequest = {
-        title : title,
-        description : description,
-        userDO : "a" //Sacarlo del local storage
+        title: title,
+        description: description,
+        userDO: user.do,
+        dateOfPublishing: new Date(),
+        skills: this.getAllSkillsOfRequest()
       };
 
       const adress = `${corner} ${street}, Montevideo, Uruguay`
@@ -56,9 +61,7 @@ export class DialogHelpRequestComponent implements OnInit {
             helpAplication.lat = formattedAddress["lat"];
             helpAplication.lng = formattedAddress["lng"];
 
-            console.log(helpAplication);
-
-            this.helpRequestService.submitHelpRequest(helpAplication);
+            console.log(helpAplication)
             this.dialog.close(helpAplication);
 
           } else {
@@ -70,6 +73,25 @@ export class DialogHelpRequestComponent implements OnInit {
       
       
     }
+  }
+
+  getAllSkillsOfRequest() {
+
+    const skillsArr : Skill[] = [];
+    const skill = this.helpRequestForm.helpRequestForm.controls.skill.value;
+    const level = this.helpRequestForm.helpRequestForm.controls.level.value;
+    console.log("VERRRRRR", skill)
+    skill.forEach( s => {
+
+      if(s && level)
+        skillsArr.push({
+          id: s.id,
+          name: s.name,
+          lvl: level
+        });
+    })
+
+    return skillsArr;
   }
 
 }

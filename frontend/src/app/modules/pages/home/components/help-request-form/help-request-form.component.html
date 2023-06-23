@@ -12,8 +12,8 @@
 
     <mat-form-field class="sb-form-field" appearance="outline">
         <mat-label>Habilidades</mat-label>
-        <mat-chip-list #chipList selectable [formControl]="helpRequestForm.controls.skill">
-            <mat-chip *ngFor="let skill of abilitiesArr" 
+        <mat-chip-list #chipList selectable multiple="true">
+            <mat-chip *ngFor="let skill of skillsArr" 
             color="primary"
             #c="matChip"
             (click)="addChip(c)">
