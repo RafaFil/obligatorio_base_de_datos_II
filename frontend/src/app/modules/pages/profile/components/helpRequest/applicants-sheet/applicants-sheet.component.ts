@@ -26,9 +26,16 @@ export class ApplicantsSheetComponent implements OnInit {
           res.data.forEach( h => {
 
             this.AplicantsArr.push(
-              `${h.name} ${h.lastname} Verificado: ${h.verified}`)
-          })
+              `${h.username} ${h.userlastname} | Verificado: 
+              ${h.verified ? 'Si' : 'No'}`)
+          });
+
+          this.isLoading = false
         }
+        
+      },
+      error: (err) => {
+        
       }
     })
   }

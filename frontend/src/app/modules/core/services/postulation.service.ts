@@ -38,9 +38,15 @@ export class PostulationService {
     return this.http.delete(`${apiURL}/postulations/request/${requestId}/${helperId}`);
   }
 
-  getAllAplicantsToARequest(requestId : number) : Observable<apiMessage<UserDataResponse[]>> {
+  getAllAplicantsToARequest(requestId : number) : Observable<apiMessage<{    
+    username : string,
+    userlastname: string,
+    verified: boolean}[]>> {
 
-    return this.http.get<apiMessage<UserDataResponse[]>>(`${apiURL}/postulations/request/${requestId}`)
+    return this.http.get<apiMessage<{
+      username : string,
+      userlastname: string,
+      verified: boolean}[]>>(`${apiURL}/postulations/request/${requestId}`)
     .pipe(
       catchError( err => of(err))
     );
