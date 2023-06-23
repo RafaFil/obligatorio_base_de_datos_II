@@ -1,5 +1,5 @@
 const { Skill, userSkill, requiredSkill } = require("../entities/skills.entity");
-const { getAllSkillsService, getAllUserSkillsService, getSkillService, getAllRequestSkillsService, addSkillToUserService, editUserSkillLvlService } = require("../services/skill.service");
+const { getAllSkillsService, getAllUserSkillsService, getSkillService, getAllRequestSkillsService, addSkillToUserService, editUserlvlService } = require("../services/skill.service");
 
 const getAllSkills = async (req, res) => {
     getAllSkillsService().then( skills => {
@@ -116,9 +116,9 @@ const getAllRequestSkills = async (req, res) => {
 
 const addSkillToUser = async ( req , res) => {
 
-    const { skillId, skillName, skillLvl } = req.body;
+    const { id, name, lvl } = req.body;
 
-    if (!skillId || !skillName || !skillLvl ) {
+    if (!id || !name || !lvl ) {
         return res.status(400).json({
             success: false,
             message: 'missing fields in body'
@@ -132,7 +132,7 @@ const addSkillToUser = async ( req , res) => {
         });
     }
 
-    const newskill = new userSkill(skillId, skillName, req.username, skillLvl);
+    const newskill = new userSkill(id, name, req.username, lvl);
 
     addSkillToUserService(newskill).then ( result => {
 
@@ -158,9 +158,9 @@ const addSkillToUser = async ( req , res) => {
 
 const editSkillUser = async ( req , res) => {
 
-    const { skillId, skillLvl } = req.body;
+    const { id, lvl } = req.body;
 
-    if (!skillId || !skillLvl ) {
+    if (!id || !lvl ) {
         return res.status(400).json({
             success: false,
             message: 'missing fields in body'
@@ -174,8 +174,8 @@ const editSkillUser = async ( req , res) => {
         });
     }
 
-    const newSkillLvl = new userSkill(skillId,"name", req.username, skillLvl);
-    editUserSkillLvlService(newSkillLvl).then ( result => {
+    const newlvl = new userSkill(id,"name", req.username, lvl);
+    editUserlvlService(newlvl).then ( result => {
 
         if (!result.success) {
             return res.status(400).json({
