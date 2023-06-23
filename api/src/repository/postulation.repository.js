@@ -21,7 +21,9 @@ const getSolicitantRequestHelper = async function (userId, requestId) {
 }
 
 const getPostulationsOfRequest = async function (requestId) {
-    return (pool.query(`SELECT ${ALLPARSED} FROM postulaciones p WHERE p.solicitud_id = $1 ;`, [requestId])).then(res => {
+    return (pool.query(`SELECT ${ALLPARSED},  u.nombre AS username, u.apellido AS userlastname, u.confirmada_identidad AS verified
+    FROM postulaciones p INNER JOIN usuarios u ON u.ci = p.ayudante_ci
+    WHERE p.solicitud_id = $1 ;`, [requestId])).then(res => {
         if (res.rows.length > 0) {
             return new dataResult(true, res.rows)
         } else {
@@ -29,7 +31,7 @@ const getPostulationsOfRequest = async function (requestId) {
         }
     }).catch(err => {
         return new dataResult(false, null, err.code, err.message)
-    })
+    }) 
 }
 
 const getPostulation = async function (helperId, requestId) {
