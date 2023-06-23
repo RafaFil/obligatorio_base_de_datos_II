@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Form, FormBuilder, Validators } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
+import { Skill } from 'src/app/modules/core/interfaces/skill';
 import { SkillService } from 'src/app/modules/core/services/skill.service';
 
 @Component({
@@ -10,47 +11,29 @@ import { SkillService } from 'src/app/modules/core/services/skill.service';
 })
 export class AddSkillFormComponent implements OnInit {
 
-  skillLevel : String[] = []
+  skillLevel : String[] = ["1", "2", "3", "4", "5"];
 
-  skills: String[] = [
-    "Metalurgia",
-    "Carpinteria",
-    "Construccion",
-    "Magia",
-    "Aguacontrol"
-  ];
+  @Input() skills: Skill[] = [];
+
   filteredOptions!: Observable<String[]>;
 
   addSkillForm = this.formBuilder.group({
-    skillName : ["", [Validators.required]],
+    skill : [{ id: 1, name: 'Skill 1' },[Validators.required]],
     level : ["", [Validators.required]]
   });
 
 
-  constructor(private formBuilder : FormBuilder,
-              private skillService : SkillService) { }
+  constructor(private formBuilder : FormBuilder) { }
 
   ngOnInit(): void {
-    this.skillLevel = this.skillService.getSkillLevel();
-    //this.skills = this.skillService.getAllSkills();
-    this.filteredOptions = this.addSkillForm.controls.skillName.valueChanges.pipe(
-      startWith(''),
-      map(value => {
-        const name = typeof value === 'string' ? value : value;
-        return name ? this._filter(name as string) : this.skills.slice();
-      }),
-    );
+    
   }
 
-  displayFn(skill: string): string {
-    return skill && skill ? skill : '';
-  }
+  changeSkill(value : any) {
 
-  private _filter(name: string): String[] {
-      const filterValue = name.toLowerCase();
-
-      
-      return this.skills.filter(option => option.toLowerCase().includes(filterValue));
+    this.addSkillForm.patchValue({
+      skill : value
+    });
   }
 
   changeLevel(value : any) {
@@ -58,8 +41,6 @@ export class AddSkillFormComponent implements OnInit {
       this.addSkillForm.patchValue({
         level : value
       });
-
-    console.log(this.addSkillForm.controls.level.value);
 
   }
 

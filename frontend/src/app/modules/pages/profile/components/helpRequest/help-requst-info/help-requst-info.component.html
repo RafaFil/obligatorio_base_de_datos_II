@@ -1,3 +1,7 @@
-<pre>
-    {{ helpRequest | json }}
-</pre>
+<div class="container mt-5 ml-5 mr-5">
+    <h1>{{helpRequest.title}}</h1>
+    <p>{{helpRequest.description}}</p>
+    <p>{{helpRequest.dateofpublishing}}</p>
+    <p>Fue resuelta : {{helpRequest.wasResolved}}</p>
+</div>
+

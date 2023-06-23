@@ -1,11 +1,17 @@
 <mat-card class="example-card mt-3">
     <mat-card-header>
         <mat-card-title>{{helpRequest.title}}</mat-card-title>
-        <mat-card-subtitle>{{helpRequest.street}},{{helpRequest.corner}}</mat-card-subtitle>
+        <!-- <mat-card-subtitle>{{helpRequest.street}},{{helpRequest.corner}}</mat-card-subtitle> -->
     </mat-card-header>
-    <mat-card-content (click)="redirectToRequestInfo(helpRequest.title)">
+    <mat-card-content (click)="redirectToRequestInfo(helpRequest.id)">
         <p>{{helpRequest.description}}</p>
-        <p>Habilidad necesesaria: {{helpRequest.skill}}</p>
+        <p>Habilidad(s) necesesaria(s): </p>
+        <mat-chip-list>
+            <mat-chip *ngFor="let skill of helpRequest.skills" selected="true" disableRipple="true">
+                {{skill.name}}
+            </mat-chip>
+        </mat-chip-list>
+        <p class="mt-3">Nivel de Habilidad(s): {{helpRequest.skills[0].lvl}}</p>
     </mat-card-content>
     <mat-card-actions>
         <button mat-raised-button color="primary" (click)="showAplicantsSheet()">Postulantes</button>

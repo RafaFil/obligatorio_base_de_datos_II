@@ -12,6 +12,7 @@ import { UserService } from 'src/app/modules/core/services/user.service';
 export class LoginFormComponent implements OnInit {
 
   usuarioDO!: string | null;
+  isLoading = false;
 
   constructor(private formBuilder : FormBuilder, private userService : UserService,
               private router : Router) { }
@@ -35,20 +36,22 @@ export class LoginFormComponent implements OnInit {
         password : password,
       }
 
-      this.userService.getUserByCredentials(credentials)
-      .subscribe( result => {
+    this.isLoading = true;
+    this.userService.getUserByCredentials(credentials)
+    .subscribe( result => {
 
-        console.log(result);
-        this.usuarioDO = localStorage.getItem("token")
+      //this.usuarioDO = localStorage.getItem("token")
 
-        if (!result.success) {
-            alert("Ups nuestros servidores en kazajistan han explotado, tome un video");
-        }
+      if (!result.success) {
 
-        else {
-          this.router.navigate(["/home"]);
-        }
-      });
+          alert("ha ocurrido un error");
+      }
+
+      else {
+
+        this.router.navigate(["/home"]);
+      }
+    });
       
     }
 

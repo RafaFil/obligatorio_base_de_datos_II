@@ -11,7 +11,7 @@ const routes: Routes = [
   },
   {
     //podria cambiarse por id de la solicitud
-    path: 'helprequest/:title', component: HelpRequstInfoComponent 
+    path: 'helprequest/:id', component: HelpRequstInfoComponent 
   }
 ];
 

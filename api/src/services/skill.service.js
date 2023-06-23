@@ -18,7 +18,7 @@ async function getAllRequestSkillsService(requestId) {
 }
 
 async function addSkillToUserService(newUserSkill) {
-    return await addSkillToUserInDB(newUserSkill.skillId, newUserSkill.lvl, newUserSkill.userId)
+    return await addSkillToUserInDB(newUserSkill.id, newUserSkill.lvl, newUserSkill.userId)
 }
 
 async function editUserSkillLvlService(newSkillLvl){

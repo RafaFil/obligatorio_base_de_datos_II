@@ -11,73 +11,103 @@ import { SkillService } from 'src/app/modules/core/services/skill.service';
 })
 export class HelpRequestFormComponent implements OnInit {
 
-  abilitiesArr : Skill[] = [
-    {
-      name: "carpinteria", description: "trabaja con madera"
-    },
-    {
-      name: "metalurgia", description: "trabaja con madera"
-    },
-    {
-      name: "cocina", description: "trabaja con madera"
-    },
-  ]
+  skillsArr : Skill[] = []
+  skillsName : String[] = [];
 
-  skillLevel : string[] = [
-    "Principiante",
-    "Medio",
-    "Alto",
-    "Maestro"
-  ]
+  skillLevel : string[] = [ "1", "2", "3", "4", "5"]
 
   constructor(private skillService : SkillService,
               private formBuilder : FormBuilder) { }
 
   ngOnInit(): void {
+
+    this.getAllSkill();
   }
 
-  helpAplicationForm = this.formBuilder.group({
+  helpRequestForm = this.formBuilder.group({
     title : ["",[Validators.required]],
     description : ["",[Validators.required]],
-    skill:[],
-    level: [""],
-    street : [""],
-    corner: [""],
+    skill: this.formBuilder.array<{id : number, name: string}>([]),
+    level: ["",[Validators.required]],
+    street : ["",[Validators.required]],
+    corner: ["",[Validators.required]],
   });
 
   getAllSkill () {
 
     this.skillService.getAllSkills()
-    .subscribe ( skill => {
-      if (skill.success) {
-        console.log(skill.data);
+    .subscribe ( skills => {
+      if (skills.success && skills.data) {
+
+        this.skillsArr = skills.data;
+
       }
     });
   }
 
   changeLevel(value : any) {
 
-    const skill = this.helpAplicationForm.controls.skill.value;
+    const skill = this.helpRequestForm.controls.skill.value;
 
     // only if a skill is selected
     if (skill) {
 
-      this.helpAplicationForm.patchValue({
+      this.helpRequestForm.patchValue({
         level : value
       });
     }
 
-    console.log(value);
+
 
   }
 
 
   addChip(chip: MatChip) {
 
-    this.helpAplicationForm.patchValue({
-      skill : chip.value
-    });
+    const value = this.helpRequestForm.controls.skill.value;
+
+    if (chip.selected) {
+      chip.deselect();
+      this.removeLikeFromSkills(chip);
+      return;
+    }
+
+    const chipName = chip.value;
+    const skill = this.skillsArr.find(s => s.name.trim() === chipName.trim());;
+  
+    if (skill) {
+      const skillId = skill.id;
+      const skillName = skill.name;
+
+      value.push({
+        id : skillId,
+        name : skillName
+      });
+    }
+
+    chip.select();
+
+
   }
 
+  removeLikeFromSkills(chip : MatChip) {
+
+    const value = this.helpRequestForm.controls.skill.value;
+    const chipName = chip.value;
+
+    let index;
+    value.forEach( (s, i ) => {
+      
+      if (s && (s.name.trim() === chipName.trim())) {
+        index = i;
+      }
+    });
+
+    if (index) {
+      value.splice(index,1);
+    }
+
+
+  }
 
 }

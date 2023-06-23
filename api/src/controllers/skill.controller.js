@@ -1,5 +1,5 @@
 const { Skill, userSkill, requiredSkill } = require("../entities/skills.entity");
-const { getAllSkillsService, getAllUserSkillsService, getSkillService, getAllRequestSkillsService, addSkillToUserService, editUserlvlService } = require("../services/skill.service");
+const { getAllSkillsService, getAllUserSkillsService, getSkillService, getAllRequestSkillsService, addSkillToUserService, editUserSkillLvlService } = require("../services/skill.service");
 
 const getAllSkills = async (req, res) => {
     getAllSkillsService().then( skills => {
@@ -175,7 +175,7 @@ const editSkillUser = async ( req , res) => {
     }
 
     const newlvl = new userSkill(id,"name", req.username, lvl);
-    editUserlvlService(newlvl).then ( result => {
+    editUserSkillLvlService(newlvl).then ( result => {
 
         if (!result.success) {
             return res.status(400).json({
