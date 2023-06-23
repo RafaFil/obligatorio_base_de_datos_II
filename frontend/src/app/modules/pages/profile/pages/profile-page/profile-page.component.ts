@@ -11,6 +11,7 @@ import { UserDataResponse } from 'src/app/modules/core/interfaces/apiDataRespons
 import { SkillService } from 'src/app/modules/core/services/skill.service';
 import { PostulationService } from 'src/app/modules/core/services/postulation.service';
 import { PostulationUserData } from 'src/app/modules/core/interfaces/apiDataResponse/PostulationsUserData';
+import { HelpRequestUserData } from 'src/app/modules/core/interfaces/apiDataResponse/HelpReqUserData';
 
 @Component({
   selector: 'app-profile-page',
@@ -23,13 +24,9 @@ export class ProfilePageComponent implements OnInit {
 
   skillsArr : Skill[] = []
 
-  helpRequestArr : HelpRequestPreviewData[] = [
+  helpRequestArr : HelpRequestUserData[] = []
 
-  ]
-
-  postulationsArr : PostulationUserData[] = [
-
-  ]
+  postulationsArr : PostulationUserData[] = []
 
   constructor(private dialog : MatDialog,
               private helpRequestService : HelpRequestService,
@@ -41,17 +38,24 @@ export class ProfilePageComponent implements OnInit {
     
     this.runningUser = this.userService.getRunningUser();
 
-    this.helpRequestService.getAllHelpRequest().subscribe( res => {
-
-      if (res.success && res.data) {
-
-        this.helpRequestArr = res.data;
-      }
-    })
+    this.getAllUserRequest(this.runningUser?.do)
     
     this.getAllUserPostulation();
 
     this.getAllSkillUser();
+  }
+
+  getAllUserRequest(userDo : string | undefined) {
+    
+    if(userDo)
+      this.helpRequestService.getAllHelpRequestUser(userDo).subscribe({
+        next: (res) => {
+          if (res.success && res.data) {
+
+            this.helpRequestArr = res.data;
+          }
+        }
+      })
   }
 
   getAllUserPostulation() {

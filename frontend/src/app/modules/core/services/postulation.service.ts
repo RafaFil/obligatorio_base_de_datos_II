@@ -4,6 +4,7 @@ import { Observable, catchError, of } from 'rxjs';
 import { apiMessage } from '../interfaces/apiMessage';
 import { PostulationData } from '../interfaces/apiDataResponse/PostulationData';
 import { PostulationUserData } from '../interfaces/apiDataResponse/PostulationsUserData';
+import { HelpRequestData } from '../interfaces/apiDataResponse/HelpReqData';
 
 const apiURL = "http://localhost:3000/api/v1"
 
@@ -34,5 +35,13 @@ export class PostulationService {
   cancelPostulation(requestId: number, helperId: string) {
 
     return this.http.delete(`${apiURL}/postulations/request/${requestId}/${helperId}`);
+  }
+
+  getAllAplicantsToARequest(requestId : number) : Observable<apiMessage<HelpRequestData[]>> {
+
+    return this.http.get<apiMessage<HelpRequestData[]>>(`${apiURL}/postulations/request/${requestId}`)
+    .pipe(
+      catchError( err => of(err))
+    );
   }
 }

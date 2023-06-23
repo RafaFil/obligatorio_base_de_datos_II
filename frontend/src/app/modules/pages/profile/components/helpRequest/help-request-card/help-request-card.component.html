@@ -3,9 +3,9 @@
         <mat-card-title>{{helpRequest.title}}</mat-card-title>
         <!-- <mat-card-subtitle>{{helpRequest.street}},{{helpRequest.corner}}</mat-card-subtitle> -->
     </mat-card-header>
-    <mat-card-content (click)="redirectToRequestInfo(helpRequest.title)">
-        <!-- <p>{{helpRequest.description}}</p> -->
-        <!-- <p>Habilidad necesesaria: {{helpRequest.skill}}</p> -->
+    <mat-card-content (click)="redirectToRequestInfo(helpRequest.id)">
+        <p>{{helpRequest.description}}</p>
+        <p>Habilidad necesesaria: {{helpRequest.skills | json}}</p>
     </mat-card-content>
     <mat-card-actions>
         <button mat-raised-button color="primary" (click)="showAplicantsSheet()">Postulantes</button>

@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, of } from 'rxjs';
 import { HelpRequestPreviewData } from '../interfaces/apiDataResponse/HelpRequestPreviewData';
 import { HelpRequestData } from '../interfaces/apiDataResponse/HelpReqData';
+import { HelpRequestUserData } from '../interfaces/apiDataResponse/HelpReqUserData';
 
 const apiURL = "http://localhost:3000/api/v1/requests"
 
@@ -39,6 +40,14 @@ export class HelpRequestService {
     return this.http.post<apiMessage<HelpRequestData>>(`${apiURL}/create`,helpRequest)
     .pipe (
       catchError( err => of(err))
+    );
+  }
+
+  getAllHelpRequestUser(userDO : string) : Observable<apiMessage<HelpRequestUserData[]>> {
+    
+    return this.http.get<apiMessage<HelpRequestUserData[]>>(`${apiURL}/userDO/${userDO}`)
+    .pipe(
+      catchError (err => of(err))
     );
   }
 
