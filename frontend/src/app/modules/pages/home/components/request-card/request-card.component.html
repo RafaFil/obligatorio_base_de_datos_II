@@ -6,7 +6,12 @@
     <div class="sb-card-cont">
         <mat-card-content>
             <p>{{request.description}}.</p> 
-            <p>Habilidad(s) {{request.skills}}</p>
+            <p>Habilidad(s) necesaria(s)</p>
+            <mat-chip-list>
+                <mat-chip *ngFor="let skill of request.skills" selected="true" disableRipple="true">
+                    {{skill}}
+                </mat-chip>
+            </mat-chip-list>
         </mat-card-content>
     </div>
     <mat-card-actions>
