@@ -193,7 +193,7 @@ const deleteRequestDB = async function (requestId) {
     finally{
         if(deletedRequestData.rows.length > 0){
             client.release();
-            return new dataResult(true, deletedRequestData.rows);
+            return new dataResult(true, deletedRequestData.rows[0]);
         }
         else{
             client.release();
