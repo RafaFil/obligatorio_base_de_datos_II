@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
 import { apiMessage } from '../interfaces/apiMessage';
 import { UserDataResponse } from '../interfaces/apiDataResponse/userDataResponse';
 
@@ -26,6 +26,8 @@ export class FriendService {
     return this.http.post<apiMessage<{
       usuario1_ci: string, 
       usuario2_ci: string
-    }>>(`${apiURL}/addFriend `, { otherUserId : friendId});
+    }>>(`${apiURL}/addFriend `, { otherUserId : friendId}).pipe(
+      catchError((err) => { return of(err)
+    }));
   }
 }
