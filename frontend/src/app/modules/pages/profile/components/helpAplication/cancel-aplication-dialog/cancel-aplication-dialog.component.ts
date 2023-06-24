@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { PostulationService } from 'src/app/modules/core/services/postulation.service';
 
 @Component({
@@ -10,19 +10,26 @@ import { PostulationService } from 'src/app/modules/core/services/postulation.se
 export class CancelAplicationDialogComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public cancelPostData: { requestId: number, helperId: string}, 
-              private postulationService : PostulationService) { }
+              private postulationService : PostulationService,
+              private dialogRef : MatDialogRef<CancelAplicationDialogComponent>) { }
 
   ngOnInit(): void {
   }
 
   cancel() {
+
     this.postulationService.cancelPostulation(
       this.cancelPostData.requestId,
       this.cancelPostData.helperId
     ).subscribe( res => {
       
-      
+      this.dialogRef.close(true);
     })
+  }
+
+  close() {
+    
+    this.dialogRef.close(false);
   }
 
 }

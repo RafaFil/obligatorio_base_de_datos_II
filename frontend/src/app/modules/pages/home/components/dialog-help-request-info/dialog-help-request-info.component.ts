@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HelpRequestData } from 'src/app/modules/core/interfaces/apiDataResponse/HelpReqData';
 import { HelpRequest } from 'src/app/modules/core/interfaces/helpRequest';
@@ -22,7 +22,8 @@ export class DialogHelpRequestInfoComponent implements OnInit {
               { helpRequest : HelpRequestData, isUserRequest: boolean}, 
               private geoCoding : GeoCodeService,
               private postulationService : PostulationService,
-              private snackBar: MatSnackBar) { 
+              private snackBar: MatSnackBar,
+              private dialogRef : MatDialogRef<DialogHelpRequestInfoComponent>) { 
     
   }
 
@@ -57,9 +58,12 @@ export class DialogHelpRequestInfoComponent implements OnInit {
       res => {
 
         if (res.success) {
+          
+          this.dialogRef.close();
           this.snackBar.open(`Postulacion sastifactoria a ${this.helpRequest.helpRequest.title}`,"", {
             duration: 3000
           })
+
         }
 
       }
