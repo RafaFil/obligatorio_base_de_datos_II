@@ -1,4 +1,4 @@
-const { getRequestsByUserDOService, getRequestByIdService, getQuestionsFromRequestService, createRequestService, createQuestionService, answerQuestionService, isRequestActiveService, getRequestsService } = require('../services/request.service')
+const { getRequestsByUserDOService, getRequestByIdService, getQuestionsFromRequestService, createRequestService, createQuestionService, answerQuestionService, isRequestActiveService, getRequestsService, deleteRequestService } = require('../services/request.service')
 
 const getRequestsByUserDO = async (req, res) => {
     getRequestsByUserDOService(req.params['userId']).then(requests => {
@@ -225,6 +225,30 @@ const getRequests = (req,res) =>{
     })
 }
 
+const deleteRequest = (req,res) =>{
+    deleteRequestService(req.params['requestId']).then(requests =>{
+        if (!requests.success) {
+            return res.status(404).json({
+                success: false,
+                message: requests.message
+            });
+        }
+        else{
+            return res.status(200).json({
+                success : true,
+                data : requests.data
+            });
+        }
+    })
+    .catch( err => {
+        console.log(err);
+        return res.status(500).json({
+            success: false,
+            message: err.message ? err.message : "INTERNAL ERROR"
+        });
+    })
+}
+
 module.exports = {
     getRequestsByUserDO,
     getRequestById,
@@ -234,4 +258,5 @@ module.exports = {
     answerQuestion,
     isRequestActive,
     getRequests,
+    deleteRequest
 }

@@ -88,6 +88,10 @@ async function getRequestsService(userDO){
     return userFriendsQuery
 }
 
+async function deleteRequestService(requestId){
+    return await requestRepository.deleteRequestDB(requestId)
+}
+
 module.exports = {
     getRequestsByUserDOService,
     getRequestByIdService,
@@ -96,5 +100,6 @@ module.exports = {
     createQuestionService,
     answerQuestionService,
     isRequestActiveService,
-    getRequestsService
+    getRequestsService,
+    deleteRequestService
 }

@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { getRequestsByUserDO, getRequestById, getQuestionsFromRequest, createRequest, createQuestion, answerQuestion, isRequestActive, getRequests } = require("../controllers/request.controller");
+const { getRequestsByUserDO, getRequestById, getQuestionsFromRequest, createRequest, createQuestion, answerQuestion, isRequestActive, getRequests, deleteRequest } = require("../controllers/request.controller");
 const { validateJWT } = require('../middlewares/validateJWT.middleware');
 const { validateBody } = require('../middlewares/validateBody.middleware')
 
@@ -38,6 +38,10 @@ requestRouter.put(`${BASE_ROUTE}/answerQuestion`,validateBody,async (req,res) =>
 
 requestRouter.get(`${BASE_ROUTE}/:requestId/isActive`, async (req,res) =>{
     return isRequestActive(req,res);
+})
+
+requestRouter.delete(`${BASE_ROUTE}/delete/:requestId/`, async (req,res) =>{
+    return deleteRequest(req,res);
 })
 
 module.exports = requestRouter;
