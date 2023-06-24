@@ -1,4 +1,4 @@
-<app-base-dialog [dialogTitle]="helpRequest.title">
+<app-base-dialog [dialogTitle]="helpRequest.helpRequest.title">
 
 
     <div sb-content *ngIf="isLoading" class="sb-spinner">
@@ -19,7 +19,7 @@
     </div>
     
     <button sb-actions mat-raised-button color="primary" 
-    *ngIf="!isLoading"
+    *ngIf="!isLoading && !helpRequest.isUserRequest"
     (click)="submitPostulation()">Quiero Ayudar!!!</button>
 
 </app-base-dialog>

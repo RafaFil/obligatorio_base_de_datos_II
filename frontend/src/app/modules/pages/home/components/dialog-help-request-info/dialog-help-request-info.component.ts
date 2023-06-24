@@ -18,7 +18,8 @@ export class DialogHelpRequestInfoComponent implements OnInit {
   helpRequestMap = new Map()
   helpRequestIndex = ["Solicitante","Descripcion","Habilidades Requeridas","Ubicación","Fecha de Creación"]
 
-  constructor(@Inject(MAT_DIALOG_DATA) public helpRequest: HelpRequestData, 
+  constructor(@Inject(MAT_DIALOG_DATA) public helpRequest: 
+              { helpRequest : HelpRequestData, isUserRequest: boolean}, 
               private geoCoding : GeoCodeService,
               private postulationService : PostulationService,
               private snackBar: MatSnackBar) { 
@@ -29,31 +30,34 @@ export class DialogHelpRequestInfoComponent implements OnInit {
   ngOnInit(): void {
 
     let skillsName = ""
-    this.helpRequest.skills.forEach (skill => {
+    this.helpRequest.helpRequest.skills.forEach (skill => {
       skillsName = skill.name + " " + skillsName
     });
 
     let street;
-    this.geoCoding.getLocationFromCoordinates(this.helpRequest.lat, this.helpRequest.lng)
+    this.geoCoding.getLocationFromCoordinates
+    (this.helpRequest.helpRequest.lat, this.helpRequest.helpRequest.lng)
     .subscribe(res => {
       
       street = res.results[0].formatted;
-      this.helpRequestMap.set(0,this.helpRequest.user.name + " " + this.helpRequest.user.lastname);
-      this.helpRequestMap.set(1,this.helpRequest.description);
+      this.helpRequestMap.set(0,this.helpRequest.helpRequest.user.name + " " 
+          + this.helpRequest.helpRequest.user.lastname);
+      this.helpRequestMap.set(1,this.helpRequest.helpRequest.description);
       this.helpRequestMap.set(2,skillsName);
       this.helpRequestMap.set(3,street);
-      this.helpRequestMap.set(4, new Date(this.helpRequest.dateofpublishing).toLocaleDateString());
+      this.helpRequestMap.set(4, new Date(this.helpRequest.helpRequest.dateofpublishing)
+      .toLocaleDateString());
 
       this.isLoading = false;
     });
   }
 
   submitPostulation() {
-    this.postulationService.submitPostulation(this.helpRequest.id).subscribe(
+    this.postulationService.submitPostulation(this.helpRequest.helpRequest.id).subscribe(
       res => {
 
         if (res.success) {
-          this.snackBar.open(`Postulacion sastifactoria a ${this.helpRequest.title}`,"", {
+          this.snackBar.open(`Postulacion sastifactoria a ${this.helpRequest.helpRequest.title}`,"", {
             duration: 3000
           })
         }

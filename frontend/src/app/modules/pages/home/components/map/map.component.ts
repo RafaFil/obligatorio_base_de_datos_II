@@ -25,6 +25,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy{
   private currentMarkers: Marker[] = [];
 
   @Input() public HelpRequestArr : HelpRequestPreviewData[] = []
+  @Input() public currentUserDO!: string;
   
   constructor() { }
 
@@ -63,7 +64,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy{
 
     this.mapMarkerComponents.forEach((mapMarkerComponent, index) => {
 
-
+      
       const lat = this.HelpRequestArr[index].lat;
       const lng = this.HelpRequestArr[index].lng;
 
@@ -102,4 +103,5 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy{
       })
     }
   }
+
 }

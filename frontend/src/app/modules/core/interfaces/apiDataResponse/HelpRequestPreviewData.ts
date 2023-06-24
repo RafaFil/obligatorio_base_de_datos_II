@@ -4,5 +4,6 @@ export interface HelpRequestPreviewData {
     description: string,
     lng?: number,
     lat?: number,
-    dateOfPublishing?: Date
+    dateOfPublishing?: Date,
+    solicitantdo : string
 }
