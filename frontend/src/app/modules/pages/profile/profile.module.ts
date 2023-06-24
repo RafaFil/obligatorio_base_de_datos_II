@@ -14,6 +14,9 @@ import { HelpRequstInfoComponent } from './components/helpRequest/help-requst-in
 import { PostulationCardComponent } from './components/helpAplication/help-aplication-card/help-aplication-card.component';
 import { ApplicantsSheetComponent } from './components/helpRequest/applicants-sheet/applicants-sheet.component';
 import { CancelAplicationDialogComponent } from './components/helpAplication/cancel-aplication-dialog/cancel-aplication-dialog.component';
+import { FriendsPageComponent } from './pages/friends-page/friends-page.component';
+import { FriendCardComponent } from './components/friendPage/friend-card/friend-card.component';
+import { DialogAddFriendComponent } from './components/friendPage/dialog-add-friend/dialog-add-friend.component';
 
 
 @NgModule({
@@ -27,6 +30,9 @@ import { CancelAplicationDialogComponent } from './components/helpAplication/can
     PostulationCardComponent,
     ApplicantsSheetComponent,
     CancelAplicationDialogComponent,
+    FriendsPageComponent,
+    FriendCardComponent,
+    DialogAddFriendComponent,
   ],
   imports: [
     CommonModule,

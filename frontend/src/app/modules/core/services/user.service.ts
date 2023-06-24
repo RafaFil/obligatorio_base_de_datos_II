@@ -103,9 +103,9 @@ export class UserService {
       );
   }
 
-  getUserByDO(DO : string) : Observable<apiMessage<Object>> {
+  getUserByDO(DO : string) : Observable<apiMessage<UserDataResponse>> {
 
-    return this.http.get<apiMessage<Object>>(`${apiURL}/users/withId/${DO}`)
+    return this.http.get<apiMessage<UserDataResponse>>(`${apiURL}/users/withId/${DO}`)
     .pipe(
       catchError( err => of(err))
       );

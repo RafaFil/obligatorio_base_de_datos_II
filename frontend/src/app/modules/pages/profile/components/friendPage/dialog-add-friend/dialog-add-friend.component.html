@@ -1,0 +1,10 @@
+<app-base-dialog [dialogTitle]="'Confirar amistad'">
+
+    <mat-spinner *ngIf="isLoading" sb-contet></mat-spinner>
+
+    <p sb-content *ngIf="!isLoading">Desea agreaga a {{friendName}} como amigo?</p>
+    <button sb-actions mat-raised-button color="primary" *ngIf="!isLoading" [disabled]="!userFound" 
+    (click)="closeDialog(true)">SI</button>
+    <button sb-actions mat-raised-button color="warn" *ngIf="!isLoading" [disabled]="!userFound" 
+    (click)="closeDialog(false)">NO</button>
+</app-base-dialog>

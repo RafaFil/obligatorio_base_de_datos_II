@@ -12,6 +12,8 @@ import { SkillService } from 'src/app/modules/core/services/skill.service';
 import { PostulationService } from 'src/app/modules/core/services/postulation.service';
 import { PostulationUserData } from 'src/app/modules/core/interfaces/apiDataResponse/PostulationsUserData';
 import { HelpRequestUserData } from 'src/app/modules/core/interfaces/apiDataResponse/HelpReqUserData';
+import { FriendService } from 'src/app/modules/core/services/friend.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile-page',
@@ -22,27 +24,46 @@ export class ProfilePageComponent implements OnInit {
 
   runningUser?: UserDataResponse;
 
-  skillsArr : Skill[] = []
+  skillsArr : Skill[] = [];
 
-  helpRequestArr : HelpRequestUserData[] = []
+  helpRequestArr : HelpRequestUserData[] = [];
 
-  postulationsArr : PostulationUserData[] = []
+  postulationsArr : PostulationUserData[] = [];
+
+  friendsArr : UserDataResponse[] = [];
 
   constructor(private dialog : MatDialog,
               private helpRequestService : HelpRequestService,
               private userService : UserService,
               private skillService : SkillService,
-              private postulationService : PostulationService) { }
+              private postulationService : PostulationService,
+              private friendService : FriendService,
+              private router : Router) { }
 
   ngOnInit(): void {
     
     this.runningUser = this.userService.getRunningUser();
+
+    this.getAllUserFriends();
 
     this.getAllUserRequest(this.runningUser?.do)
     
     this.getAllUserPostulation();
 
     this.getAllSkillUser();
+  }
+
+  getAllUserFriends() {
+
+    this.friendService.getAllUserFriend().subscribe({
+      next: (res) => {
+
+        if (res.success && res.data) {
+
+          this.friendsArr = res.data;
+        }
+      }
+    });
   }
 
   getAllUserRequest(userDo : string | undefined) {
@@ -108,5 +129,11 @@ export class ProfilePageComponent implements OnInit {
     })
     
 
+  }
+
+  redirectToFriends() {
+
+    
+    this.router.navigate(["profile/friends"]);
   }
 }
