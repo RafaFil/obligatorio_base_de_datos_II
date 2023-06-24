@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HelpRequestData } from 'src/app/modules/core/interfaces/apiDataResponse/HelpReqData';
 import { HelpRequest } from 'src/app/modules/core/interfaces/helpRequest';
+import { GeoCodeService } from 'src/app/modules/core/services/geo-code.service';
 import { HelpRequestService } from 'src/app/modules/core/services/help-request.service';
 
 @Component({
@@ -12,9 +13,12 @@ import { HelpRequestService } from 'src/app/modules/core/services/help-request.s
 export class HelpRequstInfoComponent implements OnInit {
 
   helpRequest!: HelpRequestData;
+  ubication!: string;
+  isLoading = true;
 
   constructor(private route: ActivatedRoute,
-              private helpRequestService : HelpRequestService) { }
+              private helpRequestService : HelpRequestService,
+              private geoCode : GeoCodeService) { }
 
   ngOnInit(): void {
     
@@ -28,6 +32,7 @@ export class HelpRequstInfoComponent implements OnInit {
           if (res.success && res.data) {
 
             this.helpRequest = res.data;
+            this.getUbication(this.helpRequest.lat, this.helpRequest.lng);
           }
         }
       })
@@ -36,6 +41,16 @@ export class HelpRequstInfoComponent implements OnInit {
     
   }
 
+  getUbication(lat : number, lng : number) {
+
+    this.geoCode.getLocationFromCoordinates(lat,lng).subscribe({
+      next: (res) => {
+        
+        this.ubication = res.results[0].formatted;
+        this.isLoading = false;
+      }
+    })
+  }
 
 
 }
