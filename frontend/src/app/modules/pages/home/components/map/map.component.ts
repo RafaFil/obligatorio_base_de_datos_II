@@ -4,6 +4,7 @@ import { Map, Marker, NavigationControl } from 'maplibre-gl';
 import { HelpMapMarkerComponent } from '../help-map-marker/help-map-marker.component';
 import { HelpRequestService } from 'src/app/modules/core/services/help-request.service';
 import { HelpRequest } from 'src/app/modules/core/interfaces/helpRequest';
+import { HelpRequestPreviewData } from 'src/app/modules/core/interfaces/apiDataResponse/HelpRequestPreviewData';
 
 
 
@@ -23,15 +24,17 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy{
 
   private currentMarkers: Marker[] = [];
 
-  @Input() public HelpRequestArr : HelpRequest[] = []
+  @Input() public HelpRequestArr : HelpRequestPreviewData[] = []
+  @Input() public currentUserDO!: string;
   
-  constructor(private helpAplicationService : HelpRequestService) { }
+  constructor() { }
 
   ngOnInit(): void {
     
   }
 
   ngAfterViewInit() {
+
     const initialState = { lng: -56.157485609445175 , lat: -34.88791314870603 , zoom: 15 };
     this.map = new Map({
       container: this.mapContainer.nativeElement,
@@ -41,8 +44,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy{
     });
     this.map.addControl(new NavigationControl({}), 'top-right');
 
-
-    this.loadMarkers();
+    this.map.on('load', () => {
+      this.loadMarkers();
+    });
 
   }
 
@@ -52,13 +56,15 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy{
 
   loadMarkers() {
 
+
+
     if (this.map) {
       this.map.repaint = false;
     }
 
     this.mapMarkerComponents.forEach((mapMarkerComponent, index) => {
 
-
+      
       const lat = this.HelpRequestArr[index].lat;
       const lng = this.HelpRequestArr[index].lng;
 
@@ -97,4 +103,5 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy{
       })
     }
   }
+
 }

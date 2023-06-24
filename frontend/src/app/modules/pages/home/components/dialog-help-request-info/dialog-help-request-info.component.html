@@ -1,5 +1,11 @@
-<app-base-dialog [dialogTitle]="helpRequest.title">
-    <div sb-content class="container">
+<app-base-dialog [dialogTitle]="helpRequest.helpRequest.title">
+
+
+    <div sb-content *ngIf="isLoading" class="sb-spinner">
+        <mat-spinner></mat-spinner>
+    </div>
+
+    <div sb-content class="container" *ngIf="!isLoading">
         <div *ngFor="let kvp of helpRequestMap | keyvalue ">
             <div class="row">
                 <mat-card-header>
@@ -11,8 +17,10 @@
             </div>
         </div>
     </div>
-    <div>
-        <button sb-actions mat-raised-button color="primary">Quiero Ayudar!!!</button>
-    </div>
+    
+    <button sb-actions mat-raised-button color="primary" 
+    *ngIf="!isLoading && !helpRequest.isUserRequest"
+    (click)="submitPostulation()">Quiero Ayudar!!!</button>
+
 </app-base-dialog>
 

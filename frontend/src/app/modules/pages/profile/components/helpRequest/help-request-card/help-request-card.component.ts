@@ -3,6 +3,9 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { Router } from '@angular/router';
 import { HelpRequest } from 'src/app/modules/core/interfaces/helpRequest';
 import { ApplicantsSheetComponent } from '../applicants-sheet/applicants-sheet.component';
+import { HelpRequestPreviewData } from 'src/app/modules/core/interfaces/apiDataResponse/HelpRequestPreviewData';
+import { HelpRequestUserData } from 'src/app/modules/core/interfaces/apiDataResponse/HelpReqUserData';
+import { PostulationService } from 'src/app/modules/core/services/postulation.service';
 
 @Component({
   selector: 'app-help-request-card',
@@ -11,27 +14,28 @@ import { ApplicantsSheetComponent } from '../applicants-sheet/applicants-sheet.c
 })
 export class HelpRequestCardComponent implements OnInit {
 
-  @Input() helpRequest!: HelpRequest
+  @Input() helpRequest!: HelpRequestUserData
 
   constructor(private sheet : MatBottomSheet,
-              private router : Router) { }
+              private router : Router,
+              private postulationService : PostulationService) { }
 
   ngOnInit(): void {
   }
 
-  redirectToRequestInfo(title : string) {
+  redirectToRequestInfo(id : number) {
 
-    console.log("redirect to profile/helprequest")
-    this.router.navigate(['profile/helprequest', title]);
+
+    this.router.navigate(['profile/helprequest', id]);
 
   }
 
   showAplicantsSheet() {
-  
+    
     this.sheet.open(ApplicantsSheetComponent,{
       data: {
         title : this.helpRequest.title,
-        aplicants : ["Joan Moretz","Hans Waltz","Takehiko Inoue","Brandon Fanderson","Don zoilo"]
+        id : this.helpRequest.id
       }
     })
   }

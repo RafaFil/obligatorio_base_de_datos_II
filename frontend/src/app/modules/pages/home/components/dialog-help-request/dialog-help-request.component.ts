@@ -4,6 +4,8 @@ import { HelpRequest } from 'src/app/modules/core/interfaces/helpRequest';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { GeoCodeService } from 'src/app/modules/core/services/geo-code.service';
 import { HelpRequestService } from 'src/app/modules/core/services/help-request.service';
+import { UserService } from 'src/app/modules/core/services/user.service';
+import { Skill } from 'src/app/modules/core/interfaces/skill';
 
 @Component({
   selector: 'app-dialog-help-request',
@@ -12,35 +14,38 @@ import { HelpRequestService } from 'src/app/modules/core/services/help-request.s
 })
 export class DialogHelpRequestComponent implements OnInit {
 
-  @ViewChild('helpAppForm') helpAplicationForm!: HelpRequestFormComponent;
+  @ViewChild('helpAppForm') helpRequestForm!: HelpRequestFormComponent;
 
   constructor(private dialog : MatDialogRef<HelpRequestFormComponent>,
               private geocode : GeoCodeService,
-              private helpRequestService : HelpRequestService) { }
+              private userService : UserService) { }
 
   ngOnInit(): void {
   }
 
   pullDataAplicationForm() {
     
-    const title = this.helpAplicationForm.helpAplicationForm.controls.title.value;
-    const description = this.helpAplicationForm.helpAplicationForm.controls.description.value;
-    const skill = this.helpAplicationForm.helpAplicationForm.controls.skill.value;
-    const level = this.helpAplicationForm.helpAplicationForm.controls.level.value;
-    const street = this.helpAplicationForm.helpAplicationForm.controls.street.value;
-    const corner = this.helpAplicationForm.helpAplicationForm.controls.corner.value;
+    const title = this.helpRequestForm.helpRequestForm.controls.title.value;
+    const description = this.helpRequestForm.helpRequestForm.controls.description.value;
+    const skill = this.helpRequestForm.helpRequestForm.controls.skill.value;
+    const level = this.helpRequestForm.helpRequestForm.controls.level.value;
+    const street = this.helpRequestForm.helpRequestForm.controls.street.value;
+    const corner = this.helpRequestForm.helpRequestForm.controls.corner.value;
+    const user = this.userService.getRunningUser();
 
-    if (!title || !description) {
-
+    if (!this.helpRequestForm.helpRequestForm.valid) {
+      
       alert("faltan campos obligatorios")
     }
 
-    else {
+    else if (title && description && skill && level && street && corner && user) {
 
       const helpAplication : HelpRequest = {
-        title : title,
-        description : description,
-        userDO : "a" //Sacarlo del local storage
+        title: title,
+        description: description,
+        userDO: user.do,
+        dateOfPublishing: new Date(),
+        skills: this.getAllSkillsOfRequest()
       };
 
       const adress = `${corner} ${street}, Montevideo, Uruguay`
@@ -56,9 +61,7 @@ export class DialogHelpRequestComponent implements OnInit {
             helpAplication.lat = formattedAddress["lat"];
             helpAplication.lng = formattedAddress["lng"];
 
-            console.log(helpAplication);
 
-            this.helpRequestService.submitAplication(helpAplication);
             this.dialog.close(helpAplication);
 
           } else {
@@ -70,6 +73,25 @@ export class DialogHelpRequestComponent implements OnInit {
       
       
     }
+  }
+
+  getAllSkillsOfRequest() {
+
+    const skillsArr : Skill[] = [];
+    const skill = this.helpRequestForm.helpRequestForm.controls.skill.value;
+    const level = this.helpRequestForm.helpRequestForm.controls.level.value;
+
+    skill.forEach( s => {
+
+      if(s && level)
+        skillsArr.push({
+          id: s.id,
+          name: s.name,
+          lvl: parseInt(level)
+        });
+    })
+
+    return skillsArr;
   }
 
 }

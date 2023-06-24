@@ -17,6 +17,12 @@ export class RequestCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  showFullText = false;
+
+  toggleFullText() {
+    this.showFullText = !this.showFullText;
+  }
+
   goToMapLocation() {
 
     this.goToMap.emit(this.request);

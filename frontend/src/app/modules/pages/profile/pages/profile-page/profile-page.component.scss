@@ -1,4 +1,4 @@
-h1, p {
+h1, p, h3 {
     display: flex;
     justify-content: center;
 }
@@ -24,4 +24,21 @@ h1, p {
     position: sticky;
     position: -webkit-sticky; 
 }*/
+
+.sb-friends {
+
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    h3 {
+        margin: 0;
+    }
+    button {
+        margin-left: 1rem;
+    }
+}
+
+
 

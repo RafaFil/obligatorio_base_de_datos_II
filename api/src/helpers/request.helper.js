@@ -49,6 +49,7 @@ const buildPreviewJSON = (request) =>{
     return {
         id : request.id,
         title: request.title,
+        solicitantdo : request.solicitantid,
         dateofpublishing : request.dateofpublishing,
         lat : request.lat,
         lng : request.lng,

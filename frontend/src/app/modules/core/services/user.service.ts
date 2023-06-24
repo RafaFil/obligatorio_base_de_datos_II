@@ -4,6 +4,7 @@ import { apiMessage } from '../interfaces/apiMessage';
 import { User } from '../interfaces/user';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, of, tap } from 'rxjs';
+import { UserDataResponse } from '../interfaces/apiDataResponse/userDataResponse';
 
 const apiURL = "http://localhost:3000/api/v1"
 
@@ -12,7 +13,7 @@ const apiURL = "http://localhost:3000/api/v1"
 })
 export class UserService {
 
-  runningUser?: User;
+  runningUser?: UserDataResponse;
 
   constructor(private http: HttpClient) { }
 
@@ -56,23 +57,21 @@ export class UserService {
     }
   }
 
-  //Idem generic
-  registerUser(u : User) : Observable<apiMessage<Object>> {
+  registerUser(u : User) : Observable<apiMessage<UserDataResponse>> {
 
-    return this.http.post<apiMessage<Object>>(`${apiURL}/users/register`,u)
+    return this.http.post<apiMessage<UserDataResponse>>(`${apiURL}/users/register`,u)
     .pipe(
       catchError( err => of(err))
     );
   }
 
-  //generic de apiMessage. Recibe un user y un token asociado
   getUserByCredentials(credentials : UserAuth) : Observable<apiMessage<{
-    user : User,
+    user : UserDataResponse,
     token : string
   }>> {
   
     return this.http.post<apiMessage<{
-      user : User,
+      user : UserDataResponse,
       token : string
     }>>(`${apiURL}/users/auth`,credentials)
       .pipe(
@@ -92,6 +91,7 @@ export class UserService {
     return this.http.get<apiMessage<any>>( url )
       .pipe(
         tap( response => {
+
           if (response.success) {
             this.runningUser = response.data?.user;
             localStorage.setItem('token', response.data?.token!);
@@ -101,6 +101,19 @@ export class UserService {
         }),
         catchError( err => of(false) )
       );
+  }
+
+  getUserByDO(DO : string) : Observable<apiMessage<UserDataResponse>> {
+
+    return this.http.get<apiMessage<UserDataResponse>>(`${apiURL}/users/withId/${DO}`)
+    .pipe(
+      catchError( err => of(err))
+      );
+  }
+
+  getRunningUser() {
+
+    return this.runningUser;
   }
 
   logout(): void {

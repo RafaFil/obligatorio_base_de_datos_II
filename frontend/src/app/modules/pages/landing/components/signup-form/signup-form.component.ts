@@ -11,6 +11,7 @@ import { UserService } from 'src/app/modules/core/services/user.service';
 })
 export class SignupFormComponent implements OnInit {
 
+  isLoading = false;
 
   constructor(private formBuilder : FormBuilder, private userService : UserService,
               private router : Router) { }
@@ -40,6 +41,8 @@ export class SignupFormComponent implements OnInit {
 
   registerUser() {
     
+    this.isLoading = true;
+
     const DO = this.signupForm.controls.DO.value;
 
     if (!this.userService.checkIdIsValid(DO)) { 
@@ -59,16 +62,16 @@ export class SignupFormComponent implements OnInit {
         password : password,
         name : name,
         last_name: last_name,
-        contact : contact
       }
+      
       this.userService.registerUser(userData)
       .subscribe( res => {
         if (res.success) {
-          alert("Se ha registrado correctamente.")
-          this.router.navigate(["/home"]);
+
+          this.isLoading = false;
+          this.router.navigate(["/login"]);
         }
-        alert("algo ha salido mal")
-        return;
+        
       })
     }
 

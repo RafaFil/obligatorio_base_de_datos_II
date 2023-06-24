@@ -2,15 +2,17 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { HelpRequest } from 'src/app/modules/core/interfaces/helpRequest';
 import { CancelAplicationDialogComponent } from '../cancel-aplication-dialog/cancel-aplication-dialog.component';
+import { HelpRequestPreviewData } from 'src/app/modules/core/interfaces/apiDataResponse/HelpRequestPreviewData';
+import { PostulationUserData } from 'src/app/modules/core/interfaces/apiDataResponse/PostulationsUserData';
 
 @Component({
-  selector: 'app-help-aplication-card',
-  templateUrl: './help-aplication-card.component.html',
-  styleUrls: ['./help-aplication-card.component.scss']
+  selector: 'app-postulation-card',
+  templateUrl: './postulation-card.component.html',
+  styleUrls: ['./postulation-card.component.scss']
 })
-export class HelpAplicationCardComponent implements OnInit {
+export class PostulationCardComponent implements OnInit {
 
-  @Input() helpRequest!: HelpRequest;
+  @Input() postulation!: PostulationUserData;
 
   constructor(private dialog : MatDialog) { }
 
@@ -19,6 +21,11 @@ export class HelpAplicationCardComponent implements OnInit {
 
   openCancelDialog() {
 
-    this.dialog.open(CancelAplicationDialogComponent)
+    this.dialog.open(CancelAplicationDialogComponent, {
+      data: {
+        requestId : this.postulation.requestid,
+        helperId : this.postulation.userid
+      }
+    })
   }
 }

@@ -37,6 +37,7 @@ export class ToolbarComponent implements OnInit {
 
     this.router.navigate(["/home"]);
 
+
   }
 
   goToUserProfile() {
