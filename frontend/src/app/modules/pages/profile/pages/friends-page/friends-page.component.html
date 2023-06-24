@@ -1,0 +1,19 @@
+<app-toolbar></app-toolbar>
+<div class="container mt-3">
+
+    
+    <h2>Añadir amigo</h2>
+    <mat-form-field appearance="outline" class="sb-search-input ">
+        <mat-label>Ingrese DO de tu amigo</mat-label>
+        <input type="string" matInput [(ngModel)]="frienDo">
+        <mat-icon matPrefix>search</mat-icon>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" class="" (click)="openFriendDialog(frienDo)">Buscar</button>
+
+    <mat-divider></mat-divider>
+
+    <h2 class="mt-3">Mis Amigos</h2>
+    <app-friend-card *ngFor="let friend of friendsArr" [friend]="friend"></app-friend-card>
+
+</div>
