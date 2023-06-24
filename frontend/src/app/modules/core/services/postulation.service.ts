@@ -34,8 +34,8 @@ export class PostulationService {
   }
 
   cancelPostulation(requestId: number, helperId: string) {
-
-    return this.http.delete(`${apiURL}/postulations/request/${requestId}/${helperId}`);
+    return this.http.delete(`${apiURL}/postulations/request/${requestId}/${helperId}`)
+    .pipe(catchError(err => of(err)));
   }
 
   getAllAplicantsToARequest(requestId : number) : Observable<apiMessage<{    

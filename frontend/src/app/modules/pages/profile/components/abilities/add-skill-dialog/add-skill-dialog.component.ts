@@ -44,7 +44,6 @@ export class AddSkillDialogComponent implements OnInit {
       this.dialog.close(skillData);
     }
     else {
-
       alert("faltan campos");
     }
   }
