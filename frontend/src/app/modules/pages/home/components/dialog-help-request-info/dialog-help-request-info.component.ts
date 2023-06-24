@@ -63,6 +63,19 @@ export class DialogHelpRequestInfoComponent implements OnInit {
             duration: 3000
           })
 
+        } else {
+          //should be done better in backend
+          if(res.status === 400) {
+          this.dialogRef.close();
+          this.snackBar.open("Postulación fallida. Revise si ya se postuló o si sigue activa esta solicitud.", undefined, {
+            duration: 3000
+          })
+        }else if(res.status === 500) {
+          this.dialogRef.close();
+          this.snackBar.open("Postulación fallida. No cuenta con las habilidades necesarias.", undefined, {
+            duration: 3000
+          })
+        }
         }
 
       }
