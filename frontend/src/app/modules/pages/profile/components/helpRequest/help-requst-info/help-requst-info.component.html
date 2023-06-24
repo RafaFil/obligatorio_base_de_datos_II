@@ -1,7 +1,40 @@
-<div class="container mt-5 ml-5 mr-5">
-    <h1>{{helpRequest.title}}</h1>
-    <p>{{helpRequest.description}}</p>
-    <p>{{helpRequest.dateofpublishing}}</p>
-    <p>Fue resuelta : {{helpRequest.wasResolved}}</p>
+<app-toolbar></app-toolbar>
+
+<div class="sb-spinner container mt-5">
+    <mat-spinner *ngIf="isLoading == true"></mat-spinner>
 </div>
+
+<div class="container mt-5" *ngIf="isLoading == false">
+
+    <h1 class="mb-3"> {{ helpRequest.title}} </h1>
+    <mat-card class="example-card">
+        <mat-card-header class="sb-card-head">
+            <mat-card-subtitle>{{ ubication }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content class="sb-card-cont">
+            <p class="mb-3">{{ helpRequest.description}}</p>
+            <p>Habilidad (s) necesarias(s): </p>
+            <mat-chip-list class="mb-3">
+                <mat-chip *ngFor="let skill of helpRequest.skills" selected="true" disableRipple="true" class="mb-3">
+                    {{skill.name}}
+                </mat-chip>
+            </mat-chip-list>
+            <p class="mb-3">Nivel necesario: {{helpRequest.skills[0].lvl}} </p>
+            <p class="mb-3">Fecha creado: {{helpRequest.dateofpublishing}}</p>
+            <p class="mb-3">Resuelta: {{helpRequest.wasResolved ? "Si" : "No"}}</p>
+        </mat-card-content>
+        <div class="sb-actions-wraper">
+            <mat-card-actions>
+                <button mat-raised-button color="primary">Cambiar estado</button>
+                <button mat-raised-button color="primary">Postulante</button>
+                <button mat-raised-button color="warn">
+                    <mat-icon>delete icon</mat-icon>
+                </button>
+            </mat-card-actions>
+        </div>
+    </mat-card>
+
+</div>
+
+
 
