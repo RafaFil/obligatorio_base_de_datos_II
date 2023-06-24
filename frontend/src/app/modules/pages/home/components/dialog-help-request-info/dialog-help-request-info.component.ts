@@ -60,6 +60,10 @@ export class DialogHelpRequestInfoComponent implements OnInit {
           this.snackBar.open(`Postulacion sastifactoria a ${this.helpRequest.helpRequest.title}`,"", {
             duration: 3000
           })
+        } else {
+          this.snackBar.open("Postulación fallida. Revise las habilidades necesarias o si sigue activa esta solcitud.", undefined, {
+            duration: 3000
+          })
         }
 
       }
