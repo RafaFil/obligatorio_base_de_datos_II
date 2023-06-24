@@ -53,6 +53,7 @@ export class PostulationService {
           res = {
             success: false,
             data: [],
+            status: 204
           }
         }
         return res;
