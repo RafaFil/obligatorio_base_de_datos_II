@@ -27,7 +27,7 @@
             <app-toolbar (toggleSideNavEvent)="openSideNav()"></app-toolbar>
             <app-add-help-request class="sb-add-help"
             (eventData)="loadMarkersIntoMap($event)"></app-add-help-request>
-            <app-map #map class="sb-map" [HelpRequestArr]="requsetsArr"></app-map>
+            <app-map #map class="sb-map" [HelpRequestArr]="requsetsArr" [currentUserDO]="currentUserDO"></app-map>
         </div>
     </mat-drawer-content>
 

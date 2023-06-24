@@ -14,13 +14,25 @@ import { HelpRequestData } from 'src/app/modules/core/interfaces/apiDataResponse
 export class HelpMapMarkerComponent implements OnInit {
 
   @Input() helpRequestId!: number;
-  @Input() helpRequest!: HelpRequestData;
+  @Input() currentUserDO!: string;
+  @Input() userRequestDo!: string;
+  helpRequest!: HelpRequestData;
+  color = "warn";
+  isUserRequest = false;
+  icon = "assignment_late"
 
   constructor(public elementRef: ElementRef,
               private dialog : MatDialog,
               private helpRequestService : HelpRequestService) { }
 
   ngOnInit(): void {
+
+    if (this.currentUserDO === this.userRequestDo) {
+
+      this.color = "primary";
+      this.isUserRequest = true;
+      this.icon = "assignment_ind";
+    }
   }
 
   displayDialogRequest() {
@@ -33,7 +45,10 @@ export class HelpMapMarkerComponent implements OnInit {
           this.helpRequest = res.data
           
           this.dialog.open(DialogHelpRequestInfoComponent, {
-            data: this.helpRequest
+            data: {
+              helpRequest : this.helpRequest,
+              isUserRequest : this.isUserRequest
+            }
           })
         }
       }
