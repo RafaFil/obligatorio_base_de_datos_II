@@ -32,8 +32,10 @@ En la carpeta de origen abrimos tres terminales y realizamos:
 
 ### Ejecutar el contenedor con la base de datos
 
+- `cd dockerBd`
 - `docker build -t "suppbuddydb:latest" .`
 - `docker run -p 5432:5432 --name "supp" -d suppbuddydb`
+
 [Mas informacion](https://github.com/RafaFil/obligatorio_base_de_datos_II/tree/main/DockerBd)
 
 Una vez que esten las tres capas ejecutandose, en un navegador(Preferible chrome) vamos al link:
