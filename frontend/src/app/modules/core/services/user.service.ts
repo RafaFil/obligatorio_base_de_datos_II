@@ -75,6 +75,7 @@ export class UserService {
       token : string
     }>>(`${apiURL}/users/auth`,credentials)
       .pipe(
+        catchError((err) => { return of(err)}),
         tap(response => {
           if (response.success) {
             this.runningUser = response.data?.user;

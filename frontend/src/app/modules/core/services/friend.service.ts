@@ -27,7 +27,6 @@ export class FriendService {
       usuario1_ci: string, 
       usuario2_ci: string
     }>>(`${apiURL}/addFriend `, { otherUserId : friendId}).pipe(
-      catchError((err) => { return of(err)
-    }));
+      catchError((err) => { return of(err)}));
   }
 }

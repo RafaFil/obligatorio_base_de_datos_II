@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { UserAuth } from 'src/app/modules/core/interfaces/userAuth';
 import { UserService } from 'src/app/modules/core/services/user.service';
@@ -15,7 +16,7 @@ export class LoginFormComponent implements OnInit {
   isLoading = false;
 
   constructor(private formBuilder : FormBuilder, private userService : UserService,
-              private router : Router) { }
+              private router : Router, private snackBar : MatSnackBar) { }
 
   ngOnInit(): void {
   }
@@ -39,12 +40,11 @@ export class LoginFormComponent implements OnInit {
     this.isLoading = true;
     this.userService.getUserByCredentials(credentials)
     .subscribe( result => {
-
-      //this.usuarioDO = localStorage.getItem("token")
-
       if (!result.success) {
-
-          alert("ha ocurrido un error");
+          this.isLoading = false;
+          this.snackBar.open("Inicio de sesión fallido. Revise su documento o contraseña", undefined, {
+            duration: 3000
+          })
       }
 
       else {

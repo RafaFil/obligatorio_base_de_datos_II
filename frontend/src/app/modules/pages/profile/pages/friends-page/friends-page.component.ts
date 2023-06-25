@@ -64,7 +64,8 @@ export class FriendsPageComponent implements OnInit {
             duration: 3000
           })
         }
-        if(res) {
+        
+        else if(!res.success) {
           this.snackBar.open("No se pudo añadir al amigo", undefined, {
             duration: 3000
           })
