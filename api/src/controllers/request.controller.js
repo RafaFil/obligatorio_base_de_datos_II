@@ -11,14 +11,14 @@ const getRequestsByUserDO = async (req, res) => {
         else {
             return res.status(404).json({
                 success: false,
-                data: requests.message
+                data: "No se hallaron solicitudes para el usuario dado"
             })
         }
     }).catch(err => {
         console.log(err);
         return res.status(500).json({
             success: false,
-            message: err.message ? err.message : "INTERNAL ERROR"
+            message: "INTERNAL ERROR"
         });
     });
 }
@@ -34,14 +34,14 @@ const getRequestById = async (req,res) => {
         else {
             return res.status(404).json({
                 success: false,
-                data: request.message
+                data: "No se hallaron solicitudes con el id dado"
             })
         }
     }).catch(err => {
         console.log(err);
         return res.status(500).json({
             success: false,
-            message: err.message ? err.message : "INTERNAL ERROR"
+            message: "INTERNAL ERROR"
         });
     });
 }
@@ -63,14 +63,14 @@ const getQuestionsFromRequest = async (req,res) => {
         else {
             return res.status(404).json({
                 success: false,
-                data: questions.message
+                data: "No se hallaron preguntas para la solicitud dada"
             })
         }
     }).catch(err => {
         console.log(err);
         return res.status(500).json({
             success: false,
-            message: err.message ? err.message : "INTERNAL ERROR"
+            message: "INTERNAL ERROR"
         });
     });
 }
@@ -87,7 +87,7 @@ const createRequest = async (req, res) =>{
         if (!helpRequest.success) {
             return res.status(400).json({
                 success: false,
-                message: helpRequest.message
+                message: 'No se pudo crear la solicitud, revise los datos enviados.'
             });
         }
         return res.status(201).json({
@@ -99,7 +99,7 @@ const createRequest = async (req, res) =>{
         console.log(err);
         return res.status(500).json({
             success: false,
-            message: err.message ? err.message : "INTERNAL ERROR"
+            message: "INTERNAL ERROR"
         });
     })
 }
@@ -122,7 +122,7 @@ const createQuestion = async (req, res) =>{
         if (!question.success) {
             return res.status(400).json({
                 success: false,
-                message: question.message
+                message: "No se pudo crear la pregunta"
             });
         }
         return res.status(201).json({
@@ -134,7 +134,7 @@ const createQuestion = async (req, res) =>{
         console.log(err);
         return res.status(500).json({
             success: false,
-            message: err.message ? err.message : "INTERNAL ERROR"
+            message: "INTERNAL ERROR"
         });
     })
 }
@@ -157,7 +157,7 @@ const answerQuestion = async (req,res) => {
         if (!question.success) {
             return res.status(400).json({
                 success: false,
-                message: question.message
+                message: "No se pudo responder la duda"
             });
         }
         return res.status(201).json({
@@ -169,7 +169,7 @@ const answerQuestion = async (req,res) => {
         console.log(err);
         return res.status(500).json({
             success: false,
-            message: err.message ? err.message : "INTERNAL ERROR"
+            message: "INTERNAL ERROR"
         });
     })
 }
@@ -180,7 +180,7 @@ const isRequestActive = (req,res) => {
         if (!isActive.success) {
             return res.status(404).json({
                 success: false,
-                message: isActive.message
+                message: "No se hallaron solicitudes para el id dado"
             });
         }
         return res.status(200).json({
@@ -192,7 +192,7 @@ const isRequestActive = (req,res) => {
         console.log(err);
         return res.status(500).json({
             success: false,
-            message: err.message ? err.message : "INTERNAL ERROR"
+            message: "INTERNAL ERROR"
         });
     })
 }
@@ -203,7 +203,7 @@ const getRequests = (req,res) =>{
         if (!requests.success) {
             return res.status(404).json({
                 success: false,
-                message: requests.message
+                message: "No se hallaron solicitudes para el usuario dado"
             });
         }
         if (!requests.data){
@@ -220,7 +220,7 @@ const getRequests = (req,res) =>{
         console.log(err);
         return res.status(500).json({
             success: false,
-            message: err.message ? err.message : "INTERNAL ERROR"
+            message: "INTERNAL ERROR"
         });
     })
 }
@@ -230,7 +230,7 @@ const deleteRequest = (req,res) =>{
         if (!requests.success) {
             return res.status(404).json({
                 success: false,
-                message: requests.message
+                message: "No se pudo eliminar la solicitud, no se encuentra"
             });
         }
         else{
@@ -244,7 +244,7 @@ const deleteRequest = (req,res) =>{
         console.log(err);
         return res.status(500).json({
             success: false,
-            message: err.message ? err.message : "INTERNAL ERROR"
+            message: "INTERNAL ERROR"
         });
     })
 }

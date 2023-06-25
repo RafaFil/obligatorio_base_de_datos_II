@@ -16,7 +16,7 @@ const getAllSkills = async (req, res) => {
         } else{
             return res.status(400).json({
                 success: false,
-                data: skills.message
+                data: 'No se pudieron recuperar habilidades'
             }); 
         }
     })
@@ -44,7 +44,7 @@ const getSkill = async (req, res) => {
         } else{
             return res.status(400).json({
                 success: false,
-                data: skills.message
+                data: "No se pudo hallar la habilidad solicitada"
             }); 
         }
     })
@@ -72,7 +72,7 @@ const getAllUserSkills = async (req, res) => {
         } else{
             return res.status(400).json({
                 success: false,
-                data: skills.message
+                data: 'No se hallo al usuario'
             }); 
         }
     })
@@ -100,7 +100,7 @@ const getAllRequestSkills = async (req, res) => {
         } else{
             return res.status(400).json({
                 success: false,
-                data: skills.message
+                data: "No se hallo la solicitud dada"
             }); 
         }
     })
@@ -139,7 +139,7 @@ const addSkillToUser = async ( req , res) => {
         if (!result.success) {
             return res.status(400).json({
                 success: false,
-                message: result.message
+                message: 'no se pudo agregar la habilidad'
             });
         }
         return res.status(200).json({
@@ -180,7 +180,7 @@ const editSkillUser = async ( req , res) => {
         if (!result.success) {
             return res.status(400).json({
                 success: false,
-                message: result.message
+                message: 'No se pudo actualizar el nivel'
             });
         }
         if(result.data){

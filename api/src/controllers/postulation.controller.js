@@ -18,7 +18,7 @@ const getRequestPostulations = async (req, res) => {
         } else {
             return res.status(400).json({
                 success: false,
-                data: postulations.message
+                data: "No se pudo obtener la postulación con la información dada"
             });
         }
     })
@@ -42,7 +42,7 @@ const getFullPostulationtById = async (req, res) => {
         else {
             return res.status(404).json({
                 success: false,
-                data: postulation.message
+                data: "No se pudo obtener la postulación con la información dada"
             });
         }
     })
@@ -50,7 +50,7 @@ const getFullPostulationtById = async (req, res) => {
             console.log(err);
             return res.status(500).json({
                 success: false,
-                message: err.message ? err.message : "INTERNAL ERROR"
+                message: "INTERNAL ERROR"
             });
         });
 }
@@ -71,7 +71,7 @@ const getAllUserPostulations = async (req, res) => {
         else {
             return res.status(404).json({
                 success: false,
-                data: postulation.message
+                data: "No se pudo obtener la postulación con la información dada"
             });
         }
     })
@@ -79,7 +79,7 @@ const getAllUserPostulations = async (req, res) => {
             console.log(err);
             return res.status(500).json({
                 success: false,
-                message: err.message ? err.message : "INTERNAL ERROR"
+                message: "INTERNAL ERROR"
             });
         });
 }
@@ -95,7 +95,7 @@ const deletePostulationById = async (req, res) => {
         else {
             return res.status(404).json({
                 success: false,
-                data: postulation.message
+                data: "No se pudo encontrar la postulación con la información dada"
             });
         }
     })
@@ -103,7 +103,7 @@ const deletePostulationById = async (req, res) => {
             console.log(err);
             return res.status(500).json({
                 success: false,
-                message: err.message ? err.message : "INTERNAL ERROR"
+                message: "INTERNAL ERROR"
             });
         });
 }
@@ -126,7 +126,7 @@ const applyToRequest = async (req, res) => {
         if (!result.success) {
             return res.status(400).json({
                 success: false,
-                message: result.message
+                message: "No se pudo crear la postulación con la información dada"
             });
         }
         return res.status(200).json({
