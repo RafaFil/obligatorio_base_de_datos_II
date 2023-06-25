@@ -229,8 +229,9 @@ INSERT INTO amistades(usuario1_ci, usuario2_ci)
 	('33333333', '11111111');
 
 INSERT INTO solicitudes_ayuda(id, latitud, longitud, solicitante_ci, esta_activa, fue_resuelta, fecha_publicacion, titulo, descripcion)
-	VALUES(DEFAULT, -34.9071837, -56.2049127, '11111111', true, false, '2023-06-15', 'No puedo poner canal 5', 'Mi hijo me dijo que es algo de achedemi, no se que es.'),
-	(DEFAULT, -34.8887717, -56.1636717, '44444444', true, false, '2023-06-16', 'No me sale la tesis', 'No entiendo las leyes de datos, algun ingeniero o abogado o similar?'),
+	VALUES(DEFAULT, -34.8912374, -56.1898434, '11111111', true, false, '2023-06-15', 'No puedo poner canal 5', 'Mi hijo me dijo que es algo de achedemi, no se que es.'),
+	(DEFAULT, -34.8887717, -56.1636717, '11111111', true, false, '2023-06-15', 'Ayuda no sé que dicta la ley 18331', 'Estoy en el palacio legislativo y estan agregándole un artículo nuevo a la ley y no entiendo nada...'),
+	(DEFAULT, -34.9071837, -56.2049127, '44444444', true, false, '2023-06-16', 'No me sale la tesis', 'No entiendo las leyes de datos, algun ingeniero o abogado o similar?'),
 	(DEFAULT, -34.8893193, -56.1599348, '22222222', true, false, '2023-06-16', 'Me dieron pollo crudo', 'Quiero demandar al restaurante después de haberme entregado semejante peligro para la salud'),
 	(DEFAULT, -34.8930337, -56.1566015, '55555555', true, false, '2023-06-16', 'somos 9', 'falta uno pa fuvol 5 preferiblemente arquero'),
 	(DEFAULT, -34.8885897, -56.1970776, '66666666', true, false, '2023-06-16', 'Coqui tapó el baño', 'Por favor ayuda de urgencia que se inunda la casa y quiero ver a Racing.'),
@@ -238,12 +239,14 @@ INSERT INTO solicitudes_ayuda(id, latitud, longitud, solicitante_ci, esta_activa
 	
 INSERT INTO habilidades_solicitudes(solicitud_id, habilidad_id, nivel) 
 	VALUES(1, 2, 5),
-	(2,2,3),
-	(2,4,3),
-	(3,4,5),
-	(4,5,5),
-	(5,3,5),
-	(6,1,2);
+	(2, 4, 5),
+	(2, 2, 3),
+	(3,2,3),
+	(3,4,3),
+	(4,4,5),
+	(5,5,5),
+	(6,3,5),
+	(7,1,2);
 
 INSERT INTO postulaciones(ayudante_ci, solicitud_id, fecha, fue_aceptada)
 	VALUES('22222222', 1, '2023-06-16', true),
