@@ -18,7 +18,7 @@ const getAllUsers = async (req, res) => {
         } else{
             return res.status(400).json({
                 success: false,
-                data: users.message
+                data: "No se pudo encontrar usuarios"
             }); 
         }
     })
@@ -41,7 +41,7 @@ const getUserByDO = async (req, res) => {
         else{
             return res.status(404).json({
                 success: false,
-                data: user.message
+                data: "No se pudo encontrar el usuario"
             }); 
         }
     })
@@ -49,7 +49,7 @@ const getUserByDO = async (req, res) => {
         console.log(err);
         return res.status(500).json({
             success: false,
-            message: err.message ? err.message : "INTERNAL ERROR"
+            message: "INTERNAL ERROR"
         });
     });
 }
@@ -79,7 +79,7 @@ const registerUser = async ( { body } , res) => {
         if (!user.success) {
             return res.status(400).json({
                 success: false,
-                message: user.message
+                message: "No se pudo registrar el usuario"
             });
         }
         return res.status(200).json({
