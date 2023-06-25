@@ -201,7 +201,7 @@ INSERT INTO usuarios(ci,nombre,apellido,hashpwd, confirmada_identidad, carta_pre
 	('33333333', 'Jorge', 'Doe', '$2b$10$F7FOmB8duokUVOwHwJ0dOuUdm33DkPIQTESPGwjof6kx6OxzerogW' , true, 'soy el tercer sujeto de prueba, necesito y doy ayuda seguido.'),
 	('44444444', 'Isabel', 'Doe', '$2b$10$F7FOmB8duokUVOwHwJ0dOuUdm33DkPIQTESPGwjof6kx6OxzerogW' , true, 'como descargo whatsapp'),
 	('55555555', 'Lionel', 'Messi', '$2b$10$F7FOmB8duokUVOwHwJ0dOuUdm33DkPIQTESPGwjof6kx6OxzerogW' , true, 'soy yo, el jugador numero 1'),
-	('66666666', 'Pepe', 'Argento', '$2b$10$F7FOmB8duokUVOwHwJ0dOuUdm33DkPIQTESPGwjof6kx6OxzerogW' , true, 'Hincha nro. 1 de Racing');
+	('66666666', 'Pepe', 'Argento', '$2b$10$F7FOmB8duokUVOwHwJ0dOuUdm33DkPIQTESPGwjof6kx6OxzerogW' , true, 'Goleador máximo de las inferiores de Racing');
 
 INSERT INTO habilidades(id, nombre)
 	VALUES(DEFAULT, 'Carpintería'),
