@@ -4,7 +4,7 @@
 
     <p sb-content *ngIf="!isLoading">Desea agregar a {{friendName}} como amigo?</p>
     <button sb-actions mat-raised-button color="primary" *ngIf="!isLoading" [disabled]="!userFound" 
-    (click)="closeDialog(true)">SI</button>
+    (click)="closeDialog()">SI</button>
     <button sb-actions mat-raised-button color="warn" *ngIf="!isLoading" [disabled]="!userFound" 
-    (click)="closeDialog(false)">NO</button>
+    (click)="closeDialog()">NO</button>
 </app-base-dialog>

@@ -124,7 +124,8 @@ export class ProfilePageComponent implements OnInit {
 
             if (!res.success) {
               alert("Ocurrio un error, intente de nuevo");
-            } else{
+            }else{
+              this.skillsArr.push(nextSkill)
               this.snackBar.open("Habilidad añadida con exito", undefined, {
                 duration: 3000
               })
