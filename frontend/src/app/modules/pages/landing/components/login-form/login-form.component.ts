@@ -14,6 +14,9 @@ export class LoginFormComponent implements OnInit {
 
   usuarioDO!: string | null;
   isLoading = false;
+  isPassVisible = false;
+  inputPasswordType = "password";
+  passwordVisibilityIcon = "visibility";
 
   constructor(private formBuilder : FormBuilder, private userService : UserService,
               private router : Router, private snackBar : MatSnackBar) { }
@@ -53,6 +56,22 @@ export class LoginFormComponent implements OnInit {
       }
     });
       
+    }
+
+  }
+
+  changePassVisibility() {
+
+    if (this.isPassVisible) {
+      this.inputPasswordType = "text";
+      this.passwordVisibilityIcon = "visibility_off"
+      this.isPassVisible = false;
+    }
+
+    else {
+      this.passwordVisibilityIcon = "visibility";
+      this.inputPasswordType = "password";
+      this.isPassVisible = true;
     }
 
   }

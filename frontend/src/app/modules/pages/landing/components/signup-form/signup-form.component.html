@@ -26,20 +26,19 @@
 
         <mat-form-field appearance="outline" class="w-100">
             <mat-label>Contraseña</mat-label>
-            <input matInput placeholder="contraseña" [formControl]="signupForm.controls.pass">
+            <input type="password" matInput placeholder="contraseña" [formControl]="signupForm.controls.pass">
             <mat-icon matPrefix>key</mat-icon>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="w-100">
             <mat-label>Repetir contraseña</mat-label>
-            <input matInput placeholder="contraseña" [formControl]="signupForm.controls.repPass">
+            <input type="password" matInput placeholder="contraseña" [formControl]="signupForm.controls.repPass">
             <mat-icon matPrefix>key</mat-icon>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="w-100">
             <mat-label>Contacto</mat-label>
             <input matInput placeholder="contraseña" [formControl]="signupForm.controls.contact">
-            <mat-icon matPrefix>key</mat-icon>
         </mat-form-field>
     </form>
 

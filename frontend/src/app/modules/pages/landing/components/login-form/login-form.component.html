@@ -14,8 +14,10 @@
 
         <mat-form-field appearance="outline" class="w-100">
             <mat-label>Contraseña</mat-label>
-            <input matInput placeholder="contraseña" [formControl]="loginForm.controls.password">
+            <input matInput [type]="inputPasswordType" placeholder="contraseña" [formControl]="loginForm.controls.password">
             <mat-icon matPrefix>key</mat-icon>
+            <mat-icon matSuffix (click)="changePassVisibility()">
+                {{passwordVisibilityIcon}}</mat-icon>
         </mat-form-field>
     </form>
 
