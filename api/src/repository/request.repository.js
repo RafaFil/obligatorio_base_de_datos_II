@@ -179,16 +179,27 @@ const getRequestsDB = async function (friendsArray) {
 }
 
 const deleteRequestDB = async function (requestId) {
-    return (pool.query(`DELETE FROM solicitudes_ayuda sa WHERE sa.id = $1 RETURNING id`, requestId)).then(res => {
-        if (res.rows.length > 0) {
-            return new dataResult(true, res.rows);
+    let client = await pool.connect();
+    let deletedRequestData;
+    try{
+        await client.query('BEGIN');
+        await client.query(`DELETE FROM habilidades_solicitudes hs WHERE hs.solicitud_id = $1`,[requestId]);
+        deletedRequestData = await client.query(`DELETE FROM solicitudes_ayuda sa WHERE sa.id = $1 RETURNING `+requestAllParsed,[requestId]);
+        await client.query('COMMIT');
+    }
+    catch (e) {
+        await client.query('ROLLBACK');
+    }
+    finally{
+        if(deletedRequestData.rows.length > 0){
+            client.release();
+            return new dataResult(true, deletedRequestData.rows[0]);
         }
-        else {
-            return new dataResult(false, null, 404, "Requests not Found.")
+        else{
+            client.release();
+            return new dataResult(false, null, 404, "Request not found")
         }
-    }).catch(err => {
-        return new dataResult(false, null, err.code, err.message)
-    });
+    }
 }
 
 module.exports = {
