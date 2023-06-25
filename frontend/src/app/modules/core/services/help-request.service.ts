@@ -14,8 +14,6 @@ const apiURL = "http://localhost:3000/api/v1/requests"
 })
 export class HelpRequestService {
 
-  //helpRequestArr : HelpRequest[] = []
-
   constructor(private http : HttpClient) { }
 
   getAllHelpRequest() : Observable<apiMessage<HelpRequestPreviewData[]>> {
@@ -49,6 +47,11 @@ export class HelpRequestService {
     .pipe(
       catchError (err => of(err))
     );
+  }
+
+  deleteUserRequest(requestId : number) : Observable<apiMessage<HelpRequestData>> {
+
+    return this.http.delete<apiMessage<HelpRequestData>>(`${apiURL}/delete/${requestId}`);
   }
 
   
