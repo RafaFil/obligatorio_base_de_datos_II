@@ -47,7 +47,9 @@ const getQuestionsFromRequestDB = async function (requestId) {
 
 const createRequestDB = async function (helpRequest,requestSkills) {
     let client = await pool.connect();
-    let insertRequestData;
+    let insertRequestData = {
+        rows : []
+    };
     try{
         await client.query('BEGIN');
         insertRequestData = await client.query(`INSERT INTO solicitudes_ayuda(latitud,longitud,solicitante_ci,esta_activa,fue_resuelta,fecha_publicacion,titulo,descripcion) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id`, [helpRequest.lat, helpRequest.lng, helpRequest.userDO, helpRequest.isActive, helpRequest.wasResolved, helpRequest.dateOfPublishing, helpRequest.title, helpRequest.description]);
