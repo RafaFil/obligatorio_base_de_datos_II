@@ -65,24 +65,11 @@ const createRequestDB = async function (helpRequest,requestSkills) {
         }
         else{
             client.release();
-            return new dataResult(false, null, 404, "Request not found")
+            return new dataResult(false, null, 400, "Data given was not appropiate.")
         }
     }
 }
 
-const createRequestSkillsDB = async function (requestSkills) {
-    
-    return pool.query(buildingQuery, requestSkills).then(res => {
-        if (res.rows.length > 0) {
-            return new dataResult(true, res.rows);
-        }
-        else {
-            return new dataResult(false, null, 400, "Request not added correctly.")
-        }
-    }).catch(err => {
-        return new dataResult(false, null, err.code, err.message)
-    });
-}
 
 const createRequestCommentDB = async function (reqComment) {
     return (pool.query(`INSERT INTO comentarios_solicitudes(usuario_id,solicitud_id,texto_pregunta,texto_respuesta) VALUES ($1,$2,$3,$4) RETURNING ` + requestCommentsAllParsed, [reqComment.userDO, reqComment.requestId, reqComment.question, reqComment.answer])).then(res => {
