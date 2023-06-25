@@ -1,0 +1,36 @@
+<mat-drawer-container class="sb-drawer-container">
+
+    <mat-drawer mode="over" [opened]="isDrawerOpen" class="sb-request-drawer" #drawer 
+    (closed)="sideNavClosed()">
+        <div class="container">
+            <h1 class="mt-3">Todas las solicitudes</h1>
+
+            <mat-form-field appearance="outline" class="sb-search-input">
+                <mat-label>Buscar solicitudes</mat-label>
+                <input type="string" matInput [(ngModel)]="searchText">
+                <mat-icon matPrefix>search</mat-icon>
+            </mat-form-field>
+
+            <app-search-request-filters 
+            (chipSelected)="requestFilterSelected()">
+            </app-search-request-filters>
+
+            <app-request-card *ngFor="let request of requsetsArr | filterSearch:searchText" 
+            [request]="request"
+            (goToMap)="goToRequestMapLocation($event)">
+            </app-request-card>
+        </div>
+    </mat-drawer>
+
+    <mat-drawer-content>
+        <div class="sb-home-wrapper">
+            <app-toolbar (toggleSideNavEvent)="openSideNav()"></app-toolbar>
+            <app-add-help-request class="sb-add-help"
+            (eventData)="loadMarkersIntoMap($event)"></app-add-help-request>
+            <app-map #map class="sb-map" [HelpRequestArr]="requsetsArr" [currentUserDO]="currentUserDO"></app-map>
+        </div>
+    </mat-drawer-content>
+
+</mat-drawer-container>
+
+

@@ -7,19 +7,24 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const bcrypt = require('bcrypt')
 
 // Configs
 
 
 // Routers
-const userRouter = require("./src/routes/user.route")
-
+const userRouter = require("./src/routes/user.routes")
+const skillRouter = require("./src/routes/skill.routes")
+const postulationsRouter = require("./src/routes/postulation.routes")
+const requestRouter = require("./src/routes/request.routes")
+const friendsRouter = require('./src/routes/friend.routes');
 
 const BASE_ROUTE = "/api/v1";
 
 // defining the Express app
 
 const app = express();
+
 // adding Helmet to enhance your API's security
 app.use(helmet());
 
@@ -32,11 +37,18 @@ app.use(cors());
 // adding morgan to log HTTP requests
 app.use(morgan('combined'));
 
+const { validateJWT } = require("./src/middlewares/validateJWT.middleware")
+const { validateBody } = require("./src/middlewares/validateBody.middleware");
+
+
 // public routes
 app.use(BASE_ROUTE, userRouter)
+app.use(BASE_ROUTE, skillRouter)
 
 // protected routes
-
+app.use(BASE_ROUTE, postulationsRouter)
+app.use(BASE_ROUTE, requestRouter)
+app.use(BASE_ROUTE, friendsRouter)
 
 // run server
 app.listen(3000, () => {

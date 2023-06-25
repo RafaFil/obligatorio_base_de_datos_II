@@ -1,0 +1,5 @@
+<app-base-dialog [dialogTitle]="'Seguro que desea borrar esta solicitud?'">
+    <p sb-content> Esta accion es permanente. Sin embargo, siempre puedes crear otras solicitudes</p>
+    <button sb-actions mat-raised-button color="warn" (click)="close(false)">NO</button>
+    <button sb-actions mat-raised-button color="primary" (click)="close(true)">SI</button>
+</app-base-dialog>

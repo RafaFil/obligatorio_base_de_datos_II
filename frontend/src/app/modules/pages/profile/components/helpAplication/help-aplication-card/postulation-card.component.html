@@ -1,0 +1,16 @@
+<mat-card class="example-card mt-3">
+    <mat-card-header>
+        <mat-card-title>{{postulation.title}} @{{postulation.username}} {{postulation.userlastname}}</mat-card-title>
+        <!--<mat-card-subtitle>{{helpRequest.street}},{{helpRequest.corner}}</mat-card-subtitle>-->
+    </mat-card-header>
+    <mat-card-content>
+        <p>{{postulation.description}}</p>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-raised-button color="warn" (click)="openCancelDialog()">Cancelar</button>
+        <button mat-raised-button color="primary">
+            <mat-icon>question_answer</mat-icon>
+            Haz tu pregunta
+        </button>
+    </mat-card-actions>
+</mat-card>

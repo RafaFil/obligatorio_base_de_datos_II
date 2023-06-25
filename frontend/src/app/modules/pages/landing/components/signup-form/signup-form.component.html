@@ -1,0 +1,54 @@
+<div *ngIf="isLoading" class="sb-spinner">
+    <mat-spinner></mat-spinner>
+</div>
+
+
+<div *ngIf="!isLoading">
+    <form [formGroup]="signupForm">
+
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Nombre</mat-label>
+            <input matInput placeholder="usuario" [formControl]="signupForm.controls.name">
+            <mat-icon matPrefix>user</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Apellido</mat-label>
+            <input matInput placeholder="usuario" [formControl]="signupForm.controls.last_name">
+            <mat-icon matPrefix>user</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>DO</mat-label>
+            <input matInput placeholder="usuario" [formControl]="signupForm.controls.DO">
+            <mat-icon matPrefix>user</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Contraseña</mat-label>
+            <input type="password" matInput placeholder="contraseña" [formControl]="signupForm.controls.pass">
+            <mat-icon matPrefix>key</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Repetir contraseña</mat-label>
+            <input type="password" matInput placeholder="contraseña" [formControl]="signupForm.controls.repPass">
+            <mat-icon matPrefix>key</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Contacto</mat-label>
+            <input matInput placeholder="contraseña" [formControl]="signupForm.controls.contact">
+        </mat-form-field>
+    </form>
+
+    <p>La contraseña debe ser mayor a 8 caracteres de largo.</p>
+
+    <button mat-raised-button color="primary" class="w-100 mt-3 mb-3" 
+    (click)="registerUser()"
+    disabled="{{signupForm.invalid}}"
+    >Registrarse</button>
+    <a routerLink="/">
+        <p class="text-center">Volver al inicio</p>
+    </a>
+</div>

@@ -1,0 +1,29 @@
+<div *ngIf="isLoading" class="sb-spinner mt-5">
+    <mat-spinner></mat-spinner>
+</div>
+
+<div *ngIf="!isLoading">
+
+
+    <form [formGroup]="loginForm" class="sb-login-form">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Usuario</mat-label>
+            <input matInput placeholder="usuario" [formControl]="loginForm.controls.DO">
+            <mat-icon matPrefix>user</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Contraseña</mat-label>
+            <input matInput [type]="inputPasswordType" placeholder="contraseña" [formControl]="loginForm.controls.password">
+            <mat-icon matPrefix>key</mat-icon>
+            <mat-icon matSuffix (click)="changePassVisibility()">
+                {{passwordVisibilityIcon}}</mat-icon>
+        </mat-form-field>
+    </form>
+
+    <button mat-raised-button color="primary" class="w-100 mt-3 mb-3" (click)="getUser()">Iniciar sesion</button>
+    <a routerLink="/">
+        <p class="text-center">Volver al inicio</p>
+    </a>
+
+</div>

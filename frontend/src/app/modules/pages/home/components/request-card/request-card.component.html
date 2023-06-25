@@ -1,0 +1,24 @@
+<mat-card class="example-card mt-3">
+    <mat-card-header class="sb-card-head">
+        <mat-card-title>{{request.title}}</mat-card-title>
+        <mat-card-subtitle>{{request.street}}, {{request.corner}}</mat-card-subtitle>
+    </mat-card-header>
+    <div class="sb-card-cont">
+        <mat-card-content>
+            <p>{{request.description}}.</p> 
+            <p>Habilidad(s) necesaria(s)</p>
+            <mat-chip-list>
+                <mat-chip *ngFor="let skill of request.skills" selected="true" disableRipple="true">
+                    {{skill}}
+                </mat-chip>
+            </mat-chip-list>
+        </mat-card-content>
+    </div>
+    <mat-card-actions>
+        <div class="sb-req-card-btn">
+            <button mat-raised-button color (click)="goToMapLocation()" color="primary" class="sb-btn-goto">
+                <mat-icon>map</mat-icon>
+            </button>
+        </div>
+    </mat-card-actions>
+</mat-card>

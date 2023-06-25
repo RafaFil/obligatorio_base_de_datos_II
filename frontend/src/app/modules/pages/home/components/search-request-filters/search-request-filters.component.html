@@ -1,0 +1,13 @@
+<form [formGroup]="filterForm">
+    <mat-form-field class="sb-form-field w-100" appearance="outline">
+        <mat-label>Filtros</mat-label>
+        <mat-chip-list #chipList selectable [formControl]="filterForm.controls.filters">
+            <mat-chip *ngFor="let filter of filters" 
+            #c="matChip"
+            (click)="onSelectChip(c)">
+                {{filter}}
+            </mat-chip>
+        <input matInput disabled="true" [matChipInputFor]="chipList">
+        </mat-chip-list>
+    </mat-form-field>
+</form>

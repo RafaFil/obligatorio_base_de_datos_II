@@ -1,0 +1,44 @@
+h1, p, h3 {
+    display: flex;
+    justify-content: center;
+}
+.sb-habilidades-tab {
+    position: relative;
+}
+
+/*.add-button {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    z-index: 1;
+}*/
+
+.sb-add-skill {
+    display: flex;
+    justify-content: center;
+}
+
+/*:host ::ng-deep .mat-tab-header {
+    top: 0;
+    z-index: 1000; 
+    position: sticky;
+    position: -webkit-sticky; 
+}*/
+
+.sb-friends {
+
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    h3 {
+        margin: 0;
+    }
+    button {
+        margin-left: 1rem;
+    }
+}
+
+
+

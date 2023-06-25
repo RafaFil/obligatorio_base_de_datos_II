@@ -1,0 +1,36 @@
+/*.sb-home-wrapper {
+    height: 100%;
+}*/
+
+.sb-home-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; 
+  }
+  
+.sb-map {
+    flex: 1; 
+}
+
+.sb-request-drawer {
+    width: 35%;
+}
+
+@media (max-width: 700px) {
+    .sb-request-drawer {
+        width: 80%;
+    }
+}
+
+h1 {
+    text-align: center;
+}
+
+.sb-search-input {
+    position: sticky;
+    top: 0;
+    z-index: 99999;
+    background: white;
+    width: 100%;
+}
+
