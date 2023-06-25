@@ -200,7 +200,8 @@ INSERT INTO usuarios(ci,nombre,apellido,hashpwd, confirmada_identidad, carta_pre
 	('22222222', 'Jane', 'Doe','$2b$10$F7FOmB8duokUVOwHwJ0dOuUdm33DkPIQTESPGwjof6kx6OxzerogW' , true, 'soy el segundo sujeto de prueba, doy ayuda seguido.'),
 	('33333333', 'Jorge', 'Doe', '$2b$10$F7FOmB8duokUVOwHwJ0dOuUdm33DkPIQTESPGwjof6kx6OxzerogW' , true, 'soy el tercer sujeto de prueba, necesito y doy ayuda seguido.'),
 	('44444444', 'Isabel', 'Doe', '$2b$10$F7FOmB8duokUVOwHwJ0dOuUdm33DkPIQTESPGwjof6kx6OxzerogW' , true, 'como descargo whatsapp'),
-	('55555555', 'Lionel', 'Messi', '$2b$10$F7FOmB8duokUVOwHwJ0dOuUdm33DkPIQTESPGwjof6kx6OxzerogW' , true, 'soy yo, el jugador numero 1');
+	('55555555', 'Lionel', 'Messi', '$2b$10$F7FOmB8duokUVOwHwJ0dOuUdm33DkPIQTESPGwjof6kx6OxzerogW' , true, 'soy yo, el jugador numero 1'),
+	('66666666', 'Pepe', 'Argento', '$2b$10$F7FOmB8duokUVOwHwJ0dOuUdm33DkPIQTESPGwjof6kx6OxzerogW' , true, 'Goleador máximo de las inferiores de Racing');
 
 INSERT INTO habilidades(id, nombre)
 	VALUES(DEFAULT, 'Carpintería'),
@@ -216,24 +217,36 @@ INSERT INTO habilidades_usuarios(user_ci, habilidad_id, nivel)
 	('33333333', 1, 1),
 	('33333333', 4, 5),
 	('33333333', 2, 2),
+	('66666666', 5, 4),
+	('66666666', 1, 3),
 	('55555555', 5, 5);
 
 INSERT INTO amistades(usuario1_ci, usuario2_ci)
 	VALUES('11111111', '55555555'),
 	('22222222', '33333333'),
 	('22222222', '44444444'),
+	('66666666', '11111111'),
 	('33333333', '11111111');
 
 INSERT INTO solicitudes_ayuda(id, latitud, longitud, solicitante_ci, esta_activa, fue_resuelta, fecha_publicacion, titulo, descripcion)
-	VALUES(DEFAULT, -34.8962494, -56.19227155, '11111111', true, false, '2023-06-15', 'No puedo poner canal 5', 'Mi hijo me dijo que es algo de achedemi, no se que es.'),
-	(DEFAULT, -34.8887717, -56.1636717, '44444444', true, false, '2023-06-16', 'No me sale la tesis', 'No entiendo las leyes de datos, algun ingeniero o abogado o similar?'),
-	(DEFAULT, -34.8930337, -56.1566015, '55555555', true, false, '2023-06-16', 'somos 9', 'falta uno pa fuvol 5 preferiblemente arquero');
+	VALUES(DEFAULT, -34.906553, -56.2024196, '11111111', true, false, '2023-06-15', 'No puedo poner canal 5', 'Mi hijo me dijo que es algo de achedemi, no se que es.'),
+	(DEFAULT, -34.8912374, -56.1898434, '11111111', true, false, '2023-06-15', 'Ayuda no sé que dicta la ley 18331', 'Estoy en el palacio legislativo y estan agregándole un artículo nuevo a la ley y no entiendo nada...'),
+	(DEFAULT, -34.9071837, -56.2049127, '44444444', true, false, '2023-06-16', 'No me sale la tesis', 'No entiendo las leyes de datos, algun ingeniero o abogado o similar?'),
+	(DEFAULT, -34.8893193, -56.1599348, '22222222', true, false, '2023-06-16', 'Me dieron pollo crudo', 'Quiero demandar al restaurante después de haberme entregado semejante peligro para la salud'),
+	(DEFAULT, -34.8930337, -56.1566015, '55555555', true, false, '2023-06-16', 'somos 9', 'falta uno pa fuvol 5 preferiblemente arquero'),
+	(DEFAULT, -34.8885897, -56.1970776, '66666666', true, false, '2023-06-16', 'Coqui tapó el baño', 'Por favor ayuda de urgencia que se inunda la casa y quiero ver a Racing.'),
+	(DEFAULT, -34.8887756, -56.1619971, '33333333', true, false, '2023-06-16', 'Ayuda con Cámara oscura', 'Tengo un prototipo de cámara oscura, quiero hacer la carcaza de madera.');
 	
 INSERT INTO habilidades_solicitudes(solicitud_id, habilidad_id, nivel) 
 	VALUES(1, 2, 5),
-	(2,2,3),
-	(2,4,3),
-	(3,5,5);
+	(2, 4, 5),
+	(2, 2, 3),
+	(3,2,3),
+	(3,4,3),
+	(4,4,5),
+	(5,5,5),
+	(6,3,5),
+	(7,1,2);
 
 INSERT INTO postulaciones(ayudante_ci, solicitud_id, fecha, fue_aceptada)
 	VALUES('22222222', 1, '2023-06-16', true),
