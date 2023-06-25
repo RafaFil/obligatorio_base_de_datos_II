@@ -42,29 +42,29 @@ export class FriendsPageComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe({
-      next: (res : boolean) => {
+      next: (res : UserDataResponse) => {
 
         if (res) {
+          this.addFriend(res);
 
-          this.addFriend(friendId);
         }
 
       }
     })
   }
 
-  addFriend(friendId : string) {
+  addFriend(friend : UserDataResponse) {
 
-    this.friendService.AddAFriend(friendId).subscribe({
+    this.friendService.AddAFriend(friend.do).subscribe({
       next: (res) => {
         
         if (res && res.success) {
-
+          this.friendsArr.push(friend)
           this.snackBar.open("Amigo añadido", undefined, {
             duration: 3000
           })
         }
-        if(res) {
+        if(!res.success) {
           this.snackBar.open("No se pudo añadir al amigo", undefined, {
             duration: 3000
           })
