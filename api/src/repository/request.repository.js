@@ -45,32 +45,31 @@ const getQuestionsFromRequestDB = async function (requestId) {
     }));
 }
 
-const createRequestDB = async function (helpRequest) {
-    return (pool.query('INSERT INTO solicitudes_ayuda(latitud,longitud,solicitante_ci,esta_activa,fue_resuelta,fecha_publicacion,titulo,descripcion) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id', [helpRequest.lat, helpRequest.lng, helpRequest.userDO, helpRequest.isActive, helpRequest.wasResolved, helpRequest.dateOfPublishing, helpRequest.title, helpRequest.description]).then(res => {
-        if (res.rows.length > 0) {
-            return new dataResult(true, res.rows);
+const createRequestDB = async function (helpRequest,requestSkills) {
+    let client = await pool.connect();
+    let insertRequestData;
+    try{
+        await client.query('BEGIN');
+        insertRequestData = await client.query(`INSERT INTO solicitudes_ayuda(latitud,longitud,solicitante_ci,esta_activa,fue_resuelta,fecha_publicacion,titulo,descripcion) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id`, [helpRequest.lat, helpRequest.lng, helpRequest.userDO, helpRequest.isActive, helpRequest.wasResolved, helpRequest.dateOfPublishing, helpRequest.title, helpRequest.description]);
+        skillsQuery = skillsQueryBuilder(requestSkills);
+        await client.query(skillsQuery.query,skillsQuery.values);
+        await client.query('COMMIT');
+    }
+    catch (e) {
+        await client.query('ROLLBACK');
+    }
+    finally{
+        if(insertRequestData.rows.length > 0){
+            client.release();
+            return new dataResult(true, insertRequestData.rows[0]);
         }
-        else {
-            return new dataResult(false, null, 400, "Request not added correctly.")
+        else{
+            client.release();
+            return new dataResult(false, null, 400, "Data given was not appropiate.")
         }
-    }).catch(err => {
-        return new dataResult(false, null, err.code, err.message)
-    }));
+    }
 }
 
-const createRequestSkillsDB = async function (requestSkills) {
-    buildingQuery = skillsQueryBuilder(requestSkills);
-    return pool.query(buildingQuery, requestSkills).then(res => {
-        if (res.rows.length > 0) {
-            return new dataResult(true, res.rows);
-        }
-        else {
-            return new dataResult(false, null, 400, "Request not added correctly.")
-        }
-    }).catch(err => {
-        return new dataResult(false, null, err.code, err.message)
-    });
-}
 
 const createRequestCommentDB = async function (reqComment) {
     return (pool.query(`INSERT INTO comentarios_solicitudes(usuario_id,solicitud_id,texto_pregunta,texto_respuesta) VALUES ($1,$2,$3,$4) RETURNING ` + requestCommentsAllParsed, [reqComment.userDO, reqComment.requestId, reqComment.question, reqComment.answer])).then(res => {
@@ -207,7 +206,6 @@ module.exports = {
     getRequestWithUserByRequestIdDB,
     getQuestionsFromRequestDB,
     createRequestDB,
-    createRequestSkillsDB,
     createRequestCommentDB,
     answerRequestCommentDB,
     isRequestActiveDB,

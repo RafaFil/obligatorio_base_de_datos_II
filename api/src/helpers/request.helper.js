@@ -3,15 +3,21 @@ const {getAllRequestSkillsService} = require('../services/skill.service');
 const skillsQueryBuilder = (requestSkills)=>{
     buildingQuery = `INSERT INTO habilidades_solicitudes(solicitud_id,habilidad_id,nivel) VALUES`
     arrayOfValues = []
-    for (let index = 0; index < requestSkills.length;index = index + 3) {
-        if(index+3 == requestSkills.length){
-            buildingQuery = buildingQuery.concat(`($${index+1},$${index+2},$${index+3}) RETURNING *;`);
+    for (let index = 0; index < requestSkills.length; index++){
+        arrayOfValues.push(requestSkills[index].id,requestSkills[index].lvl)
+    }
+    for (let index = 0; index < arrayOfValues.length;index = index + 2) {
+        if(index+2 == arrayOfValues.length){
+            buildingQuery = buildingQuery.concat(`(currval('solicitudes_ayuda_id_seq'),$${index+1},$${index+2})`);
         }
         else{
-            buildingQuery = buildingQuery.concat(`($${index+1},$${index+2},$${index+3}),`);
+            buildingQuery = buildingQuery.concat(`(currval('solicitudes_ayuda_id_seq'),$${index+1},$${index+2}),`);
         }
     }
-    return buildingQuery;
+    return {
+        query : buildingQuery,
+        values : arrayOfValues
+    }
 }
 
 const getAllFriendsRequestsBuilder = (friends) =>{

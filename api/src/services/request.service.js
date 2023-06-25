@@ -35,23 +35,9 @@ async function getQuestionsFromRequestService(requestId) {
 async function createRequestService(httpBody) {
     request = new helpRequest(1, httpBody.title, httpBody.lat, httpBody.lng, httpBody.userDO, httpBody.dateOfPublishing, httpBody.description);
     requestSkills = httpBody.skills;
-    requestQuery = await requestRepository.createRequestDB(request);
-    if (requestQuery.success) {
-        createdRequest = requestQuery.data
-        arrayOfValues = [];
-        for (let index = 0; index < requestSkills.length; index++) {
-            arrayOfValues.push(createdRequest[0].id);
-            arrayOfValues.push(requestSkills[index].id);
-            arrayOfValues.push(requestSkills[index].lvl);
-        }
-        skillsInsert = await requestRepository.createRequestSkillsDB(arrayOfValues);
-        if (skillsInsert.success) {
-            return await getRequestByIdService(createdRequest[0].id);
-        }
-        else {
-            await requestRepository.deleteRequestDB(createdRequest[0].id);
-            return new dataResult(false, null, 400, "Skills not added correctly.");
-        }
+    requestQuery = await requestRepository.createRequestDB(request,requestSkills);
+    if(requestQuery.success){
+        return await getRequestByIdService(requestQuery.data.id);
     }
     return requestQuery;
 }
