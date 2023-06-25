@@ -17,6 +17,7 @@ import { CancelAplicationDialogComponent } from './components/helpAplication/can
 import { FriendsPageComponent } from './pages/friends-page/friends-page.component';
 import { FriendCardComponent } from './components/friendPage/friend-card/friend-card.component';
 import { DialogAddFriendComponent } from './components/friendPage/dialog-add-friend/dialog-add-friend.component';
+import { DeleteRequestDialogComponent } from './components/helpRequest/delete-request-dialog/delete-request-dialog.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { DialogAddFriendComponent } from './components/friendPage/dialog-add-fri
     FriendsPageComponent,
     FriendCardComponent,
     DialogAddFriendComponent,
+    DeleteRequestDialogComponent,
   ],
   imports: [
     CommonModule,

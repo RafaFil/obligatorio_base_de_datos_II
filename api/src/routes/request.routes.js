@@ -40,7 +40,7 @@ requestRouter.get(`${BASE_ROUTE}/:requestId/isActive`, async (req,res) =>{
     return isRequestActive(req,res);
 })
 
-requestRouter.delete(`${BASE_ROUTE}/delete/:requestId/`, async (req,res) =>{
+requestRouter.delete(`${BASE_ROUTE}/delete/:requestId`, async (req,res) =>{
     return deleteRequest(req,res);
 })
 
