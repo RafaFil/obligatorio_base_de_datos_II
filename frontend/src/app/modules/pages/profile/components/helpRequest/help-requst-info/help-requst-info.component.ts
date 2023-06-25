@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HelpRequestData } from 'src/app/modules/core/interfaces/apiDataResponse/HelpReqData';
 import { HelpRequest } from 'src/app/modules/core/interfaces/helpRequest';
 import { GeoCodeService } from 'src/app/modules/core/services/geo-code.service';
 import { HelpRequestService } from 'src/app/modules/core/services/help-request.service';
+import { DeleteRequestDialogComponent } from '../delete-request-dialog/delete-request-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-help-requst-info',
@@ -18,7 +21,10 @@ export class HelpRequstInfoComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private helpRequestService : HelpRequestService,
-              private geoCode : GeoCodeService) { }
+              private geoCode : GeoCodeService,
+              private dialog : MatDialog,
+              private snackBar : MatSnackBar,
+              private router : Router) { }
 
   ngOnInit(): void {
     
@@ -48,6 +54,31 @@ export class HelpRequstInfoComponent implements OnInit {
         
         this.ubication = res.results[0].formatted;
         this.isLoading = false;
+      }
+    })
+  }
+
+  deleteUserPostulation() {
+    const dialogRef = this.dialog.open(DeleteRequestDialogComponent)
+
+    dialogRef.afterClosed().subscribe({
+      next: (confirmation : boolean) => {
+        
+        if (confirmation) {
+
+          this.helpRequestService.deleteUserRequest(this.helpRequest.id).subscribe({
+            next: (res) => {
+
+              if(res && res.success) {
+
+                this.snackBar.open("La solicitud fue borrada con exito", undefined, {
+                  duration: 3000
+                })
+                this.router.navigate(["/profile"])
+              }
+            }
+          });
+        }
       }
     })
   }

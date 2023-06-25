@@ -1,6 +1,6 @@
 <app-base-dialog [dialogTitle]="'¿Desea cancelar la postulacion? '">
     <p sb-content>¿Estas seguro de cancelar la postulacion?</p>
 
-    <button sb-actions mat-raised-button >SALIR</button>
+    <button sb-actions mat-raised-button (click)="close()">SALIR</button>
     <button sb-actions mat-raised-button color="warn" (click)="cancel()">CANCELAR</button>
 </app-base-dialog>

@@ -6,6 +6,7 @@ import { HelpRequest } from 'src/app/modules/core/interfaces/helpRequest';
 import { HelpRequestService } from 'src/app/modules/core/services/help-request.service';
 import { HelpRequestPreviewData } from 'src/app/modules/core/interfaces/apiDataResponse/HelpRequestPreviewData';
 import { UserService } from 'src/app/modules/core/services/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home-page',
@@ -22,7 +23,8 @@ export class HomePageComponent implements OnInit {
   currentUserDO!: string;
 
   constructor(private requestService : HelpRequestService,
-              private userService : UserService) { }
+              private userService : UserService,
+              private snackBar : MatSnackBar) { }
 
   ngOnInit(): void {
 
@@ -39,6 +41,10 @@ export class HomePageComponent implements OnInit {
   
           this.requsetsArr = requests.data;
           this.loadMarkersIntoMap(" ");
+        } else {
+          this.snackBar.open("Parece que nadie necesita ayuda por ahora. Intenta de nuevo luego o crea tu solicitud.", undefined, {
+            duration: 4000
+          })
         }
       }
     );

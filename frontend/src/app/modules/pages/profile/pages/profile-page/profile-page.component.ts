@@ -14,6 +14,7 @@ import { PostulationUserData } from 'src/app/modules/core/interfaces/apiDataResp
 import { HelpRequestUserData } from 'src/app/modules/core/interfaces/apiDataResponse/HelpReqUserData';
 import { FriendService } from 'src/app/modules/core/services/friend.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-profile-page',
@@ -38,7 +39,8 @@ export class ProfilePageComponent implements OnInit {
               private skillService : SkillService,
               private postulationService : PostulationService,
               private friendService : FriendService,
-              private router : Router) { }
+              private router : Router,
+              private snackBar : MatSnackBar) { }
 
   ngOnInit(): void {
     
@@ -122,6 +124,10 @@ export class ProfilePageComponent implements OnInit {
 
             if (!res.success) {
               alert("Ocurrio un error, intente de nuevo");
+            } else{
+              this.snackBar.open("Habilidad añadida con exito", undefined, {
+                duration: 3000
+              })
             }
           }
         });

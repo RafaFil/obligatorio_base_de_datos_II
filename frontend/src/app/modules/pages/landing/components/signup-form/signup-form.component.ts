@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { User } from 'src/app/modules/core/interfaces/user';
 import { UserService } from 'src/app/modules/core/services/user.service';
@@ -14,15 +15,15 @@ export class SignupFormComponent implements OnInit {
   isLoading = false;
 
   constructor(private formBuilder : FormBuilder, private userService : UserService,
-              private router : Router) { }
+              private router : Router, private snackBar : MatSnackBar) { }
 
   ngOnInit(): void {
   }
 
   signupForm = this.formBuilder.group({
-    name : [ "", [Validators.minLength(4), Validators.required]],
+    name : [ "", [Validators.minLength(2), Validators.required]],
     DO : [ "", [Validators.minLength(6), Validators.required]],
-    last_name : [ "", [Validators.minLength(4), Validators.required]],
+    last_name : [ "", [Validators.minLength(3), Validators.required]],
     pass : [ "", [Validators.minLength(8), Validators.required]],
     repPass : [ "", [Validators.minLength(8), Validators.required]],
     contact : [ "", [Validators.minLength(8), Validators.required]]
@@ -46,7 +47,9 @@ export class SignupFormComponent implements OnInit {
     const DO = this.signupForm.controls.DO.value;
 
     if (!this.userService.checkIdIsValid(DO)) { 
-        alert("Ci invalida");
+      this.snackBar.open("Documento invalido", undefined, {
+        duration: 3000
+      })
         return;
     }
 
@@ -67,9 +70,14 @@ export class SignupFormComponent implements OnInit {
       this.userService.registerUser(userData)
       .subscribe( res => {
         if (res.success) {
-
           this.isLoading = false;
           this.router.navigate(["/login"]);
+        } else {
+          this.snackBar.open("Error al registrarse, intente de nuevo o verifique que no esté ya registrado", undefined, {
+            duration: 3000
+          })
+          this.isLoading = false;
+
         }
         
       })
