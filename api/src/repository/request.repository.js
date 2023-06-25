@@ -206,7 +206,6 @@ module.exports = {
     getRequestWithUserByRequestIdDB,
     getQuestionsFromRequestDB,
     createRequestDB,
-    createRequestSkillsDB,
     createRequestCommentDB,
     answerRequestCommentDB,
     isRequestActiveDB,
