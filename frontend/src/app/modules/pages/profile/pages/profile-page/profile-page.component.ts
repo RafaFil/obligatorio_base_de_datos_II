@@ -122,6 +122,8 @@ export class ProfilePageComponent implements OnInit {
 
             if (!res.success) {
               alert("Ocurrio un error, intente de nuevo");
+            }else{
+              this.skillsArr.push(nextSkill)
             }
           }
         });
