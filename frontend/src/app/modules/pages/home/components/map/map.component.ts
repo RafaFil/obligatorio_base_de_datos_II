@@ -5,6 +5,7 @@ import { HelpMapMarkerComponent } from '../help-map-marker/help-map-marker.compo
 import { HelpRequestService } from 'src/app/modules/core/services/help-request.service';
 import { HelpRequest } from 'src/app/modules/core/interfaces/helpRequest';
 import { HelpRequestPreviewData } from 'src/app/modules/core/interfaces/apiDataResponse/HelpRequestPreviewData';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -38,7 +39,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy{
     const initialState = { lng: -56.157485609445175 , lat: -34.88791314870603 , zoom: 15 };
     this.map = new Map({
       container: this.mapContainer.nativeElement,
-      style: `https://api.maptiler.com/maps/streets-v2/style.json?key=8ApfxTeaKPn9kJ9l7F7V`,
+      style: `https://api.maptiler.com/maps/streets-v2/style.json?key=${environment.mapApiKey}`,
       center: [initialState.lng, initialState.lat],
       zoom: initialState.zoom
     });

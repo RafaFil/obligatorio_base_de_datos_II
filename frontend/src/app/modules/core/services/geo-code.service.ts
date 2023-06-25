@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -9,7 +10,7 @@ import { Observable, map } from 'rxjs';
 })
 export class GeoCodeService {
 
-  private apiKey = '7cffa79f3d5648da9f1f7d1abd6d9fab';
+  private apiKey = environment.geoCodeApiKey;
 
 
   constructor(private http: HttpClient) {}
