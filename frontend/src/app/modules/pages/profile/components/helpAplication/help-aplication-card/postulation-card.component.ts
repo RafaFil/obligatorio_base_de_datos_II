@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { HelpRequest } from 'src/app/modules/core/interfaces/helpRequest';
 import { CancelAplicationDialogComponent } from '../cancel-aplication-dialog/cancel-aplication-dialog.component';
@@ -14,6 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class PostulationCardComponent implements OnInit {
 
   @Input() postulation!: PostulationUserData;
+  @Output() deletedPostulationEvent = new EventEmitter<PostulationUserData>;
 
   constructor(private dialog : MatDialog,
               private snackBar : MatSnackBar) { }
@@ -35,6 +36,7 @@ export class PostulationCardComponent implements OnInit {
       next: (iscanceled : boolean) => {
 
         if (iscanceled) {
+          this.deletedPostulationEvent.emit(this.postulation);
           this.snackBar.open(`Postulacion a ${this.postulation.title} cancelada`, undefined, {
             duration: 3000
           });

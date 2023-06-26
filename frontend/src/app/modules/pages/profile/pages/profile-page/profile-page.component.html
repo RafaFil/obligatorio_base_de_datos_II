@@ -20,7 +20,7 @@
     <mat-tab label="postulaciones"> 
         
         <div class="sb-request-tab container">
-            <app-postulation-card *ngFor="let postulation of postulationsArr" 
+            <app-postulation-card (deletedPostulationEvent)="updatePostulationList($event)" *ngFor="let postulation of postulationsArr" 
             [postulation]="postulation">
             </app-postulation-card>
         </div>
