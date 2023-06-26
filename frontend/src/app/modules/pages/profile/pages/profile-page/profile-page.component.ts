@@ -138,6 +138,11 @@ export class ProfilePageComponent implements OnInit {
 
   }
 
+  updatePostulationList(postulationToDelete : PostulationUserData){
+    const index = this.postulationsArr.indexOf(postulationToDelete);
+    const x = this.postulationsArr.splice(index, 1); 
+  }
+
   redirectToFriends() {
 
     
